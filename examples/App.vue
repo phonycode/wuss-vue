@@ -4,7 +4,8 @@
     <wuss-button :fullLine="true" @click="handleClick" type="primary">primary</wuss-button>
     <wuss-button :fullLine="true" type="warning">warning</wuss-button>
     <wuss-button :fullLine="true" type="success">success</wuss-button>
-    <wuss-button :fullLine="true" type="error">error</wuss-button>
+    <wuss-button :fullLine="true" type="info">info</wuss-button>
+    <wuss-button :fullLine="true" type="danger">danger</wuss-button>
     <wuss-button size="large">large</wuss-button>
     <wuss-button size="large" type="primary">primary</wuss-button>
     <wuss-button size="large" type="success">success</wuss-button>
@@ -25,7 +26,8 @@
     <wuss-button :fullLine="true" @click="handleClick" :disabled="true" type="primary">primary</wuss-button>
     <wuss-button :fullLine="true" :disabled="true" type="warning">warning</wuss-button>
     <wuss-button :fullLine="true" :disabled="true" type="success">success</wuss-button>
-    <wuss-button :fullLine="true" :disabled="true" type="error">error</wuss-button>
+    <wuss-button :fullLine="true" :disabled="true" type="info">info</wuss-button>
+    <wuss-button :fullLine="true" :disabled="true" type="danger">danger</wuss-button>
   </div>
 </template>
 
@@ -41,7 +43,6 @@ export default {
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;

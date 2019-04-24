@@ -117,18 +117,25 @@ export default {
   }
   /* 类型 */
   .wuss-button.wuss-button--primary{
-    background-color:#26a2ff;
+    background-color:rgb(69, 143, 246);;
     color: #fff;
   }
   .wuss-button.wuss-button--primary.is-active{
-    background-color:#2086d4;
+    background-color:rgb(28, 117, 243);
+  }
+  .wuss-button.wuss-button--info{
+    background-color:rgb(85, 178, 240);;
+    color: #fff;
+  }
+  .wuss-button.wuss-button--info.is-active{
+    background-color:rgb(43, 159, 236);
   }
   .wuss-button.wuss-button--warning{
-    background-color:#e6a23c;
+    background-color:rgb(255, 153, 0);
     color: #fff;
   }
   .wuss-button.wuss-button--warning.is-active{
-    background-color:#b88230;
+    background-color:rgb(255, 136, 0);
   }
   .wuss-button.wuss-button--success{
     background-color:#67c23a;
@@ -137,12 +144,12 @@ export default {
   .wuss-button.wuss-button--success.is-active{
     background-color:#549e2f;
   }
-  .wuss-button.wuss-button--error{
-    background-color:#f56c6c;
+  .wuss-button.wuss-button--danger{
+    background-color:rgb(239, 71, 58);;
     color: #fff;
   }
-  .wuss-button.wuss-button--error.is-active{
-    background-color:#c45757;
+  .wuss-button.wuss-button--danger.is-active{
+    background-color:rgb(228, 33, 18);
   }
 </style>
 
