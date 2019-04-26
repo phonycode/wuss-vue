@@ -5,7 +5,7 @@
       123 <br>123 <br>123 <br>123 <br>123 <br>123 <br>123 <br>123 <br>123 <br>123 <br>123 <br>123 <br>123 <br>123 <br>123 <br>
       123 <br>123 <br>123 <br>123 <br>123 <br>123 <br>123 <br>123 <br>123 <br>123 <br>123 <br>123 <br>
       123 <br>123 <br>123 <br>123 <br>123 <br>123 <br>123 <br>
-    <w-picker :prop="prop" :pickList="pickList" title="选择器" :pickerVisible.sync="visible"></w-picker>
+    <w-picker :prop="prop" v-model="chooseList" :pickList="pickList" @change="choose" title="选择器" :pickerVisible.sync="visible"></w-picker>
   </div>
 </template>
 
@@ -20,6 +20,7 @@ export default {
         label:'name',
         value:'value'
       },
+      chooseList: [5,51],
       pickList: [
         [
           {
@@ -44,15 +45,15 @@ export default {
           },
           {
             name:'5',
-            value:5,
+            value:6,
           },
           {
             name:'5',
-            value:5,
+            value:7,
           },
           {
             name:'5',
-            value:5,
+            value:8,
           }
         ],
         [
@@ -95,7 +96,10 @@ export default {
   methods: {
     handleClick() {
       this.visible = true
-    }
+    },
+    choose(val) {
+      console.log(val)
+    },
   }
 }
 </script>

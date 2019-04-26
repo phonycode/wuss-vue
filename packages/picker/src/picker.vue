@@ -10,10 +10,13 @@
         <div class="w-picker-body">
           <div class="w-picker-area">
             <ul v-for="(item,index) in pickList"
-             @touchstart="pickTouchStart" 
-             @touchend="pickTouchEnd"
-             :style="{transform: `translateY(${pickIndexList[index]*24 + 96}px)`}" 
-             :key="index" class="w-picker-list">
+             @touchstart="pickTouchStart($event,index)" 
+             @touchmove="pickTouchMove($event,index)" 
+             @touchend="pickTouchEnd($event,index)"
+             :style="{transform: `translateY(${96 - pickIndexList[index]*24}px)`}" 
+             :key="index" 
+             :ref="'w-picker' + index"
+             class="w-picker-list">
               <li v-for="(subitem,subindex) in item" :key="subindex">{{subitem[prop.label]}}</li>
             </ul>
           </div>
@@ -40,6 +43,10 @@ export default {
       type: Array,
       default: () => []
     },
+    pickValueList: {
+      type: Array,
+      default: () => []
+    },
     prop: {
       type: Object,
       default: () => {
@@ -50,10 +57,29 @@ export default {
       }
     },
   },
+  model: {
+    prop: 'pickValueList',
+  },
   computed: {
     //默认选中位置
     pickIndexList: function() {
-      return this.pickList.map(()=>0)
+      let arr = []
+      if(this.pickValueList.length < 1) {
+        //没有默认选中值
+        return this.pickList.map(()=>0)
+      } else {
+        this.pickValueList.forEach((valueItem)=>{
+          this.pickList.forEach((item,index)=>{
+            if (item instanceof Array)
+            item.forEach((subitem,subindex)=>{
+                if(valueItem === subitem[this.prop.value]){
+                  arr[index] = subindex;
+                }
+            })
+          })
+        })
+      }
+      return arr
     }
   },
   data() {
@@ -61,6 +87,7 @@ export default {
       closed: false,
       touchTime:'',
       clientY:'',
+      fromY:0,
     };
   },
   watch: {
@@ -76,19 +103,43 @@ export default {
     
   },
   methods: {
-    pickTouchStart(e) {
+    pickTouchStart(e,index) {
       this.clientY = e.changedTouches[0].clientY
+      let reg = /[-]?\d*(?=[px])/
+      this.fromY = parseInt(reg.exec(this.$refs['w-picker'+index][0].style.transform)[0])
       this.touchTime = new Date().getTime()
     },
-    pickTouchEnd(e) {
-      //距离
-      let disTime = new Date().getTime() - this.touchTime;
+    pickTouchMove(e,index) {
       let distance = e.changedTouches[0].clientY - this.clientY;
-      this.dealSlide(disTime,distance)
+      this.moveOver(distance,index)
+    },
+    pickTouchEnd(e,index) {
+      //距离
+      this.finalMove(index)
     },
     //根据滑动距离跟时间算最终滑动距离
     dealSlide(disTime,distance) {
-      
+      return distance * 100 / disTime
+    },
+    //以24px为单位最后计算滑动距离
+    moveOver(distance,index) {
+      this.pickIndexList[index] = (96 - this.fromY - Math.floor(distance/24)*24) / 24;
+      this.$refs['w-picker'+index][0].style.transform = `translateY(${this.fromY + Math.floor(distance/24)*24}px)`
+    },
+    //最后获取位置跟校准
+    finalMove(index) {
+      let reg = /[-]?\d*(?=[px])/
+      let finalDis =  parseInt(reg.exec(this.$refs['w-picker'+index][0].style.transform)[0]);
+      let indexLength = this.pickList[index].length;
+      if(finalDis > 96) {
+        //超出上限
+        this.$refs['w-picker'+index][0].style.transform = `translateY(${96}px)`
+        this.pickIndexList[index] = 0;
+      } else if (finalDis < (96 - indexLength*24)) {
+        //超出下限
+        this.$refs['w-picker'+index][0].style.transform = `translateY(${120 - indexLength*24}px)`
+        this.pickIndexList[index] = indexLength-1
+      }
     },
     handleWrapperClick() {
       if (!this.closeOnClickModal) return;
@@ -109,6 +160,13 @@ export default {
       }
     },
     pickerChoose() {
+      let arr = []
+      this.pickIndexList.forEach((valueItem,valueIndex)=>{
+        console.log(valueItem,valueIndex)
+        console.log(this.pickList[valueIndex][valueItem])
+          arr.push(this.pickList[valueIndex][valueItem][this.prop.value])
+      })
+      this.$emit('change',arr)
       this.handleClose();
     }
   }
@@ -169,16 +227,17 @@ export default {
   .w-picker-area{
     height: 100%;
     width: 100%;
+    overflow: hidden;
     position: relative;
     display: flex;
     justify-content: space-around;
   }
   .w-picker-list{
-    height: 100%;
     width: 100%;
     position:relative;
     overflow: hidden;
     flex-wrap: nowrap;
+    transition: all 1s;
   }
   .w-picker-list>li{
     height: 24px;
