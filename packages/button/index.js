@@ -1,8 +1,8 @@
-import WUSSButton from './src/button';
+import WButton from './src/button';
 
 /* istanbul ignore next */
-WUSSButton.install = function (Vue) {
-  Vue.component(WUSSButton.name, WUSSButton);
+WButton.install = function (Vue) {
+  Vue.component(WButton.name, WButton);
 };
 
-export default WUSSButton;
+export default WButton;

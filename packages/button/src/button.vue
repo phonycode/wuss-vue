@@ -1,12 +1,12 @@
 <template>
   <button
   :disabled="buttonDisabled"
-   class="wuss-button" 
+   class="w-button" 
    @touchstart.stop="handleClick"
    @touchend="handleTouchEnd"
    :class="[
-      type ? 'wuss-button--' + type : '',
-      buttonSize ? 'wuss-button--' + buttonSize : '',
+      type ? 'w-button--' + type : '',
+      buttonSize ? 'w-button--' + buttonSize : '',
       {
         'is-disabled': buttonDisabled,
         'is-loading': loading,
@@ -15,12 +15,13 @@
         'is-active': active
       }
     ]">
+    <svg v-if="icon" class="icon" aria-hidden="true"> <use :xlink:href="'#wuss-icon-' + icon"></use></svg>
     <span><slot></slot></span>
   </button>
 </template>
 <script>
 export default {
-  name:'WussButton',
+  name:'WButton',
   props:{
     type: String,
     disabled: Boolean,
@@ -38,6 +39,7 @@ export default {
         return false;
       }
     },
+    icon: String,
   },
   data() {
     return {
@@ -66,7 +68,7 @@ export default {
 }
 </script>
 <style>
-  .wuss-button {
+  .w-button {
     background-color: #fff;
     height: 41px;
     border-color: transparent;
@@ -82,73 +84,91 @@ export default {
     font-size: 18px;
     box-sizing: border-box;
   }
-  .wuss-button:active {
+  .w-button .icon{
+    color: #656b79;
+  }
+  .w-button:active {
     background-color:#b8bbbf;
   }
-  .wuss-button.is-fullLine{
+  .w-button.is-fullLine{
     width: 100%;
     margin: 5px 0;
   }
   /* 圆形 */
-  .wuss-button.is-circle.wuss-button--large{
+  .w-button.is-circle.w-button--large{
     width: 49px;
     border-radius: 49px;
   }
-  .wuss-button.is-circle.wuss-button--mini{
+  .w-button.is-circle.w-button--mini{
     width: 33px;
     border-radius: 33px;
   }
-  .wuss-button.is-circle{
+  .w-button.is-circle{
     width: 41px;
     border-radius: 41px;
   }
   /* 禁止 */
-  .wuss-button.is-disabled{
+  .w-button.is-disabled{
     opacity: .6;
   }
   /* 大小 */
-  .wuss-button.wuss-button--large{
+  .w-button.w-button--large{
     height: 49px;
     font-size: 20px;
   }
-  .wuss-button.wuss-button--mini{
+  .w-button.w-button--mini{
     height: 33px;
     font-size: 14px;
   }
   /* 类型 */
-  .wuss-button.wuss-button--primary{
-    background-color:rgb(69, 143, 246);;
+  .w-button.w-button--primary{
+    background-color:rgb(69, 143, 246);
     color: #fff;
   }
-  .wuss-button.wuss-button--primary.is-active{
+  .w-button.w-button--primary .icon{
+    color: #fff;
+  }
+  .w-button.w-button--primary.is-active{
     background-color:rgb(28, 117, 243);
   }
-  .wuss-button.wuss-button--info{
-    background-color:rgb(85, 178, 240);;
+  .w-button.w-button--info{
+    background-color:rgb(85, 178, 240);
     color: #fff;
   }
-  .wuss-button.wuss-button--info.is-active{
+  .w-button.w-button--info .icon{
+    color: #fff;
+  }
+  .w-button.w-button--info.is-active{
     background-color:rgb(43, 159, 236);
   }
-  .wuss-button.wuss-button--warning{
+  .w-button.w-button--warning{
     background-color:rgb(255, 153, 0);
     color: #fff;
   }
-  .wuss-button.wuss-button--warning.is-active{
+  .w-button.w-button--warning .icon{
+    color: #fff;
+  }
+  .w-button.w-button--warning.is-active{
     background-color:rgb(255, 136, 0);
   }
-  .wuss-button.wuss-button--success{
+  .w-button.w-button--success{
     background-color:#67c23a;
     color: #fff;
   }
-  .wuss-button.wuss-button--success.is-active{
-    background-color:#549e2f;
-  }
-  .wuss-button.wuss-button--danger{
-    background-color:rgb(239, 71, 58);;
+  .w-button.w-button--success .icon{
     color: #fff;
   }
-  .wuss-button.wuss-button--danger.is-active{
+  .w-button.w-button--success.is-active{
+    background-color:#549e2f;
+  }
+  .w-button.w-button--danger{
+    background-color:rgb(239, 71, 58);
+    color: #fff;
+  }
+  .w-button.w-button--danger .icon{
+    color: #fff;
+  }
+  .w-button.w-button--danger.is-active{
     background-color:rgb(228, 33, 18);
   }
 </style>

@@ -1,7 +1,11 @@
+import './assets/iconfont.js'
+import './assets/common.css';
 import Button from './button/index.js';
+import Picker from './picker/index.js';
 
 const components = [
   Button,
+  Picker,
 ];
 
 const install = function (Vue) {
@@ -17,4 +21,5 @@ if (typeof window !== 'undefined' && window.Vue) {
 export default {
   install,
   Button,
+  Picker,
 };
