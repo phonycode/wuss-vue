@@ -1,38 +1,55 @@
 <template>
-  <div class="black-bg" v-show="pickerVisible" @touchstart.self="handleWrapperClick">
-    <transition name="slide-fade">
-      <div v-show="pickerVisible" class="w-picker">
-        <ul class="w-picker-top">
-          <li @touchstart="handleClose" class="w-picker-back">返回</li>
-          <li>{{title}}</li>
-          <li @touchstart="pickerChoose" class="w-picker-sure">确认</li>
-        </ul>
-        <div class="w-picker-body">
-          <div class="w-picker-area">
-            <ul v-for="(item,index) in pickList"
-             @touchstart="pickTouchStart($event,index)" 
-             @touchmove="pickTouchMove($event,index)" 
-             @touchend="pickTouchEnd($event,index)"
-             :style="{transform: `translateY(${96 - pickIndexList[index]*24}px)`}" 
-             :key="index" 
-             :ref="'w-picker' + index"
-             class="w-picker-list">
-              <li v-for="(subitem,subindex) in item" :key="subindex">{{subitem[prop.label]}}</li>
-            </ul>
+  <div>
+    <div @touchstart="showPicker">
+      <span v-if="pickLabel.length < 1">请选择</span>
+      <span v-else>{{pickLabel.join(joinCon)}}</span>
+      <svg class="icon" aria-hidden="true"> <use xlink:href="#wuss-icon-arrow-right"></use></svg>
+    </div>
+    <div class="black-bg" v-show="pickerVisible" @touchstart.self="handleWrapperClick">
+      <transition name="slide-fade">
+        <div v-show="pickerVisible" class="w-picker">
+          <ul class="w-picker-top">
+            <li @touchstart="handleClose" class="w-picker-back">返回</li>
+            <li>{{title}}</li>
+            <li @touchstart="pickerChoose" class="w-picker-sure">确认</li>
+          </ul>
+          <div class="w-picker-body">
+            <div class="w-picker-area">
+                <ul
+                  v-for="(item,index) in pickIndexList" :key="index"
+                  @touchstart="pickTouchStart($event,index)" 
+                  @touchmove="pickTouchMove($event,index)" 
+                  @touchend="pickTouchEnd($event,index)"
+                  :style="{transform: `translateY(${96 - pickIndexList[index]*24}px)`}" 
+                  :ref="'w-picker' + index"
+                  class="w-picker-list">
+                    <li v-for="(subitem,subindex) in showPickList[index]" :key="subindex">{{subitem[prop.label]}}</li>
+                </ul>
+                <div v-for="(item,index) in showPickList"
+                @touchstart="pickTouchStart($event,index)" 
+                @touchmove="pickTouchMove($event,index)" 
+                @touchend="pickTouchEnd($event,index)"
+                :key="item[prop.value]" 
+                :style="{
+                  width:(100 / showPickList.length) + '%',
+                  left:(100 / showPickList.length * index) + '%'
+                }"
+                class="w-picker-list-color">
+                  <!-- <li v-for="(subitem,subindex) in showPickList[index]" :key="subindex"></li> -->
+                </div>
+            </div>
+            <div class="w-picker-pick">
+            </div>
           </div>
-          <div class="w-picker-pick">
-          </div>
-          
         </div>
-      </div>
-    </transition>
+      </transition>
+    </div>
   </div>
 </template>
 <script>
 export default {
   name: 'WPicker',
   props: {
-    pickerVisible:Boolean,
     beforeClose: Function,
     closeOnClickModal: {
       type: Boolean,
@@ -47,12 +64,17 @@ export default {
       type: Array,
       default: () => []
     },
+    joinCon: {
+      type: String,
+      default: ','
+    },
     prop: {
       type: Object,
       default: () => {
         return  {
           label:'name',
           value:'value',
+          children: 'children'
         }
       }
     },
@@ -61,26 +83,27 @@ export default {
     prop: 'pickValueList',
   },
   computed: {
-    //默认选中位置
-    pickIndexList: function() {
-      let arr = []
-      if(this.pickValueList.length < 1) {
-        //没有默认选中值
-        return this.pickList.map(()=>0)
-      } else {
-        this.pickValueList.forEach((valueItem)=>{
-          this.pickList.forEach((item,index)=>{
-            if (item instanceof Array)
-            item.forEach((subitem,subindex)=>{
-                if(valueItem === subitem[this.prop.value]){
-                  arr[index] = subindex;
+    pickLabel: {
+      // getter
+      get: function () {
+        if(this.pickValueList.length>0 && this.pickerVisible === false) {
+          let arr = []
+          this.pickValueList.forEach((item,index)=>{
+            this.dealPickLlist()
+            if(this.showPickList.length>0){
+              this.showPickList[index].forEach((subitem)=>{
+                if(subitem[this.prop.value] === item){
+                  arr[index] = subitem[this.prop.label]
                 }
-            })
+              })
+            }
           })
-        })
-      }
-      return arr
-    }
+          return arr
+        }
+        return []
+      },
+    },
+
   },
   data() {
     return {
@@ -88,11 +111,15 @@ export default {
       touchTime:'',
       clientY:'',
       fromY:0,
+      pickerVisible: false,
+      pickIndexList: [],
+      showPickList: [],
     };
   },
   watch: {
-    pickerVisible: function(val) {
+    pickerVisible(val) {
       if(val) {
+        this.dealPickLlist()
         document.getElementsByTagName('body')[0].style.overflow = 'hidden'
       } else {
         document.getElementsByTagName('body')[0].style.overflow = 'auto'
@@ -103,6 +130,40 @@ export default {
     
   },
   methods: {
+    //显示picker
+    showPicker() {
+      this.pickerVisible = true
+    },
+    getLevel(data,level) {
+      let flag = false
+      let zindex = -1
+      this.pickIndexList[level-1] = 0;
+      data.forEach((item,index)=>{
+        
+        if(this.pickValueList[level-1] !== undefined && this.pickValueList[level-1] === item[this.prop.value]) {
+          //获取当前选中等级的下表
+          this.pickIndexList[level-1] = index;    
+        }
+        if(item[this.prop.children] instanceof Array &&  item[this.prop.children].length>0){
+          //如果有子集
+          flag = true
+          zindex = this.pickIndexList[level-1]
+        }
+      })
+      if(data[this.pickIndexList[level-1]][this.prop.children] && data[this.pickIndexList[level-1]][this.prop.children].length>0){
+        //设置下级列表
+        this.showPickList[level] = data[this.pickIndexList[level-1]][this.prop.children]
+      }
+      if(flag) {
+        level ++ 
+        this.getLevel(data[zindex][this.prop.children],level)
+      }
+    },
+    dealPickLlist() {
+      // 第一级列表
+      this.showPickList[0] = this.pickList
+      this.getLevel(this.pickList,1)
+    },
     pickTouchStart(e,index) {
       this.clientY = e.changedTouches[0].clientY
       let reg = /[-]?\d*(?=[px])/
@@ -123,8 +184,8 @@ export default {
     },
     //以24px为单位最后计算滑动距离
     moveOver(distance,index) {
-      this.pickIndexList[index] = (96 - this.fromY - Math.floor(distance/24)*24) / 24;
-      this.$refs['w-picker'+index][0].style.transform = `translateY(${this.fromY + Math.floor(distance/24)*24}px)`
+      this.pickIndexList[index] = (96 - this.fromY - Math.ceil(distance/24)*24) / 24;
+      this.$refs['w-picker'+index][0].style.transform = `translateY(${this.fromY + Math.ceil(distance/24)*24}px)`
     },
     //最后获取位置跟校准
     finalMove(index) {
@@ -140,6 +201,18 @@ export default {
         this.$refs['w-picker'+index][0].style.transform = `translateY(${120 - indexLength*24}px)`
         this.pickIndexList[index] = indexLength-1
       }
+      this.resetShowList(this.pickList[this.pickIndexList[0]][this.prop.children],1)
+
+    },
+    // 根据pickIndexList来重置showList
+    resetShowList(data,level) {
+        let showList = JSON.parse(JSON.stringify(this.showPickList))
+        showList[level] =data
+        this.showPickList = showList
+        level++
+        if(level<this.pickIndexList.length){
+          this.resetShowList(data[this.pickIndexList[level]][this.prop.children],level)
+        }
     },
     handleWrapperClick() {
       if (!this.closeOnClickModal) return;
@@ -154,19 +227,15 @@ export default {
     },
     hide(cancel) {
       if (cancel !== false) {
-        this.$emit('update:pickerVisible', false);
-        this.$emit('close');
-        this.closed = true;
+        this.pickerVisible = false
       }
     },
     pickerChoose() {
-      let arr = []
       this.pickIndexList.forEach((valueItem,valueIndex)=>{
-        console.log(valueItem,valueIndex)
-        console.log(this.pickList[valueIndex][valueItem])
-          arr.push(this.pickList[valueIndex][valueItem][this.prop.value])
+        this.pickValueList[valueIndex] = this.showPickList[valueIndex][valueItem][this.prop.value]
+        this.pickLabel[valueIndex] = this.showPickList[valueIndex][valueItem][this.prop.label]
       })
-      this.$emit('change',arr)
+      this.$emit('change',this.pickValueList)
       this.handleClose();
     }
   }
@@ -199,6 +268,7 @@ export default {
     display: flex;
     justify-content: space-between;
     flex-wrap: nowrap;
+    background-color: rgba(194, 195, 197, 0.2);
   }
   .w-picker-body{
     height: 216px;
@@ -223,6 +293,7 @@ export default {
     box-sizing: border-box;
     border-left-width: 0;
     border-right-width: 0;
+    background-color: transparent;
   }
   .w-picker-area{
     height: 100%;
@@ -231,14 +302,25 @@ export default {
     position: relative;
     display: flex;
     justify-content: space-around;
+    
+    /* background: linear-gradient(blue, 10%, pink); */
   }
   .w-picker-list{
     width: 100%;
-    position:relative;
     overflow: hidden;
     flex-wrap: nowrap;
-    transition: all 1s;
+    transition: all .5s;
   }
+  .w-picker-list-color{
+    overflow: hidden;
+    flex-wrap: nowrap;
+    position: absolute;
+    height: 100%;
+    top: 0;
+    z-index: 2;
+    background: transparent;
+  }
+  
   .w-picker-list>li{
     height: 24px;
     text-align: center;

@@ -1,10 +1,5 @@
 <template>
   <div id="picker">
-    <w-button @click="handleClick">展开</w-button>
-    123 <br>123 <br>123 <br>123 <br>123 <br>123 <br>123 <br>123 <br>123 <br>123 <br>123 <br>123 <br>123 <br>123 <br>123 <br>123 <br>123 <br>123 <br>123 <br>123 <br>
-      123 <br>123 <br>123 <br>123 <br>123 <br>123 <br>123 <br>123 <br>123 <br>123 <br>123 <br>123 <br>123 <br>123 <br>123 <br>
-      123 <br>123 <br>123 <br>123 <br>123 <br>123 <br>123 <br>123 <br>123 <br>123 <br>123 <br>123 <br>
-      123 <br>123 <br>123 <br>123 <br>123 <br>123 <br>123 <br>
     <w-picker :prop="prop" v-model="chooseList" :pickList="pickList" @change="choose" title="选择器" :pickerVisible.sync="visible"></w-picker>
   </div>
 </template>
@@ -18,85 +13,99 @@ export default {
       visible: false,
       prop: {
         label:'name',
-        value:'value'
+        value:'value',
+        children: 'children'
       },
-      chooseList: [5,51],
+      chooseList: [2,71],
       pickList: [
-        [
           {
-            name:'1',
+            name:'鸡',
             value:1,
+            children: [
+              {
+                name:'鸡',
+                value:11,
+              },
+              {
+                name:'你',
+                value:21,
+              },
+              {
+                name:'太',
+                value:31,
+              },
+              {
+                name:'美',
+                value:41,
+              },
+              {
+                name:'唱',
+                value:51,
+              },
+              {
+                name:'跳',
+                value:61,
+              },
+              {
+                name:'篮球',
+                value:71,
+              },
+              {
+                name:'rap',
+                value:81,
+              }
+            ],
           },
           {
-            name:'2',
+            name:'你',
             value:2,
+            children: [{
+                name:'篮球',
+                value:71,
+              },
+              {
+                name:'rap',
+                value:81,
+              }
+            ],
           },
           {
-            name:'3',
+            name:'太',
             value:3,
           },
           {
-            name:'4',
+            name:'美',
             value:4,
           },
           {
-            name:'5',
+            name:'唱',
             value:5,
           },
           {
-            name:'5',
+            name:'跳',
             value:6,
           },
           {
-            name:'5',
+            name:'篮球',
             value:7,
+            children: [{
+                name:'7篮球',
+                value:71,
+              },
+              {
+                name:'7rap',
+                value:81,
+              }
+            ],
           },
           {
-            name:'5',
+            name:'rap',
             value:8,
           }
-        ],
-        [
-          {
-            name:'11',
-            value:11,
-          },
-          {
-            name:'21',
-            value:21,
-          },
-          {
-            name:'31',
-            value:31,
-          },
-          {
-            name:'41',
-            value:41,
-          },
-          {
-            name:'51',
-            value:51,
-          },
-          {
-            name:'5',
-            value:5,
-          },
-          {
-            name:'5',
-            value:5,
-          },
-          {
-            name:'5',
-            value:5,
-          }
-        ]
-      ]
+        ], 
     }
   },
   methods: {
-    handleClick() {
-      this.visible = true
-    },
     choose(val) {
       console.log(val)
     },
