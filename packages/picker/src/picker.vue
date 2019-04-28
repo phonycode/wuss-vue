@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div @touchstart="showPicker">
+    <div class="w-picker-input" @touchstart="showPicker">
       <span v-if="pickLabel.length < 1">请选择</span>
       <span v-else>{{pickLabel.join(joinCon)}}</span>
       <svg class="icon" aria-hidden="true"> <use xlink:href="#wuss-icon-arrow-right"></use></svg>
@@ -204,7 +204,7 @@ export default {
         this.pickIndexList[index] = indexLength-1
       }
       if(this.pickList[this.pickIndexList[0]][this.prop.children]) {
-        this.resetShowList(this.pickList[this.pickIndexList[0]][this.prop.children],1)
+        this.resetShowList(this.pickList[this.pickIndexList[0]][this.prop.children],1,index)
       } else {
         this.resetShowList([],1)
       }
@@ -216,18 +216,21 @@ export default {
      * data: 当前选中的子集列表
      * level: 当前列表的下表
      */
-    resetShowList(data,level) {
-      console.log(this.pickIndexList)
+    resetShowList(data,level,changeIndex) {
+      console.log(data)
+      if(changeIndex < level){
+        this.pickIndexList[level] = 0;
+      }
         let showList = JSON.parse(JSON.stringify(this.showPickList))
         showList[level] =data
         this.showPickList = showList
         level++
         
         if(level<this.pickIndexList.length){
-          if(data[this.pickIndexList[level-1]][this.prop.children] && data[this.pickIndexList[level-1]][this.prop.children].length>0) {
-            this.resetShowList(data[this.pickIndexList[level-1]][this.prop.children],level)
+          if(data[this.pickIndexList[level-1]] && data[this.pickIndexList[level-1]][this.prop.children] && data[this.pickIndexList[level-1]][this.prop.children].length>0) {
+            this.resetShowList(data[this.pickIndexList[level-1]][this.prop.children],level,changeIndex)
           } else {
-            this.resetShowList([],level)
+            this.resetShowList([],level,changeIndex)
           }
           
         }
@@ -348,6 +351,9 @@ export default {
   .w-picker-list>li{
     height: 24px;
     text-align: center;
+  }
+  .w-picker-input{
+    text-align: right;
   }
 </style>
 
