@@ -201,7 +201,12 @@ export default {
         this.$refs['w-picker'+index][0].style.transform = `translateY(${120 - indexLength*24}px)`
         this.pickIndexList[index] = indexLength-1
       }
-      this.resetShowList(this.pickList[this.pickIndexList[0]][this.prop.children],1)
+      if(this.pickList[this.pickIndexList[0]][this.prop.children]) {
+        this.resetShowList(this.pickList[this.pickIndexList[0]][this.prop.children],1)
+      } else {
+        this.resetShowList([],1)
+      }
+      
 
     },
     // 根据pickIndexList来重置showList
