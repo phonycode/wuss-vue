@@ -16,7 +16,7 @@ export default {
         value:'value',
         children: 'children'
       },
-      chooseList: [2,71],
+      chooseList: [1,21],
       pickList: [
           {
             name:'鸡',
@@ -25,6 +25,12 @@ export default {
               {
                 name:'鸡',
                 value:11,
+                children: [
+                {
+                  name:'鸭',
+                  value:11,
+                },
+                ]
               },
               {
                 name:'你',
