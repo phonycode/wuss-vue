@@ -46,6 +46,13 @@ export const constantRouterMap = [{
       title: '按钮',
     },
   }, {
+    path: 'icon',
+    component: () => import('../view/icon/index'),
+    name: 'icon',
+    meta: {
+      title: 'icon',
+    },
+  }, {
     path: 'picker',
     component: () => import('../view/picker/index'),
     name: 'picker',

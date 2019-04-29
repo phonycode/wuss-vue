@@ -2,10 +2,12 @@ import './assets/iconfont.js'
 import './assets/common.css';
 import Button from './button/index.js';
 import Picker from './picker/index.js';
+import Icon from './icon/index.js';
 
 const components = [
   Button,
   Picker,
+  Icon
 ];
 
 const install = function (Vue) {
@@ -22,4 +24,5 @@ export default {
   install,
   Button,
   Picker,
+  Icon
 };
