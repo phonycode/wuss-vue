@@ -217,7 +217,6 @@ export default {
      * level: 当前列表的下表
      */
     resetShowList(data,level,changeIndex) {
-      console.log(data)
       if(changeIndex < level){
         this.pickIndexList[level] = 0;
       }

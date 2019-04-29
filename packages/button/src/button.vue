@@ -10,11 +10,14 @@
       {
         'is-disabled': buttonDisabled,
         'is-loading': loading,
-        'is-fullLine': fullLine,
+        'is-inline': inline,
+        'is-block': !inline,
         'is-circle': circle,
-        'is-active': active
+        'is-active': active,
+        'is-dashed': dashed,
       }
     ]">
+    <svg v-if="loading" class="icon" aria-hidden="true"> <use :xlink:href="'#wuss-icon-refresh'"></use></svg>
     <svg v-if="icon" class="icon" aria-hidden="true"> <use :xlink:href="'#wuss-icon-' + icon"></use></svg>
     <span><slot></slot></span>
   </button>
@@ -33,6 +36,18 @@ export default {
     },
     size: String,
     loading: Boolean,
+    inline:{
+      type: Boolean,
+      default: () => {
+        return false;
+      }
+    },
+    dashed:{
+      type: Boolean,
+      default: () => {
+        return false;
+      }
+    },
     circle: {
       type: Boolean,
       default: () => {
@@ -48,7 +63,7 @@ export default {
   },
   computed:{
     buttonDisabled() {
-      return this.disabled === true ? true : false;
+      return this.disabled || this.loading ? true : false;
     },
     buttonSize() {
       return this.size
@@ -80,19 +95,38 @@ export default {
     font-weight: 400;
     font-family: Arial, "Microsoft YaHei";
     text-align: center;
-    margin: 5px;
+    margin: 5px 0;
     font-size: 18px;
     box-sizing: border-box;
+    display: block;
+  }
+  .w-button.is-block {
+    width: 100%;
+  }
+  .w-button.is-dashed {
+    color: #656b79;
+    border: 1px dashed #656b79;
+    background-color: #fff;
   }
   .w-button .icon{
+    width: 18px;
+    vertical-align: middle;
     color: #656b79;
   }
   .w-button:active {
     background-color:#b8bbbf;
   }
-  .w-button.is-fullLine{
-    width: 100%;
-    margin: 5px 0;
+  .w-button.is-inline{
+    margin: 0 5px;
+    display: inline-block;
+  }
+  .w-button.is-loading .icon{
+    animation: loading 1s infinite;
+    margin-right: 5px;
+  }
+  @keyframes loading {
+    form {transform: rotate(0deg)}
+    to {transform: rotate(360deg)}
   }
   /* 圆形 */
   .w-button.is-circle.w-button--large{
@@ -125,6 +159,11 @@ export default {
     background-color:rgb(69, 143, 246);
     color: #fff;
   }
+  .w-button.w-button--primary.is-dashed {
+    color: rgb(69, 143, 246);
+    border: 1px dashed rgb(69, 143, 246);
+    background-color: #fff;
+  }
   .w-button.w-button--primary .icon{
     color: #fff;
   }
@@ -134,6 +173,11 @@ export default {
   .w-button.w-button--info{
     background-color:rgb(85, 178, 240);
     color: #fff;
+  }
+  .w-button.w-button--info.is-dashed {
+    color: rgb(85, 178, 240);
+    border: 1px dashed rgb(85, 178, 240);
+    background-color: #fff;
   }
   .w-button.w-button--info .icon{
     color: #fff;
@@ -145,6 +189,11 @@ export default {
     background-color:rgb(255, 153, 0);
     color: #fff;
   }
+  .w-button.w-button--warning.is-dashed {
+    color: rgb(255, 153, 0);
+    border: 1px dashed rgb(255, 153, 0);
+    background-color: #fff;
+  }
   .w-button.w-button--warning .icon{
     color: #fff;
   }
@@ -155,6 +204,11 @@ export default {
     background-color:#67c23a;
     color: #fff;
   }
+  .w-button.w-button--success.is-dashed {
+    color: #67c23a;
+    border: 1px dashed #67c23a;
+    background-color: #fff;
+  }
   .w-button.w-button--success .icon{
     color: #fff;
   }
@@ -164,6 +218,11 @@ export default {
   .w-button.w-button--danger{
     background-color:rgb(239, 71, 58);
     color: #fff;
+  }
+  .w-button.w-button--danger.is-dashed {
+    color: rgb(239, 71, 58);
+    border: 1px dashed rgb(239, 71, 58);
+    background-color: #fff;
   }
   .w-button.w-button--danger .icon{
     color: #fff;
