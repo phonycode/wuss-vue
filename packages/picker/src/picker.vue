@@ -215,7 +215,7 @@ export default {
       
 
     },
-    // 根据pickIndexList来重置showList
+    // 根据pickIndexList来重置showList列表
     /**
      * data: 当前选中的子集列表
      * level: 当前列表的下表
