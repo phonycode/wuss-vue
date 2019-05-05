@@ -3,11 +3,15 @@ import './assets/common.css';
 import Button from './button/index.js';
 import Picker from './picker/index.js';
 import Icon from './icon/index.js';
+import Steps from './steps/index.js';
+import Step from './step//index.js';
 
 const components = [
   Button,
   Picker,
-  Icon
+  Icon,
+  Steps,
+  Step
 ];
 
 const install = function (Vue) {
@@ -24,5 +28,7 @@ export default {
   install,
   Button,
   Picker,
-  Icon
+  Icon,
+  Steps,
+  Step
 };
