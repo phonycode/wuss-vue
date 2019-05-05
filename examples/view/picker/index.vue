@@ -1,6 +1,6 @@
 <template>
   <div id="picker">
-    <w-picker :prop="prop" v-model="chooseList" :pickList="pickList" @change="choose" title="选择器" :pickerVisible.sync="visible"></w-picker>
+    <w-picker :prop="prop" v-model="chooseList" :pickList="pickList" placeholder="请选择picker" @change="choose" title="选择器" :pickerVisible.sync="visible"></w-picker>
   </div>
 </template>
 

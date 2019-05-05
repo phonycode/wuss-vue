@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="w-picker-input" @touchstart="showPicker">
-      <span v-if="pickLabel.length < 1">请选择</span>
+      <span v-if="pickLabel.length < 1">{{placeholder}}</span>
       <span v-else>{{pickLabel.join(joinCon)}}</span>
       <svg class="icon" aria-hidden="true"> <use xlink:href="#wuss-icon-arrow-right"></use></svg>
     </div>
@@ -65,6 +65,10 @@ export default {
       default: () => []
     },
     joinCon: {
+      type: String,
+      default: ','
+    },
+    placeholder: {
       type: String,
       default: ','
     },
@@ -211,7 +215,7 @@ export default {
       
 
     },
-    // 根据pickIndexList来重置showList
+    // 根据pickIndexList来重置showList列表
     /**
      * data: 当前选中的子集列表
      * level: 当前列表的下表
