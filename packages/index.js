@@ -5,13 +5,15 @@ import Picker from './picker/index.js';
 import Icon from './icon/index.js';
 import Steps from './steps/index.js';
 import Step from './step//index.js';
+import Tag from './tag//index.js';
 
 const components = [
   Button,
   Picker,
   Icon,
   Steps,
-  Step
+  Step,
+  Tag
 ];
 
 const install = function (Vue) {
@@ -30,5 +32,6 @@ export default {
   Picker,
   Icon,
   Steps,
-  Step
+  Step,
+  Tag
 };

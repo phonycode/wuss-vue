@@ -1,5 +1,7 @@
 <template>
   <div id="picker">
+    <h3>picker</h3>
+    <h4>选择器</h4>
     <w-picker :prop="prop" v-model="chooseList" :pickList="pickList" placeholder="请选择picker" @change="choose" title="选择器" :pickerVisible.sync="visible"></w-picker>
   </div>
 </template>
@@ -112,8 +114,7 @@ export default {
     }
   },
   methods: {
-    choose(val) {
-      console.log(val)
+    choose() {
     },
   }
 }

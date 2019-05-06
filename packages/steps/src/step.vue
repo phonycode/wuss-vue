@@ -1,14 +1,14 @@
 <template>
   <div class="wuss-step" :class="['wuss-step-' + internalStatus]">
-    <div v-if="index !== 0 && !lineStyle.borderWidth" class="wuss-step-line" ></div>
-    <div v-if="lineStyle.borderWidth" class="wuss-step-line wuss-step-line2" :style="{'background-color':'#67c23a'}" ></div>
+    <div v-if="index !== 0 && !lineStyle.borderWidth" class="wuss-step-line" :class="['wuss-line-' + $parent.direction]" ></div>
+    <div v-if="lineStyle.borderWidth" class="wuss-step-line wuss-step-line2" :class="['wuss-line-' + internalStatus,'wuss-line-' + $parent.direction]"  ></div>
     <div class="wuss-step-head">
       <div v-if="icon">
         <svg class="icon" aria-hidden="true"> <use :xlink:href="'#wuss-icon-' + icon"></use></svg>
       </div>
       <div v-else>
         <svg v-if="internalStatus === 'success'" class="icon" aria-hidden="true"> <use :xlink:href="'#wuss-icon-success'"></use></svg>
-        <div v-else>
+        <div class="wuss-step-number" v-else>
           {{index+1}}
         </div>
       </div>
@@ -148,6 +148,7 @@ export default {
     text-align: center;
     color: #c0c4cc;
     position: relative;
+    font-size: 16px;
   }
   .wuss-step-process {
     color: #000;
@@ -155,34 +156,64 @@ export default {
   .wuss-step-success {
     color: rgb(6,191,4);
   }
+  .wuss-step-finish {
+    color: rgb(69, 143, 246);
+  }
+  .wuss-step-error {
+    color: rgb(239, 71, 58);
+  }
+  
   .wuss-step-head {
-    border: 1px solid;
     width: 24px;
     height: 24px;
-    border-radius: 50%;
     display: inline-block;
     position: relative;
     z-index: 2;
     background-color: #fff;
-    
+    text-align: center;
+  }
+  .wuss-step-head .wuss-step-number {
+    border: 1px solid;
+    border-radius: 50%;
   }
   .wuss-step-head .icon {
-    width: 22px;
-    height: 22px;
+    width: 24px;
+    height: 24px;
     text-align: center;
-    margin-top: 1px;
+    vertical-align: middle;
   }
   .wuss-step .wuss-step-line{
     width: 100%;
     position: absolute;
     height: 1px;
-    background-color: #000;
+    background-color: #c0c4cc;
     z-index: 1;
     left: -50%;
     top: 12px;
   }
-  .wuss-step-line.wuss-step-line2{
+  .wuss-step .wuss-step-line.wuss-line-vertical{
+    height: 100%;
+    position: absolute;
+    width: 1px;
+    z-index: 1;
+    top: -50%;
+    left: 12px;
+  }
+  .wuss-step-line.wuss-line-success {
+    background-color: rgb(6,191,4);
+  }
+  .wuss-step-line.wuss-line-finish {
+    background-color: rgb(69, 143, 246);
+  }
+  .wuss-step-line.wuss-line-error {
+    background-color: rgb(239, 71, 58);
+  }
+  .wuss-step-line.wuss-step-line2.wuss-line-horizontal{
     left: 50%;
+    z-index: 2;
+  }
+  .wuss-step-line.wuss-step-line2.wuss-line-vertical{
+    top: 50%;
     z-index: 2;
   }
 </style>

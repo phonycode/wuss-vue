@@ -66,6 +66,13 @@ export const constantRouterMap = [{
     meta: {
       title: '步骤',
     },
+  }, {
+    path: 'tag',
+    component: () => import('../view/tag/index'),
+    name: 'tag',
+    meta: {
+      title: '标签',
+    },
   }],
 },
 

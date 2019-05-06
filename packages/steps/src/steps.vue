@@ -52,6 +52,20 @@ export default {
 <style>
   .wuss-steps{
     display: flex;
+    font-size: 0;
+  }
+  .wuss-steps.wuss-steps--vertical {
+    flex-direction: column;
+    text-align: left;
+  }
+  .wuss-steps.wuss-steps--vertical .wuss-step{
+    text-align: left;
+  }
+  .wuss-steps.wuss-steps--vertical .wuss-step-title {
+    display: inline-block;
+    margin-left: 10px;
+    line-height: 28px;
+    font-size: 16px;
   }
 </style>
 
