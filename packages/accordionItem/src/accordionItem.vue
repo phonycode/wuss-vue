@@ -2,7 +2,7 @@
   <div class="wuss-accordion-item">
     <div class="wuss-accordion-header" :class="{'wuss-accordion-disabled':disabled}" @mousedown="handleClick">
       header
-      <svg class="icon wuss-accordion-arrow" aria-hidden="true"> <use :xlink:href="'#wuss-icon-arrow-down'"></use></svg>
+      <svg :ref="'wuss-slide-icon' + name" class="icon wuss-accordion-arrow" aria-hidden="true"> <use :xlink:href="'#wuss-icon-arrow-down'"></use></svg>
     </div>
     <transition name="slide">
       <div v-show="active" :ref="'wuss-slide' + name" class="wuss-accordion-body">
@@ -64,11 +64,13 @@ export default {
       if (this.active) {
         this.$nextTick(()=>{
           let h = this.$refs['wuss-slide' + this.name].scrollHeight
+          this.$refs['wuss-slide-icon' + this.name].style.transform = "rotate(180deg)"
           this.$refs['wuss-slide' + this.name].style.height = h + 'px';
           this.$refs['wuss-slide' + this.name].style.overflow = 'hidden'
         })
       }else {
         this.$nextTick(()=>{
+          this.$refs['wuss-slide-icon' + this.name].style.transform = "rotate(0deg)"
           this.$refs['wuss-slide' + this.name].style.height = '0px';
         })
       }
@@ -133,6 +135,9 @@ export default {
     border-bottom: 1px solid #b8bbbf;
     height: 0px;
     transition: height .5s;
+  }
+  .wuss-accordion-arrow{
+    transition: all .5s;
   }
 </style>
 
