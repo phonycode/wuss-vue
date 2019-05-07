@@ -73,7 +73,15 @@ export const constantRouterMap = [{
     meta: {
       title: '标签',
     },
-  }],
+  }, {
+    path: 'accordion',
+    component: () => import('../view/accordion/index'),
+    name: 'accordion',
+    meta: {
+      title: '手风琴',
+    },
+  }
+  ],
 },
 
 {

@@ -6,6 +6,9 @@ import Icon from './icon/index.js';
 import Steps from './steps/index.js';
 import Step from './step//index.js';
 import Tag from './tag//index.js';
+import Accordion from './accordion/index.js';
+import AccordionItem from './accordionItem/index.js';
+
 
 const components = [
   Button,
@@ -13,7 +16,9 @@ const components = [
   Icon,
   Steps,
   Step,
-  Tag
+  Tag,
+  Accordion,
+  AccordionItem
 ];
 
 const install = function (Vue) {
@@ -33,5 +38,7 @@ export default {
   Icon,
   Steps,
   Step,
-  Tag
+  Tag,
+  Accordion,
+  AccordionItem
 };
