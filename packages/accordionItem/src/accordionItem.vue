@@ -127,7 +127,7 @@ export default {
     background-color: #fff;
   }
   .wuss-accordion-header.wuss-accordion-disabled{
-    background-color: #dadee4;
+    color: rgba(218,222,228);
   }
   .wuss-accordion-body {
     position: relative;

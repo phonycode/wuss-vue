@@ -80,7 +80,15 @@ export const constantRouterMap = [{
     meta: {
       title: '手风琴',
     },
+  }, {
+    path: 'layoutPage',
+    component: () => import('../view/layoutPage/index'),
+    name: 'layoutPage',
+    meta: {
+      title: '布局',
+    },
   }
+
   ],
 },
 

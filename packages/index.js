@@ -8,6 +8,8 @@ import Step from './step//index.js';
 import Tag from './tag//index.js';
 import Accordion from './accordion/index.js';
 import AccordionItem from './accordionItem/index.js';
+import Row from './row/index.js';
+import Col from './col/index.js';
 
 
 const components = [
@@ -18,7 +20,9 @@ const components = [
   Step,
   Tag,
   Accordion,
-  AccordionItem
+  AccordionItem,
+  Row,
+  Col
 ];
 
 const install = function (Vue) {
@@ -40,5 +44,7 @@ export default {
   Step,
   Tag,
   Accordion,
-  AccordionItem
+  AccordionItem,
+  Row,
+  Col
 };

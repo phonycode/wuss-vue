@@ -1,5 +1,7 @@
 <template>
   <div>
+    <h3>steps</h3>
+    <h4>步骤条</h4>
     <w-steps :active="active">
       <w-step title="步骤 1"></w-step>
       <w-step title="步骤 2"></w-step>
