@@ -87,6 +87,13 @@ export const constantRouterMap = [{
     meta: {
       title: '布局',
     },
+  }, {
+    path: 'card',
+    component: () => import('../view/card/index'),
+    name: 'card',
+    meta: {
+      title: '卡片',
+    },
   }
 
   ],
