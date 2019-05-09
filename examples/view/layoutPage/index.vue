@@ -39,6 +39,39 @@
     </w-row>
   </div>
 </template>
+<script>
+export default {
+  created() {
+    //观察者模式
+    class observer {
+      constructor() {
+        this.obj = {}
+      }
+      subscribe(key, callback) {
+        if(!this.obj[key]){
+          //若不存在，则添加该方法并订阅
+          this.obj[key] = []
+        }
+
+        this.obj[key].push(callback)
+      }
+      emit(key,...arg) {
+        //执行相应的订阅方法
+        if(this.obj[key]) {
+          this.obj[key].forEach(item => {
+            item(...arg)
+          });
+        }
+      }
+    }
+
+    const obs = new observer()
+    obs.subscribe('add',()=>{console.log('add an event')})
+    obs.emit('add')
+  }
+}
+</script>
+
 <style>
   .layout-row1 {
     height: 30px;
