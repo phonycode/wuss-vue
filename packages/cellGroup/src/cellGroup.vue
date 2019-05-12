@@ -1,5 +1,7 @@
 <template>
-  <div>celGroup</div>
+  <div>celGroup
+    <slot></slot>
+  </div>
 </template>
 <script>
 export default {
