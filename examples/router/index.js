@@ -94,6 +94,13 @@ export const constantRouterMap = [{
     meta: {
       title: '卡片',
     },
+  }, {
+    path: 'cell',
+    component: () => import('../view/cell/index'),
+    name: 'cell',
+    meta: {
+      title: '列表',
+    },
   }
 
   ],
