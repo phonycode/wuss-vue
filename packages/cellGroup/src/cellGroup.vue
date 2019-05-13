@@ -1,5 +1,5 @@
 <template>
-  <div>celGroup
+  <div>
     <slot></slot>
   </div>
 </template>

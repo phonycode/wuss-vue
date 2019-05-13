@@ -1,9 +1,19 @@
 <template>
-  <div>cell</div>
+  <div>
+    <span></span>
+    <div>
+      <span>{{value}}</span>
+      <slot></slot>
+    </div>
+  </div>
 </template>
 <script>
 export default {
-  name: 'WCell'
+  name: 'WCell',
+  props: {
+    title: String,
+    value: String,
+  }
 }
 </script>
 
