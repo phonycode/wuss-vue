@@ -101,6 +101,13 @@ export const constantRouterMap = [{
     meta: {
       title: '列表',
     },
+  }, {
+    path: 'popup',
+    component: () => import('../view/popup/index'),
+    name: 'popup',
+    meta: {
+      title: '弹出层',
+    },
   }
 
   ],
