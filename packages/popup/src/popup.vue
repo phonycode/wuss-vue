@@ -1,9 +1,11 @@
 <template>
+  <transition name="popup-fade">
   <div class="wuss-popup" v-show="popupVisible" @touchstart.self="handleWrapperClick">
-    <div class="wuss-popup-body">
-
+    <div ref="wussPopupBody" class="wuss-popup-body" :style="style">
+      <slot></slot>
     </div>
   </div>
+  </transition>
 </template>
 <script>
 export default {
@@ -15,9 +17,52 @@ export default {
       type: Boolean,
       default: false
     },
+    popupHeight: {
+      type: Number,
+      default: 30
+    },
+    popupWidth: {
+      type: Number,
+      default: 60
+    },
+    position: {
+      type: String,
+      default: 'top'
+    }
   },
-  model: {
-    prop: 'popupVisible',
+  computed: {
+    style:function(){
+      let obj = {};
+      if(this.position === 'top' || this.position === 'bottom') {
+        obj.height = this.popupHeight + '%';
+        obj[this.position] = -this.popupHeight + '%'
+      } else if(this.position === 'left' || this.position === 'right') {
+        obj.width = this.popupWidth + '%';
+        obj[this.position] = -this.popupWidth + '%'
+      }
+      return obj
+    } 
+  },
+  watch: {
+    popupVisible(val) {
+      if(val) {
+        document.getElementsByTagName('body')[0].style.overflow = 'hidden'
+        this.$nextTick(()=>{
+          if(this.position === 'top' || this.position === 'bottom') {
+            this.$refs.wussPopupBody.style[this.position] = 0
+          } else if(this.position === 'left' || this.position === 'right') {
+            this.$refs.wussPopupBody.style[this.position] = 0
+          }
+        })
+      } else {
+        if(this.position === 'top' || this.position === 'bottom') {
+            this.$refs.wussPopupBody.style[this.position] = -this.popupHeight + '%'
+          } else if(this.position === 'left' || this.position === 'right') {
+            this.$refs.wussPopupBody.style[this.position] = -this.popupWidth + '%'
+          }
+        document.getElementsByTagName('body')[0].style.overflow = 'auto'
+      }
+    },
   },
   methods: {
     handleWrapperClick() {
@@ -33,7 +78,7 @@ export default {
     },
     hide(cancel) {
       if (cancel !== false) {
-        this.pickerVisible = false
+        this.$emit('update:popupVisible', false)
       }
     },
   }
@@ -51,11 +96,18 @@ export default {
   }
   .wuss-popup-body {
     position: absolute;
-    height: 30%;
-    top: 0;
-    left: 0;
+    height: 100%;
     background-color: #fff;
     width: 100%;
+  }
+  .popup-fade-enter-active, .fade-leave-active {
+    transition: opacity .5s;
+  }
+  .popup-fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
+  }
+  .wuss-popup-body{
+    transition: all .3s;
   }
 </style>
 
