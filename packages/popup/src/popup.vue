@@ -1,6 +1,6 @@
 <template>
   <transition name="popup-fade">
-  <div class="wuss-popup" v-show="popupVisible" @touchstart.self="handleWrapperClick">
+  <div class="wuss-popup" v-if="popupVisible" @touchstart.self="handleWrapperClick">
     <div ref="wussPopupBody" class="wuss-popup-body" :style="style">
       <slot></slot>
     </div>
@@ -48,18 +48,17 @@ export default {
       if(val) {
         document.getElementsByTagName('body')[0].style.overflow = 'hidden'
         this.$nextTick(()=>{
-          if(this.position === 'top' || this.position === 'bottom') {
-            this.$refs.wussPopupBody.style[this.position] = 0
-          } else if(this.position === 'left' || this.position === 'right') {
-            this.$refs.wussPopupBody.style[this.position] = 0
-          }
+          setTimeout(() => {
+            if(this.position === 'top' || this.position === 'bottom') {
+              this.$refs.wussPopupBody.style[this.position] = 0
+            } else if(this.position === 'left' || this.position === 'right') {
+              this.$refs.wussPopupBody.style[this.position] = 0
+            }
+          }, 100);
+          
         })
       } else {
-        if(this.position === 'top' || this.position === 'bottom') {
-            this.$refs.wussPopupBody.style[this.position] = -this.popupHeight + '%'
-          } else if(this.position === 'left' || this.position === 'right') {
-            this.$refs.wussPopupBody.style[this.position] = -this.popupWidth + '%'
-          }
+        
         document.getElementsByTagName('body')[0].style.overflow = 'auto'
       }
     },
@@ -78,7 +77,16 @@ export default {
     },
     hide(cancel) {
       if (cancel !== false) {
-        this.$emit('update:popupVisible', false)
+        if(this.position === 'top' || this.position === 'bottom') {
+            this.$refs.wussPopupBody.style[this.position] = -this.popupHeight + '%'
+          } else if(this.position === 'left' || this.position === 'right') {
+            this.$refs.wussPopupBody.style[this.position] = -this.popupWidth + '%'
+          }
+        setTimeout(() => {
+          this.$emit('update:popupVisible', false)
+        }, 300);
+        
+        
       }
     },
   }
