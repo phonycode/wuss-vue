@@ -1,7 +1,7 @@
 <template>
   <transition name="popup-fade">
   <div class="wuss-popup" v-if="popupVisible" @touchstart.self="handleWrapperClick">
-    <div ref="wussPopupBody" class="wuss-popup-body" :style="style">
+    <div ref="wuss-popup-body" class="wuss-popup-body" :style="style">
       <slot></slot>
     </div>
   </div>
@@ -50,9 +50,9 @@ export default {
         this.$nextTick(()=>{
           setTimeout(() => {
             if(this.position === 'top' || this.position === 'bottom') {
-              this.$refs.wussPopupBody.style[this.position] = 0
+              this.$refs['wuss-popup-body'].style[this.position] = 0
             } else if(this.position === 'left' || this.position === 'right') {
-              this.$refs.wussPopupBody.style[this.position] = 0
+              this.$refs['wuss-popup-body'].style[this.position] = 0
             }
           }, 100);
           
@@ -78,9 +78,9 @@ export default {
     hide(cancel) {
       if (cancel !== false) {
         if(this.position === 'top' || this.position === 'bottom') {
-            this.$refs.wussPopupBody.style[this.position] = -this.popupHeight + '%'
+            this.$refs['wuss-popup-body'].style[this.position] = -this.popupHeight + '%'
           } else if(this.position === 'left' || this.position === 'right') {
-            this.$refs.wussPopupBody.style[this.position] = -this.popupWidth + '%'
+            this.$refs['wuss-popup-body'].style[this.position] = -this.popupWidth + '%'
           }
         setTimeout(() => {
           this.$emit('update:popupVisible', false)
@@ -107,6 +107,7 @@ export default {
     height: 100%;
     background-color: #fff;
     width: 100%;
+    overflow:auto;
   }
   .popup-fade-enter-active, .fade-leave-active {
     transition: opacity .5s;
