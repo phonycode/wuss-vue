@@ -23,7 +23,7 @@ export default {
     },
     popupWidth: {
       type: Number,
-      default: 60
+      default: 70
     },
     position: {
       type: String,
