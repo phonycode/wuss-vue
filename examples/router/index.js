@@ -29,7 +29,15 @@ Vue.use(Router);
  * 注：name 跟 path 需要设置相同
  * 需要配置权限的路由需要设置一个参数needPer用来表明是否需要进行权限设置
  */
-export const constantRouterMap = [{
+export const constantRouterMap = [
+{
+  path: '/',
+  name: 'home',
+  redirect: 'layout/buttons',
+  component: () => import('../view/home/index'),
+  hidden: true,
+},
+{
   path: '/home',
   name: 'home',
   component: () => import('../view/home/index'),
