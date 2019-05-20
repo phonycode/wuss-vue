@@ -11,6 +11,9 @@ import AccordionItem from './accordionItem/index.js';
 import Row from './row/index.js';
 import Col from './col/index.js';
 import Card from './card/index.js';
+import Cell from './cell/index.js';
+import CellGroup from './cellGroup/index.js';
+import Popup from './popup/index.js';
 
 
 
@@ -25,7 +28,10 @@ const components = [
   AccordionItem,
   Row,
   Col,
-  Card
+  Card,
+  Cell,
+  CellGroup,
+  Popup
 ];
 
 const install = function (Vue) {
@@ -50,5 +56,8 @@ export default {
   AccordionItem,
   Row,
   Col,
-  Card
+  Card,
+  Cell,
+  CellGroup,
+  Popup
 };
