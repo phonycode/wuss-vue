@@ -14,6 +14,8 @@ import Card from './card/index.js';
 import Cell from './cell/index.js';
 import CellGroup from './cellGroup/index.js';
 import Popup from './popup/index.js';
+import Tabs from './tabs/index.js';
+import TabPane from './tabPane/index.js'
 
 
 
@@ -31,7 +33,9 @@ const components = [
   Card,
   Cell,
   CellGroup,
-  Popup
+  Popup,
+  Tabs,
+  TabPane
 ];
 
 const install = function (Vue) {
@@ -59,5 +63,7 @@ export default {
   Card,
   Cell,
   CellGroup,
-  Popup
+  Popup,
+  Tabs,
+  TabPane
 };
