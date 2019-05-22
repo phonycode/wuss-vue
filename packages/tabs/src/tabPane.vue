@@ -1,5 +1,5 @@
 <template>
-  <div class='wuss-tab-pane' :class="{'tab-pane-active':isActive }">
+  <div class='wuss-tab-pane' @touchstart.stop="handleClick" :class="{'tab-pane-active':isActive }">
     {{label}}
   </div>
 </template>
@@ -14,6 +14,11 @@ export default {
     isActive: function() {
       return this.$parent.activeName === this.name
     }
+  },
+  methods: {
+    handleClick() {
+      this.$parent.activeName = this.name
+    },
   }
 }
 </script>
