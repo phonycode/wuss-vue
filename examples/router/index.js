@@ -32,7 +32,6 @@ Vue.use(Router);
 export const constantRouterMap = [
   {
     path: '/',
-    name: 'home',
     redirect: 'layout/buttons',
     component: () => import('../view/home/index'),
     hidden: true,
@@ -46,6 +45,7 @@ export const constantRouterMap = [
   {
     path: '/layout',
     component: Layout,
+    name: 'layout',
     children: [{
       path: 'buttons',
       component: () => import('../view/buttons/index'),
@@ -122,6 +122,13 @@ export const constantRouterMap = [
       name: 'tabs',
       meta: {
         title: '标签',
+      },
+    }, {
+      path: 'toast',
+      component: () => import('../view/toast/index'),
+      name: 'toast',
+      meta: {
+        title: '提示框',
       },
     }
 
