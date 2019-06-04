@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h3>toast</h3>
-    <h4>提示框</h4>
+    <h3>alert</h3>
+    <h4>弹窗</h4>
     <w-button type="primary" @click="defaulta">default</w-button>
     <w-button type="primary" @click="top">top</w-button>
     <w-button type="primary" @click="middle">middle</w-button>
@@ -18,25 +18,29 @@ export default {
   },
   methods: {
     defaulta() {
-      this.$toast('default')
+      this.$alert('这是一段内容', '标题名称', {
+          callback: () => {
+            
+          }
+        });
     },
     middle() {
-      this.$toast.middle('middle')
+      this.$alert.middle('middle')
     },
     top() {
-      this.$toast.top('top')
+      this.$alert.top('top')
     },
     bottom() {
-      this.$toast.bottom('bottom')
+      this.$alert.bottom('bottom')
     },
     timeOut() {
-      this.$toast({
+      this.$alert({
         duration: 5000,
         message: '我能停5秒'
       })
     },
     success() {
-      this.$toast({
+      this.$alert({
         duration: 5000,
         message: '我是成功',
         icon: 'success'

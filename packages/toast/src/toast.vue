@@ -1,8 +1,8 @@
 <template>
   <transition name="fade">
     <div class="wuss-toast" :class="['wuss-toast-' + type]" v-show="visible" >
-      {{message}}
-      <slot></slot>
+      <svg v-if="icon" class="icon toast-icon" aria-hidden="true"> <use :xlink:href="'#wuss-icon-' + icon"></use></svg>
+      <p class="toast-message">{{message}}</p>
     </div>
   </transition>
 </template>
@@ -19,6 +19,7 @@ export default {
       closed: false,
       timer: null,
       type: 'default',
+      icon: '',
     };
   },
   watch: {
@@ -65,7 +66,8 @@ export default {
     border-radius: 5px;
     text-align: center;
     padding: 5px;
-    background-color: rgba(30,30,30,.2);
+    background-color: rgba(0,0,0,.5);
+    color: #fff;
     z-index: 2010;
   }
   .fade-enter-active, .fade-leave-active {
@@ -85,6 +87,16 @@ export default {
   }
   .wuss-toast.wuss-toast-bottom {
     bottom: 10%;
+  }
+  .toast-icon{
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    color: #fff;
+  }
+  .toast-message{
+    padding: 0;
+    margin: 0;
   }
 </style>
 

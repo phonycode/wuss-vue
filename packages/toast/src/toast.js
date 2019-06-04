@@ -8,6 +8,10 @@ const Message = function (options) {
     options = {
       message: options
     };
+  } else if (typeof options === 'object') {
+    options = {
+      ...options
+    }
   }
   var component = new MessageConstructor({
     data: options

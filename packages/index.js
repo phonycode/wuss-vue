@@ -15,8 +15,9 @@ import Cell from './cell/index.js';
 import CellGroup from './cellGroup/index.js';
 import Popup from './popup/index.js';
 import Tabs from './tabs/index.js';
-import TabPane from './tabPane/index.js'
-import Toast from './toast/index.js'
+import TabPane from './tabPane/index.js';
+import Toast from './toast/index.js';
+import Alert from './alert/index.js';
 
 
 
@@ -37,7 +38,8 @@ const components = [
   Popup,
   Tabs,
   TabPane,
-  Toast
+  Toast,
+  Alert
 ];
 
 const install = function (Vue) {
@@ -45,6 +47,7 @@ const install = function (Vue) {
   components.map(component => Vue.component(component.name, component));
 
   Vue.prototype.$toast = Toast;
+  Vue.prototype.$alert = Alert;
 };
 
 /* istanbul ignore if */
@@ -70,5 +73,6 @@ export default {
   Popup,
   Tabs,
   TabPane,
-  Toast
+  Toast,
+  Alert
 };

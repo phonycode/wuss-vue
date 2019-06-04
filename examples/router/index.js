@@ -130,6 +130,13 @@ export const constantRouterMap = [
       meta: {
         title: '提示框',
       },
+    }, {
+      path: 'alert',
+      component: () => import('../view/alert/index'),
+      name: 'alert',
+      meta: {
+        title: '弹框',
+      },
     }
 
     ],
