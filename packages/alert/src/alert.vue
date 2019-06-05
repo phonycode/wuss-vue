@@ -1,11 +1,13 @@
 <template>
   <transition name="fade">
-    <div class="wuss-alert" :class="['wuss-alert-' + type]" v-show="visible" >
-      <h4 class="wuss-alert-title">{{title}}</h4>
-      <p class="alert-message">{{message}}</p>
-      <footer @click="close" class="alert-footer">
-        {{confirmButtonText}}
-      </footer>
+    <div class="black-bg" v-show="visible">
+      <div class="wuss-alert" :class="['wuss-alert-' + type]" v-show="visible" >
+        <h4 class="wuss-alert-title">{{title}}</h4>
+        <p class="alert-message">{{message}}</p>
+        <footer @click="close" class="wuss-alert-footer">
+          {{confirmButtonText}}
+        </footer>
+      </div>
     </div>
   </transition>
 </template>
@@ -72,6 +74,12 @@ export default {
     width: 40px;
     height: 40px;
     color: #fff;
+  }
+  .wuss-alert-footer{
+    height: 30px;
+    line-height: 30px;
+    border-top: 1px solid #e8e8e8;
+    color: rgb(255, 153, 0);
   }
 </style>
 
