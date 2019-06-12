@@ -9,26 +9,26 @@
           <small class="title-small">若选项过多，建议使用 Select 选择器。</small>
         </h5>
         <div v-for="item in radios" :key="item.id">
-          <w-radio :name="item.na"  :label="item.id" v-model="chceked">{{item.name}}</w-radio>
+          <w-radio :name="item.na" :label="item.id" v-model="chceked">{{item.name}}</w-radio>
           {{chceked}}
         </div>
       </section>
-      <!-- <section>
+      <section>
         <h5 class="title">禁用状态</h5>
         <div v-for="item in displayRadio" :key="item.id">
-          <w-radio :name="item.na" :disabled="item.disabled">{{item.name}}</w-radio>
+          <w-radio :name="item.na" :label="item.id" :disabled="item.disabled" v-model="chceked">{{item.name}}</w-radio>
         </div>
       </section>
       <section>
         <h5 class="title">自定义颜色</h5>
-        <div v-for="item in displayRadio" :key="item.id">
-          <w-radio :name="item.na" :disabled="item.disabled">{{item.name}}</w-radio>
+        <div v-for="item in customColor" :key="item.id">
+          <w-radio :name="item.na" :label="item.id" v-model="chceked">{{item.name}}</w-radio>
         </div>
       </section>
       <section>
         <h5 class="title">自定义图标</h5>
-        <div v-for="item in displayRadio" :key="item.id">
-          <w-radio :name="item.na" :disabled="item.disabled">{{item.name}}</w-radio>
+        <div v-for="item in customIcon" :key="item.id">
+          <w-radio :name="item.na"  :label="item.id" :disabled="item.disabled">{{item.name}}</w-radio>
         </div>
       </section>
 
@@ -39,7 +39,7 @@
             <w-radio :name="item.na" :disabled="item.disabled">{{item.name}}</w-radio>
           </w-cell>
         </w-cell-group>
-      </section> -->
+      </section>
     </div>
   </div>
 </template>
@@ -61,7 +61,7 @@ section {
   margin: 0;
 }
 
-.title-small{
+.title-small {
   color: #999;
 }
 
@@ -108,13 +108,33 @@ export default {
           disabled: false
         }
       ],
+      customColor: [
+        {
+          name: "单选框1(默認)",
+          id: 0,
+          na: "c",
+        },
+        {
+          name: "单选框2(藍色)",
+          id: 1,
+          na: "c",
+        },
+        {
+          name: "单选框2(紅色)",
+          id: 2,
+          na: "c",
+        }
+      ],
+      customIcon:[
+
+      ],
       chceked: 0
     };
   },
   created() {},
   methods: {
-    inputs(){
-      console.log(this)
+    inputs() {
+      console.log(this);
     }
   }
 };

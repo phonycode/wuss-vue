@@ -20,8 +20,9 @@
         v-model="model"
         :disabled="isDisabled"
         tabindex="-1"
+        @change="handleChange"
       >
-      <span class="wuss-radio_inner"></span>
+      <w-icon class="wuss-radio_inner" :type="currentIcon"></w-icon>
     </span>
     <!-- radio内容 -->
     <span class="wuss-radio_label" @keydown.stop>
@@ -36,14 +37,26 @@ export default {
   props: {
     border: Boolean,
     size: String,
-    disable: {
+    disabled: {
       type: Boolean,
       default: false
     },
     name: String,
     value: {},
     label: {},
-    checked: {}
+    checked: {},
+    iconTag: {
+      type: String,
+      default: "success-o"
+    },
+    icon:{
+      type: String,
+      default: "success"
+    },
+    iconDisabled:{
+      type:String,
+      default:"stop"
+    }
   },
   data() {
     return {
@@ -52,7 +65,10 @@ export default {
   },
   computed: {
     isDisabled() {
-      return this.disable;
+      return this.disabled
+    },
+    currentIcon(){
+      return this.disabled ? this.iconDisabled : this.value === this.label ? this.icon : this.iconTag
     },
     model: {
       get() {
@@ -67,11 +83,11 @@ export default {
     }
   },
   methods: {
-    // handleChange($event) {
-    //   this.$nextTick(() => {
-    //     this.$emit("change",this.model);
-    //   });
-    // }
+    handleChange($event) {
+      this.$nextTick(() => {
+        this.$emit("change", this.model);
+      });
+    }
   }
 };
 </script>
@@ -110,11 +126,7 @@ export default {
 }
 
 .wuss-radio_inner {
-  border: 1px solid #dcdfe6;
-  border-radius: 100%;
-  width: 16px;
-  height: 16px;
-  background-color: #fff;
+  font-size: 16px;
   position: relative;
   cursor: pointer;
   display: inline-block;
@@ -123,22 +135,11 @@ export default {
 }
 
 .wuss-radio__original:checked + .wuss-radio_inner {
-  background: #67c23a;
-  border: 1px solid #67c23a;
-  position: relative;
+  color: #67c23a;
 }
 
-.wuss-radio__original:checked + .wuss-radio_inner::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transition: 0.5s;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  background: #fff;
+.wuss-radio__original:disabled + .wuss-radio_inner {
+  color: #ccc;
 }
 
 .wuss-radio_label {
