@@ -1,8 +1,8 @@
-import WRadio from './src/radio';
+import WCheckbox from './src/checkbox';
 
 /* istanbul ignore next */
-WRadio.install = function(Vue) {
-    Vue.component(WRadio.name, WRadio);
+WCheckbox.install = function(Vue) {
+    Vue.component(WCheckbox.name, WCheckbox);
 };
 
-export default WRadio;
+export default WCheckbox;
