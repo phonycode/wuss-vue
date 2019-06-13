@@ -29,130 +29,152 @@ Vue.use(Router);
  * 注：name 跟 path 需要设置相同
  * 需要配置权限的路由需要设置一个参数needPer用来表明是否需要进行权限设置
  */
-export const constantRouterMap = [
-  {
-    path: '/',
-    redirect: 'layout/buttons',
-    component: () => import('../view/home/index'),
-    hidden: true,
-  },
-  {
-    path: '/home',
-    name: 'home',
-    component: () => import('../view/home/index'),
-    hidden: true,
-  },
-  {
-    path: '/layout',
-    component: Layout,
-    name: 'layout',
-    children: [{
-      path: 'buttons',
-      component: () => import('../view/buttons/index'),
-      name: 'buttons',
-      meta: {
-        title: '按钮',
-      },
-    }, {
-      path: 'icon',
-      component: () => import('../view/icon/index'),
-      name: 'icon',
-      meta: {
-        title: 'icon',
-      },
-    }, {
-      path: 'picker',
-      component: () => import('../view/picker/index'),
-      name: 'picker',
-      meta: {
-        title: '选择',
-      },
-    }, {
-      path: 'steps',
-      component: () => import('../view/steps/index'),
-      name: 'steps',
-      meta: {
-        title: '步骤',
-      },
-    }, {
-      path: 'tag',
-      component: () => import('../view/tag/index'),
-      name: 'tag',
-      meta: {
-        title: '标签',
-      },
-    }, {
-      path: 'accordion',
-      component: () => import('../view/accordion/index'),
-      name: 'accordion',
-      meta: {
-        title: '手风琴',
-      },
-    }, {
-      path: 'layoutPage',
-      component: () => import('../view/layoutPage/index'),
-      name: 'layoutPage',
-      meta: {
-        title: '布局',
-      },
-    }, {
-      path: 'card',
-      component: () => import('../view/card/index'),
-      name: 'card',
-      meta: {
-        title: '卡片',
-      },
-    }, {
-      path: 'cell',
-      component: () => import('../view/cell/index'),
-      name: 'cell',
-      meta: {
-        title: '列表',
-      },
-    }, {
-      path: 'popup',
-      component: () => import('../view/popup/index'),
-      name: 'popup',
-      meta: {
-        title: '弹出层',
-      },
-    }, {
-      path: 'tabs',
-      component: () => import('../view/tabs/index'),
-      name: 'tabs',
-      meta: {
-        title: '标签',
-      },
-    }, {
-      path: 'toast',
-      component: () => import('../view/toast/index'),
-      name: 'toast',
-      meta: {
-        title: '提示框',
-      },
-    }, {
-      path: 'alert',
-      component: () => import('../view/alert/index'),
-      name: 'alert',
-      meta: {
-        title: '弹框',
-      },
-    }
+export const constantRouterMap = [{
+        path: '/',
+        redirect: 'layout/radio',
+        component: () =>
+            import ('../view/home/index'),
+        hidden: true,
+    },
+    {
+        path: '/home',
+        name: 'home',
+        component: () =>
+            import ('../view/home/index'),
+        hidden: true,
+    },
+    {
+        path: '/layout',
+        component: Layout,
+        name: 'layout',
+        children: [{
+                path: 'buttons',
+                component: () =>
+                    import ('../view/buttons/index'),
+                name: 'buttons',
+                meta: {
+                    title: '按钮',
+                },
+            }, {
+                path: 'icon',
+                component: () =>
+                    import ('../view/icon/index'),
+                name: 'icon',
+                meta: {
+                    title: 'icon',
+                },
+            }, {
+                path: 'picker',
+                component: () =>
+                    import ('../view/picker/index'),
+                name: 'picker',
+                meta: {
+                    title: '选择',
+                },
+            }, {
+                path: 'steps',
+                component: () =>
+                    import ('../view/steps/index'),
+                name: 'steps',
+                meta: {
+                    title: '步骤',
+                },
+            }, {
+                path: 'tag',
+                component: () =>
+                    import ('../view/tag/index'),
+                name: 'tag',
+                meta: {
+                    title: '标签',
+                },
+            }, {
+                path: 'accordion',
+                component: () =>
+                    import ('../view/accordion/index'),
+                name: 'accordion',
+                meta: {
+                    title: '手风琴',
+                },
+            }, {
+                path: 'layoutPage',
+                component: () =>
+                    import ('../view/layoutPage/index'),
+                name: 'layoutPage',
+                meta: {
+                    title: '布局',
+                },
+            }, {
+                path: 'card',
+                component: () =>
+                    import ('../view/card/index'),
+                name: 'card',
+                meta: {
+                    title: '卡片',
+                },
+            }, {
+                path: 'cell',
+                component: () =>
+                    import ('../view/cell/index'),
+                name: 'cell',
+                meta: {
+                    title: '列表',
+                },
+            }, {
+                path: 'popup',
+                component: () =>
+                    import ('../view/popup/index'),
+                name: 'popup',
+                meta: {
+                    title: '弹出层',
+                },
+            }, {
+                path: 'tabs',
+                component: () =>
+                    import ('../view/tabs/index'),
+                name: 'tabs',
+                meta: {
+                    title: '标签',
+                },
+            }, {
+                path: 'toast',
+                component: () =>
+                    import ('../view/toast/index'),
+                name: 'toast',
+                meta: {
+                    title: '提示框',
+                },
+            }, {
+                path: 'alert',
+                component: () =>
+                    import ('../view/alert/index'),
+                name: 'alert',
+                meta: {
+                    title: '弹框',
+                },
+            }, {
+                path: 'radio',
+                component: () =>
+                    import ('../view/radio/index'),
+                name: 'radio',
+                meta: {
+                    title: '单选框'
+                }
+            }
 
-    ],
-  },
+        ],
+    },
 
-  {
-    path: '*',
-    redirect: '/404',
-    hidden: true,
-  },
+    {
+        path: '*',
+        redirect: '/404',
+        hidden: true,
+    },
 ];
 
 export default new Router({
-  // mode: 'history', //后端支持可开
-  scrollBehavior: () => ({
-    y: 0,
-  }),
-  routes: constantRouterMap,
+    // mode: 'history', //后端支持可开
+    scrollBehavior: () => ({
+        y: 0,
+    }),
+    routes: constantRouterMap,
 });

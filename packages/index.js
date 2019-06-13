@@ -18,61 +18,64 @@ import Tabs from './tabs/index.js';
 import TabPane from './tabPane/index.js';
 import Toast from './toast/index.js';
 import Alert from './alert/index.js';
+import Radio from './radio/index.js';
 
 
 
 const components = [
-  Button,
-  Picker,
-  Icon,
-  Steps,
-  Step,
-  Tag,
-  Accordion,
-  AccordionItem,
-  Row,
-  Col,
-  Card,
-  Cell,
-  CellGroup,
-  Popup,
-  Tabs,
-  TabPane,
-  Toast,
-  Alert
+    Button,
+    Picker,
+    Icon,
+    Steps,
+    Step,
+    Tag,
+    Accordion,
+    AccordionItem,
+    Row,
+    Col,
+    Card,
+    Cell,
+    CellGroup,
+    Popup,
+    Tabs,
+    TabPane,
+    Toast,
+    Alert,
+    Radio
 ];
 
-const install = function (Vue) {
-  if (install.installed) return;
-  components.map(component => Vue.component(component.name, component));
+const install = function(Vue) {
+    if (install.installed) return;
+    components.map(component => Vue.component(component.name, component));
 
-  Vue.prototype.$toast = Toast;
-  Vue.prototype.$alert = Alert;
+    Vue.prototype.$toast = Toast;
+    Vue.prototype.$alert = Alert;
 };
 
 /* istanbul ignore if */
 if (typeof window !== 'undefined' && window.Vue) {
-  install(window.Vue);
+    install(window.Vue);
 }
 
 export default {
-  install,
-  Button,
-  Picker,
-  Icon,
-  Steps,
-  Step,
-  Tag,
-  Accordion,
-  AccordionItem,
-  Row,
-  Col,
-  Card,
-  Cell,
-  CellGroup,
-  Popup,
-  Tabs,
-  TabPane,
-  Toast,
-  Alert
+    install,
+    Button,
+    Picker,
+    Icon,
+    Steps,
+    Step,
+    Tag,
+    Accordion,
+    AccordionItem,
+    Row,
+    Col,
+    Card,
+    Cell,
+    CellGroup,
+    Popup,
+    Tabs,
+    TabPane,
+    Toast,
+    Alert,
+    Radio
 };
