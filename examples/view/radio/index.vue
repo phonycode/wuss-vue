@@ -9,8 +9,10 @@
           <small class="title-small">若选项过多，建议使用 Select 选择器。</small>
         </h5>
         <div v-for="item in radios" :key="item.id">
-          <w-radio :name="item.na" :label="item.id" v-model="chceked">{{item.name}}</w-radio>
-          {{chceked}}
+          <w-radio :name="item.na" :label="item.id" v-model="radio">{{item.name}}</w-radio>
+        </div>
+        <div>
+          选中的值 {{radio}}
         </div>
       </section>
       <section>
@@ -20,7 +22,7 @@
             :name="item.na"
             :label="item.id"
             :disabled="item.disabled"
-            v-model="chceked"
+            v-model="radio1"
           >{{item.name}}</w-radio>
         </div>
       </section>
@@ -31,22 +33,28 @@
             :name="item.na"
             :label="item.id"
             :wuss-color="item.color"
-            v-model="chceked"
+            v-model="radio2"
           >{{item.name}}</w-radio>
         </div>
       </section>
       <section>
         <h5 class="title">自定义图标</h5>
         <div v-for="item in customIcon" :key="item.id">
-          <w-radio :name="item.na" :label="item.id" :icon-src="item.iconSrc" :disabled="item.disabled">{{item.name}}</w-radio>
+          <w-radio
+            :name="item.na"
+            :label="item.id"
+            :icon-src="item.iconSrc"
+            :disabled="item.disabled"
+            v-model="radio3"
+          >{{item.name}}</w-radio>
         </div>
       </section>
 
       <section>
         <h5 class="title">同cell组件一起使用</h5>
         <w-cell-group>
-          <w-cell v-for="item in radios" :key="item.id" :title="'准备好了吗'">
-            <w-radio :name="item.na"></w-radio>
+          <w-cell v-for="item in cell" :key="item.id" :title="'准备好了吗'">
+            <w-radio :name="item.na" @change="inputs" :label="item.id" v-model="radio4"></w-radio>
           </w-cell>
         </w-cell-group>
       </section>
@@ -128,13 +136,13 @@ export default {
           name: "单选框2(藍色)",
           id: 1,
           na: "c",
-          color: "blue"
+          color: "rgb(69, 143, 246)"
         },
         {
           name: "单选框2(紅色)",
           id: 2,
           na: "c",
-          color: "red"
+          color: "rgb(239, 71, 58)"
         }
       ],
       customIcon: [
@@ -142,22 +150,41 @@ export default {
           name: "单选框1",
           id: 0,
           na: "d",
-          iconSrc:'https://img.yzcdn.cn/public_files/2017/10/13/793c77793db8641c4c325b7f25bf130d.png'
+          iconSrc:
+            "https://img.yzcdn.cn/public_files/2017/10/13/793c77793db8641c4c325b7f25bf130d.png"
         },
         {
           name: "单选框2",
           id: 1,
           na: "d",
-          iconSrc:''
+          iconSrc: ""
         }
       ],
-      chceked: 0
+      cell: [
+        {
+          name: "单选框1",
+          id: 0,
+          na: "e"
+        },
+        {
+          name: "单选框2",
+          id: 1,
+          na: "e"
+        }
+      ],
+      radio: 0,
+      radio1: 1,
+      radio2: 0,
+      radio3: 0,
+      radio4: 0,
+      checked: ""
     };
   },
   created() {},
   methods: {
-    inputs() {
-      console.log(this);
+    inputs(a, b) {
+      console.log(a);
+      console.log(b);
     }
   }
 };

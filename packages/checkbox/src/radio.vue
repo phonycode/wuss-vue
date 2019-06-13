@@ -3,27 +3,29 @@
  * @Email: 1020814597@qq.com
  * @Date: 2019-06-13 11:16:10
  * @LastEditors: null
- * @LastEditTime: 2019-06-13 17:23:46
+ * @LastEditTime: 2019-06-13 11:22:42
  * @Description: radio component
   isDisabled      boolean         是否禁用
   name            任意(最好String) name名标识
   size            String|number   icon图标大小
   wuss-color      String          选中的icon图标颜色  
-  v-model         任意类型                当前选中项标识
-
-  // 事件
-  change          返回name和选中值 绑定值变化时触发的事件
 
   slot自定义文本
  * @form: (0 U 0)
  -->
 
 <template>
-  <label class="wuss-radio" :class="[
+  <label
+    class="wuss-radio"
+    :class="[
+        border && radioSize ? 'el-radio--' + radioSize : '',
         { 'is-disabled': isDisabled },
-    ]">
+        { 'is-focus': focus },
+        { 'is-bordered': border },
+    ]"
+  >
     <!-- radio美化 -->
-    <span class="wuss-radio_input" :class="{
+    <span  class="wuss-radio_input" :class="{
         'is-disabled': isDisabled,
       }">
       <input
@@ -42,6 +44,7 @@
     <!-- radio内容 -->
     <span class="wuss-radio_label" @keydown.stop>
       <slot></slot>
+      <template v-if="!$slots.default">{{label}}</template>
     </span>
   </label>
 </template>
@@ -49,6 +52,7 @@
 export default {
   name: "WRadio",
   props: {
+    border: Boolean,
     size: String,
     disabled: {
       type: Boolean,
@@ -57,12 +61,13 @@ export default {
     name: String,
     value: {},
     label: {},
+    checked: {},
     icon: {
       type: String,
       default: "checked"
     },
     wussColor: String,
-    iconSrc: String
+    iconSrc:String
   },
   data() {
     return {
@@ -73,11 +78,11 @@ export default {
     isDisabled() {
       return this.disabled;
     },
-    // /**
-    //  * @description: 判断是否被选中
-    //  * @param {type}
-    //  * @return: String
-    //  */
+    /**
+     * @description: 判断是否被选中
+     * @param {type}
+     * @return: String
+     */
     currentIcon() {
       return this.value === this.label ? this.icon : "";
     },
@@ -92,22 +97,23 @@ export default {
     tabIndex() {
       return this.isDisabled ? -1 : 0;
     },
-    // /**
-    //  * @description: 设置自定义样式
-    //  * @param {type}
-    //  * @return: style Object
-    //  */
+    /**
+     * @description: 设置自定义样式
+     * @param {type}
+     * @return: style Object
+     */
     wussStyle() {
-      return this.value === this.label ? {
+      console.log(1)
+      return {
         background: this.wussColor,
         borderColor: this.wussColor
-      } : {};
+      };
     }
   },
   methods: {
     handleChange($event) {
       this.$nextTick(() => {
-        this.$emit("change", this.name, this.model);
+        this.$emit("change", this.model);
       });
     }
   }
@@ -175,7 +181,7 @@ export default {
   border-color: #ccc;
 }
 
-.wuss-custom_icon {
+.wuss-custom_icon{
   height: 20px;
 }
 
