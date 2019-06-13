@@ -9,7 +9,7 @@
     ]"
   >
     <!-- radio美化 -->
-    <span class="wuss-radio_input" :class="{
+    <span  class="wuss-radio_input" :class="{
         'is-disabled': isDisabled,
       }">
       <input
@@ -22,7 +22,8 @@
         tabindex="-1"
         @change="handleChange"
       >
-      <w-icon class="wuss-radio_inner" :type="currentIcon"></w-icon>
+      <w-icon v-if="!iconSrc" class="wuss-radio_inner" :style="wussStyle" :type="currentIcon"></w-icon>
+      <img v-else :src="iconSrc" alt="icon" class="wuss-custom_icon">
     </span>
     <!-- radio内容 -->
     <span class="wuss-radio_label" @keydown.stop>
@@ -45,18 +46,12 @@ export default {
     value: {},
     label: {},
     checked: {},
-    iconTag: {
+    icon: {
       type: String,
-      default: "success-o"
+      default: "checked"
     },
-    icon:{
-      type: String,
-      default: "success"
-    },
-    iconDisabled:{
-      type:String,
-      default:"stop"
-    }
+    wussColor: String,
+    iconSrc:String
   },
   data() {
     return {
@@ -65,10 +60,15 @@ export default {
   },
   computed: {
     isDisabled() {
-      return this.disabled
+      return this.disabled;
     },
-    currentIcon(){
-      return this.disabled ? this.iconDisabled : this.value === this.label ? this.icon : this.iconTag
+    /**
+     * @description: 判断是否被选中
+     * @param {type}
+     * @return: String
+     */
+    currentIcon() {
+      return this.value === this.label ? this.icon : "";
     },
     model: {
       get() {
@@ -80,6 +80,18 @@ export default {
     },
     tabIndex() {
       return this.isDisabled ? -1 : 0;
+    },
+    /**
+     * @description: 设置自定义样式
+     * @param {type}
+     * @return: style Object
+     */
+    wussStyle() {
+      console.log(1)
+      return {
+        background: this.wussColor,
+        borderColor: this.wussColor
+      };
     }
   },
   methods: {
@@ -116,6 +128,7 @@ export default {
   line-height: 1;
   position: relative;
   vertical-align: middle;
+  text-align: center;
 }
 
 .wuss-radio__original {
@@ -126,20 +139,34 @@ export default {
 }
 
 .wuss-radio_inner {
-  font-size: 16px;
+  font-size: 14px;
   position: relative;
   cursor: pointer;
   display: inline-block;
   box-sizing: border-box;
-  vertical-align: 1px;
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  border: 1px solid #e5e5e5;
+  color: transparent;
+  vertical-align: -3px;
+  font-weight: 700;
 }
 
 .wuss-radio__original:checked + .wuss-radio_inner {
-  color: #67c23a;
+  color: #fff;
+  background: #67c23a;
+  border-color: #67c23a;
 }
 
 .wuss-radio__original:disabled + .wuss-radio_inner {
   color: #ccc;
+  background: #eee;
+  border-color: #ccc;
+}
+
+.wuss-custom_icon{
+  height: 20px;
 }
 
 .wuss-radio_label {
