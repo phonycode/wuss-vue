@@ -31,7 +31,7 @@ Vue.use(Router);
  */
 export const constantRouterMap = [{
         path: '/',
-        redirect: 'layout/checkbox',
+        redirect: 'layout/checkboxGroup',
         component: () =>
             import ('../view/home/index'),
         hidden: true,
@@ -166,6 +166,14 @@ export const constantRouterMap = [{
                 name: 'checkbox',
                 meta: {
                     title: '多选框'
+                }
+            }, {
+                path: 'checkboxGroup',
+                component: () =>
+                    import ('../view/checkboxGroup/index'),
+                name: 'checkboxGroup',
+                meta: {
+                    title: '多选框组'
                 }
             }
 
