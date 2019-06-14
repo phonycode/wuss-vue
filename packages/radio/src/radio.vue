@@ -3,7 +3,7 @@
  * @Email: 1020814597@qq.com
  * @Date: 2019-06-13 11:16:10
  * @LastEditors: null
- * @LastEditTime: 2019-06-13 17:23:46
+ * @LastEditTime: 2019-06-14 09:51:35
  * @Description: radio component
   isDisabled      boolean         是否禁用
   name            任意(最好String) name名标识
@@ -33,7 +33,7 @@
         :name="name"
         v-model="model"
         :disabled="isDisabled"
-        tabindex="-1"
+        :tabindex="tabIndex"
         @change="handleChange"
       >
       <w-icon v-if="!iconSrc" class="wuss-radio_inner" :style="wussStyle" :type="currentIcon"></w-icon>
