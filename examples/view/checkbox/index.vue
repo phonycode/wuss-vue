@@ -3,60 +3,59 @@
     <h3>checkbox 复选框</h3>
     <div class="wuss-boxs">
       <section>
-        <h5 class="title">
-          基础用法
-          <br>
-          <small class="title-small">若选项过多，建议使用 Select 选择器。</small>
-        </h5>
-        <div v-for="item in radios" :key="item.id">
-          <w-radio :name="item.na" :label="item.id" v-model="radio">{{item.name}}</w-radio>
+        <h5 class="title">基础用法</h5>
+        <div v-for="item in checkbox" :key="item.id">
+          <w-checkbox :name="item.na" :label="item.id" v-model="checkList">{{item.name}}</w-checkbox>
         </div>
-        <div>
-          选中的值 {{radio}}
-        </div>
+        <div>选中的值 {{checkList}}</div>
       </section>
       <section>
         <h5 class="title">禁用状态</h5>
-        <div v-for="item in displayRadio" :key="item.id">
-          <w-radio
-            :name="item.na"
-            :label="item.id"
-            :disabled="item.disabled"
-            v-model="radio1"
-          >{{item.name}}</w-radio>
+        <div>
+          <w-checkbox :name="'checkeds'" :label="'值'" :disabled="true" v-model="checkList1">复选框禁用选中</w-checkbox>
+        </div>
+        <div>
+          <w-checkbox
+            :name="'nocheck'"
+            :label="'未选中'"
+            :disabled="true"
+            v-model="checkList2"
+          >复选框禁用未选中</w-checkbox>
         </div>
       </section>
       <section>
-        <h5 class="title">自定义颜色</h5>
-        <div v-for="item in customColor" :key="item.id">
-          <w-radio
-            :name="item.na"
-            :label="item.id"
-            :wuss-color="item.color"
-            v-model="radio2"
-          >{{item.name}}</w-radio>
+        <h5 class="title">尺寸选择</h5>
+        <div>
+          <w-checkbox :name="'small'" :label="'small'" v-model="checkList3" size="small">小号(默认色)</w-checkbox>
+        </div>
+        <div>
+          <w-checkbox :name="'base'" :label="'base'" v-model="checkList4">默认</w-checkbox>
+        </div>
+        <div>
+          <w-checkbox :name="'large'" :label="'large'" v-model="checkList5" size="large">大号</w-checkbox>
         </div>
       </section>
       <section>
         <h5 class="title">自定义图标</h5>
-        <div v-for="item in customIcon" :key="item.id">
-          <w-radio
-            :name="item.na"
-            :label="item.id"
-            :icon-src="item.iconSrc"
-            :disabled="item.disabled"
-            v-model="radio3"
-          >{{item.name}}</w-radio>
+        <div>
+          <w-checkbox name="custom" label="test" :iconSrc="iconNormal" v-model="checkList7">自定义图标(用力点我试试)</w-checkbox>
+        </div>
+        <div>
+          <w-checkbox name="customDisable" label="test" :iconSrc="iconDisable" disabled v-model="checkList8">自定义图标禁用</w-checkbox>
         </div>
       </section>
-
       <section>
-        <h5 class="title">同cell组件一起使用</h5>
-        <w-cell-group>
-          <w-cell v-for="item in cell" :key="item.id" :title="'准备好了吗'">
-            <w-radio :name="item.na" @change="inputs" :label="item.id" v-model="radio4"></w-radio>
-          </w-cell>
-        </w-cell-group>
+        <h5 class="title">事件（是否选中 和选中的值）</h5>
+        <div>
+          <w-checkbox
+            name="events"
+            label="events"
+            v-model="checkList9"
+            @change="inputs"
+          >事件</w-checkbox>
+          <br>
+          {{'状态 '+checkList9}}  选中值{{ values }}
+        </div>
       </section>
     </div>
   </div>
@@ -86,11 +85,6 @@ section {
 .title ~ div {
   margin: 8px 25px;
 }
-.wuss-cellGroup {
-  margin-right: 0 !important;
-  margin-left: 0 !important;
-  background: #fff;
-}
 </style>
 
 
@@ -100,91 +94,43 @@ export default {
   name: "checkbox",
   data() {
     return {
-      radios: [
+      checkbox: [
         {
-          name: "单选框1",
+          name: "复选框1",
           id: 0,
           na: "a"
-        },
-        {
-          name: "单选框2",
-          id: 1,
-          na: "a"
         }
       ],
-      displayRadio: [
-        {
-          name: "单选框1(禁用)",
-          id: 0,
-          na: "b",
-          disabled: true
-        },
-        {
-          name: "单选框2(正常)",
-          id: 1,
-          na: "b",
-          disabled: false
-        }
-      ],
-      customColor: [
-        {
-          name: "单选框1(默認)",
-          id: 0,
-          na: "c"
-        },
-        {
-          name: "单选框2(藍色)",
-          id: 1,
-          na: "c",
-          color: "rgb(69, 143, 246)"
-        },
-        {
-          name: "单选框2(紅色)",
-          id: 2,
-          na: "c",
-          color: "rgb(239, 71, 58)"
-        }
-      ],
-      customIcon: [
-        {
-          name: "单选框1",
-          id: 0,
-          na: "d",
-          iconSrc:
-            "https://img.yzcdn.cn/public_files/2017/10/13/793c77793db8641c4c325b7f25bf130d.png"
-        },
-        {
-          name: "单选框2",
-          id: 1,
-          na: "d",
-          iconSrc: ""
-        }
-      ],
-      cell: [
-        {
-          name: "单选框1",
-          id: 0,
-          na: "e"
-        },
-        {
-          name: "单选框2",
-          id: 1,
-          na: "e"
-        }
-      ],
-      radio: 0,
-      radio1: 1,
-      radio2: 0,
-      radio3: 0,
-      radio4: 0,
-      checked: ""
+      iconNormal: {
+        active:
+          "https://img.yzcdn.cn/public_files/2017/10/13/793c77793db8641c4c325b7f25bf130d.png",
+        normal:
+          "https://img.yzcdn.cn/public_files/2017/10/13/c547715be149dd3faa817e4a948b40c4.png"
+      },
+      iconDisable:{
+        active:
+          "https://img.yzcdn.cn/public_files/2017/10/13/c547715be149dd3faa817e4a948b40c4.png",
+        normal:
+          "https://img.yzcdn.cn/public_files/2017/10/13/c547715be149dd3faa817e4a948b40c4.png"
+      },
+      checkList: true,
+      checkList1: true,
+      checkList2: false,
+      checkList3: 0,
+      checkList4: 0,
+      checkList5: 0,
+      checkList6: true,
+      checkList7: false,
+      checkList8: false,
+      checkList9: true,
+      values:'',
+
     };
   },
   created() {},
   methods: {
     inputs(a, b) {
-      console.log(a);
-      console.log(b);
+      this.values = a ;
     }
   }
 };

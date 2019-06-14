@@ -31,7 +31,7 @@ Vue.use(Router);
  */
 export const constantRouterMap = [{
         path: '/',
-        redirect: 'layout/chechbox',
+        redirect: 'layout/checkbox',
         component: () =>
             import ('../view/home/index'),
         hidden: true,
