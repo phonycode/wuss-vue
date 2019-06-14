@@ -175,6 +175,14 @@ export const constantRouterMap = [{
                 meta: {
                     title: '多选框组'
                 }
+            }, {
+                path: 'switch',
+                component: () =>
+                    import ('../view/switch/index'),
+                name: 'switch',
+                meta: {
+                    title: '开关'
+                }
             }
 
         ],
