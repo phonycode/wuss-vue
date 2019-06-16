@@ -2,9 +2,9 @@
  * @Author: null
  * @Email: 1020814597@qq.com
  * @Date: 2019-06-14 17:54:56
- * @LastEditors: null
- * @LastEditTime: 2019-06-14 18:03:52
- * @Description: 
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2019-06-15 14:45:10
+ * @Description: switch 开关 组件
  * @form: (0 U 0)
  -->
 
@@ -20,13 +20,22 @@
     <div class="wuss-switch_btn"></div>
   </div>
 </template>
+
 <script>
 export default {
   name: "WSwitch",
   props: {
-    size:{
-      type:String,
-      default:'base'
+    size: {
+      type: String,
+      default: "base"
+    },
+    isActive: {
+      type: Boolean,
+      default: false
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -64,19 +73,47 @@ export default {
   border-radius: 1000px;
 }
 
-.wuss-switch-small{
-  width: 40px ;
+.wuss-switch-small {
+  width: 40px;
   height: 20px;
 }
 
-.wuss-switch-base{
-  width: 46px ;
+.wuss-switch-base {
+  width: 46px;
   height: 24px;
 }
 
-.wuss-switch-large{
-  width: 62px ;
+.wuss-switch-large {
+  width: 62px;
   height: 30px;
+}
+
+.wuss-switch_btn{
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: 50%;
+  background: red;
+}
+
+.wuss-switch-small .wuss-switch_btn{
+  width: 16px;
+  height: 16px;
+}
+
+.wuss-switch-base .wuss-switch_btn{
+  width: 20px;
+  height: 20px;
+}
+
+.wuss-switch-large .wuss-switch_btn{
+  width: 26px;
+  height: 26px;
+}
+
+/* 开关开启 */
+.wuss-switch-active{
+  right: 0;
 }
 </style>
 
