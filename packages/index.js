@@ -20,6 +20,7 @@ import Toast from './toast/index.js';
 import Alert from './alert/index.js';
 import Radio from './radio/index.js';
 import Checkbox from './checkbox/index.js';
+import Switch from './switch/index.js';
 
 
 
@@ -43,7 +44,8 @@ const components = [
     Toast,
     Alert,
     Radio,
-    Checkbox
+    Checkbox,
+    Switch
 ];
 
 const install = function(Vue) {
@@ -80,5 +82,6 @@ export default {
     Toast,
     Alert,
     Radio,
-    Checkbox
+    Checkbox,
+    Switch
 };

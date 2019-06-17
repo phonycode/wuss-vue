@@ -3,7 +3,7 @@
  * @Email: 1020814597@qq.com
  * @Date: 2019-06-13 11:16:10
  * @LastEditors: null
- * @LastEditTime: 2019-06-14 17:16:07
+ * @LastEditTime: 2019-06-14 17:20:07
  * @Description: checkbox component
   isDisabled      boolean         是否禁用
   name            任意(最好String) name名标识
@@ -50,7 +50,7 @@
 </template>
 <script>
 export default {
-  name: "WCheckbox",
+  name: "WCheckboxGroup",
   props: {
     size: {
       type: [String, Number, Boolean],
