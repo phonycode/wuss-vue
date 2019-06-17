@@ -2,9 +2,9 @@
  * @Author: null
  * @Email: 1020814597@qq.com
  * @Date: 2019-06-14 17:54:56
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2019-06-15 14:45:10
- * @Description: switch 开关 组件
+ * @LastEditors: null
+ * @LastEditTime: 2019-06-17 09:33:03
+ * @Description: 
  * @form: (0 U 0)
  -->
 
@@ -39,7 +39,9 @@ export default {
     }
   },
   data() {
-    return {};
+    return {
+      isActive: false
+    };
   },
   computed: {
     isDisabled() {
@@ -47,9 +49,11 @@ export default {
     },
     model: {
       get() {
+        console.log(this.value);
         return this.value;
       },
       set(val) {
+        console.log(val);
         this.$emit("input", val);
       }
     },
@@ -59,7 +63,7 @@ export default {
   },
   methods: {
     toggle($event) {
-      this.$emit("toggle", this.label);
+      this.$emit("toggle", this.active);
     }
   }
 };
@@ -71,6 +75,11 @@ export default {
   background-color: #e2e4ea;
   border: 2px solid #dadada;
   border-radius: 1000px;
+}
+
+.wuss-switch_btn {
+  position: absolute;
+  width: 0;
 }
 
 .wuss-switch-small {
