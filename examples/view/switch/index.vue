@@ -4,58 +4,61 @@
     <div class="wuss-boxs">
       <section>
         <h5 class="title">基础用法</h5>
-        <div v-for="item in checkbox" :key="item.id">
-          <w-switch :name="item.na" :label="item.id" v-model="switch0" @toggle="switchs">{{item.name}}</w-switch>
+        <div>
+          <w-switch @toggle="switchs"></w-switch>
         </div>
       </section>
-      <!-- <section> -->
-        <!-- <h5 class="title">禁用状态</h5> -->
-        <!-- <div> -->
-          <!-- <w-switch :name="'checkeds'" :label="'值'" :disabled="true" v-model="checkList1">复选框禁用选中</w-switch> -->
-        <!-- </div> -->
-        <!-- <div> -->
-          <!-- <w-switch -->
-            <!-- :name="'nocheck'" -->
-            <!-- :label="'未选中'" -->
-            <!-- :disabled="true" -->
-            <!-- v-model="checkList2" -->
-          <!-- >复选框禁用未选中</w-switch> -->
-        <!-- </div> -->
-      <!-- </section> -->
-      <!-- <section> -->
-        <!-- <h5 class="title">尺寸选择</h5> -->
-        <!-- <div> -->
-          <!-- <w-switch :name="'small'" :label="'small'" v-model="checkList3" size="small">小号(默认色)</w-switch> -->
-        <!-- </div> -->
-        <!-- <div> -->
-          <!-- <w-switch :name="'base'" :label="'base'" v-model="checkList4">默认</w-switch> -->
-        <!-- </div> -->
-        <!-- <div> -->
-          <!-- <w-switch :name="'large'" :label="'large'" v-model="checkList5" size="large">大号</w-switch> -->
-        <!-- </div> -->
-      <!-- </section> -->
-      <!-- <section> -->
-        <!-- <h5 class="title">自定义图标</h5> -->
-        <!-- <div> -->
-          <!-- <w-switch name="custom" label="test" :iconSrc="iconNormal" v-model="checkList7">自定义图标(用力点我试试)</w-switch> -->
-        <!-- </div> -->
-        <!-- <div> -->
-          <!-- <w-switch name="customDisable" label="test" :iconSrc="iconDisable" disabled v-model="checkList8">自定义图标禁用</w-switch> -->
-        <!-- </div> -->
-      <!-- </section> -->
-      <!-- <section> -->
-        <!-- <h5 class="title">事件（是否选中 和选中的值）</h5> -->
-        <!-- <div> -->
-          <!-- <w-switch -->
-            <!-- name="events" -->
-            <!-- label="events" -->
-            <!-- v-model="checkList9" -->
-            <!-- @change="inputs" -->
-          <!-- >事件</w-switch> -->
-          <!-- <br> -->
-          <!-- {{'状态 '+checkList9}}  选中值{{ values }} -->
-        <!-- </div> -->
-      <!-- </section> -->
+      <section>
+        <h5 class="title">尺寸选择</h5>
+        <div>
+          <p>小</p>
+          <w-switch :active="switch1" size="small">小号</w-switch>
+        </div>
+        <div>
+          <p>默认</p>
+          <w-switch :active="switch1">默认</w-switch>
+        </div>
+        <div>
+          <p>大</p>
+          <w-switch :active="switch1" size="large">大号</w-switch>
+        </div>
+      </section>
+      <section>
+        <h5 class="title">禁用状态</h5>
+        <div>
+          <p>关闭</p>
+          <w-switch disabled :active="switch2"></w-switch>
+        </div>
+        <div>
+          <p>开启</p>
+          <w-switch disabled :active="switch3"></w-switch>
+        </div>
+      </section>
+      <section>
+        <h5 class="title">自定义颜色</h5>
+        <div>
+          <p>默认色</p>
+          <w-switch :active="switch4"></w-switch>
+        </div>
+        <div>
+          <p>自定义色</p>
+          <w-switch active-color="#1989fa" :active="switch4" inactive-color="yellow"></w-switch>
+        </div>
+        <div>
+          <p>自定义色（禁用开启）</p>
+          <w-switch disabled inactive-color="#1c75f3"></w-switch>
+        </div>
+        <div>
+          <p>自定义色（禁用关闭）</p>
+          <w-switch active-color="#E0A21E" disabled :active="switch5"></w-switch>
+        </div>
+      </section>
+      <section>
+        <h5 class="title">事件（是否选中 和选中的值）</h5>
+        <div>
+          <w-switch name="events" label="events" @toggle="switchs">事件</w-switch>
+        </div>
+      </section>
     </div>
   </div>
 </template>
@@ -93,20 +96,13 @@ export default {
   name: "checkbox",
   data() {
     return {
-      checkbox: [
-        {
-          name: "复选框1",
-          id: 0,
-          na: "a"
-        }
-      ],
       iconNormal: {
         active:
           "https://img.yzcdn.cn/public_files/2017/10/13/793c77793db8641c4c325b7f25bf130d.png",
         normal:
           "https://img.yzcdn.cn/public_files/2017/10/13/c547715be149dd3faa817e4a948b40c4.png"
       },
-      iconDisable:{
+      iconDisable: {
         active:
           "https://img.yzcdn.cn/public_files/2017/10/13/c547715be149dd3faa817e4a948b40c4.png",
         normal:
@@ -115,24 +111,16 @@ export default {
       switch0: true,
       switch1: true,
       switch2: false,
-      switch3: 0,
-      switch4: 0,
-      switch5: 0,
-      switch6: true,
-      switch7: false,
-      switch8: false,
-      switch9: true,
-      values:'',
-
+      switch3: true,
+      switch4: false,
+      switch5: true,
+      switch6: false,
     };
   },
   created() {},
   methods: {
-    inputs(a, b) {
-      this.values = a ;
-    },
-    switchs(a,b){
-      console.log(a)
+    switchs(a, b) {
+      alert(a)
     }
   }
 };
