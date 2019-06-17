@@ -5,9 +5,9 @@
       <section>
         <h5 class="title">基础用法</h5>
         <div>
-          <w-checkboxgroup :checkBoxData="data" v-model="group"></w-checkboxgroup>
+          <w-checkboxgroup :checkBoxData="data"></w-checkboxgroup>
         </div>
-        <div>选中的值 {{group}}</div>
+        <div>选中的值 {{data}}</div>
       </section>
       <section>
         <h5 class="title">禁用状态</h5>
@@ -75,20 +75,11 @@ export default {
   name: "checkboxGroup",
   data() {
     return {
-      group: ["选项A","b"],
-      group1: ["选项A"],
-      group2: ["选项2"],
-      group3: ["备选项"],
-      group4: ["备选项"],
-      group5: ["备选项"],
-      group6: ["选项1"],
-      group7: ["B"],
-      group8: ["选项1"],
       data: [
-        { id: 11, name:'test',value: "选项A", label: "选项A" },
-        { id: 12, name:'test',value: "选项B", label: "选项B" },
-        { id: 13, name:'test',value: "选项C", label: "选项C" },
-        { id: 14, name:'test',value: "选项D", label: "选项D" }
+        { id: 11, name:'test',value: "选项A", label: "选项A",checked:true},
+        { id: 12, name:'test',value: "选项B", label: "选项B",checked:false},
+        { id: 13, name:'test',value: "选项C", label: "选项C",checked:false},
+        { id: 14, name:'test',value: "选项D", label: "选项D",checked:false}
       ],
       data2: [
         { id: 21, value: "选项1", label: "选项1", disabled: true },

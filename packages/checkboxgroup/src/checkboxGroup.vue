@@ -3,7 +3,7 @@
  * @Email: 1020814597@qq.com
  * @Date: 2019-06-13 11:16:10
  * @LastEditors: null
- * @LastEditTime: 2019-06-17 17:14:20
+ * @LastEditTime: 2019-06-17 17:54:35
  * @Description: checkboxGroup component
   disable         boolean         是否禁用
   name            任意(最好String) name名标识
@@ -29,8 +29,8 @@
         :value="item.label"
         :id="item.id"
         :wuss-color="item.color"
-        v-model="checkboxValues[index]"
-        @change="changeEvt(item)"
+        v-model="item.checked"
+        @change="changeEvt(item,index)"
       >{{ item.label || item.value || item}}</w-checkbox>
     </div>
   </div>
@@ -64,22 +64,27 @@ export default {
   },
   data() {
     return {
-      checkboxValues: [true],
       initialValue: JSON.parse(JSON.stringify(this.value))
     };
   },
-  computed: {},
+  computed: {
+   
+  },
   created() {},
-  methos: {
-    isChecked(item, index) {
-      let values = this.initialValue;
-      return values[index] === item.value;
-    },
-    changeEvt(item) {
-      console.log(this.value);
+  methods: {
+    changeEvt(item,index) {
       console.log(item);
+      console.log(index);
+      console.log(this.value);
       // 返回选中数组内容
       let value = [];
+      
+      console.log(this.checkboxValues);
+      if (this.checkboxValues[index] && this.value.indexOf(this.checkboxValues[index])>-1) {
+        value.push(item);
+      }else{
+
+      }
 
       // if(item)
 
