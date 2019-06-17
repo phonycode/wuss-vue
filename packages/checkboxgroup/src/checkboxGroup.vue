@@ -3,9 +3,9 @@
  * @Email: 1020814597@qq.com
  * @Date: 2019-06-13 11:16:10
  * @LastEditors: null
- * @LastEditTime: 2019-06-14 17:20:07
- * @Description: checkbox component
-  isDisabled      boolean         是否禁用
+ * @LastEditTime: 2019-06-17 17:14:20
+ * @Description: checkboxGroup component
+  disable         boolean         是否禁用
   name            任意(最好String) name名标识
   size            String|number   icon图标大小  三个值可选 small base large
   wuss-color      String          选中的icon图标颜色  
@@ -19,39 +19,30 @@
  -->
 
 <template>
-  <label class="wuss-checkbox" :class="[
-        { 'wuss-disabled': isDisabled },
-    ]">
-    <!-- radio美化 -->
-    <span
-      class="wuss-checkbox_input"
-      :class="[`wuss-size-${size}`,{
-        'wuss-disabled': isDisabled,
-      }]"
-    >
-      <input
-        type="checkbox"
-        class="wuss-checkbox__original"
-        :value="label"
-        :name="name"
-        v-model="model"
-        :disabled="isDisabled"
-        :tabindex="tabIndex"
-        @change="handleChange"
-      >
-      <w-icon v-if="!iconSrc" class="wuss-checkbox_inner" :type="currentIcon"></w-icon>
-      <img v-else :src="currentIcon" alt="icon" class="wuss-custom_icon">
-    </span>
-    <!-- radio内容 -->
-    <span class="wuss-checkbox_label" @keydown.stop>
-      <slot></slot>
-    </span>
-  </label>
+  <div>
+    <div class="checkbox-item" v-for="(item,index) in checkBoxData" :key="item.id">
+      {{value}}
+      <w-checkbox
+        :name="name||item.name"
+        :disabled=" disabled || item.disabled"
+        :size="item.size ? item.size : size"
+        :value="item.label"
+        :id="item.id"
+        :wuss-color="item.color"
+        v-model="checkboxValues[index]"
+        @change="changeEvt(item)"
+      >{{ item.label || item.value || item}}</w-checkbox>
+    </div>
+  </div>
 </template>
 <script>
 export default {
-  name: "WCheckboxGroup",
+  name: "WCheckboxgroup",
   props: {
+    checkBoxData: {
+      type: Array,
+      required: true
+    },
     size: {
       type: [String, Number, Boolean],
       default: "base"
@@ -73,133 +64,32 @@ export default {
   },
   data() {
     return {
-      isChecked: this.value == this.trueValue || this.checked
+      checkboxValues: [true],
+      initialValue: JSON.parse(JSON.stringify(this.value))
     };
   },
-  computed: {
-    isDisabled() {
-      return this.disabled;
+  computed: {},
+  created() {},
+  methos: {
+    isChecked(item, index) {
+      let values = this.initialValue;
+      return values[index] === item.value;
     },
-    /**
-     * @description: 判断是否被选中
-     * @param {type}
-     * @return: String
-     */
-    currentIcon() {
-      return this.value
-        ? this.iconSrc && this.iconSrc.active
-          ? this.iconSrc.active
-          : this.icon
-        : this.iconSrc && this.iconSrc.normal
-        ? this.iconSrc.normal
-        : "";
-    },
-    model: {
-      get() {
-        return this.value;
-      },
-      set(val) {
-        this.$emit("input", val);
-      }
-    },
-    tabIndex() {
-      return this.isDisabled ? -1 : 0;
-    }
-  },
-  methods: {
-    handleChange($event) {
-      this.$emit("change", this.label);
+    changeEvt(item) {
+      console.log(this.value);
+      console.log(item);
+      // 返回选中数组内容
+      let value = [];
+
+      // if(item)
+
+      this.$emit("input", value);
+      this.$emit("change", item.value, item.label);
     }
   }
 };
 </script>
 <style scoped>
-.wuss-checkbox {
-  color: #666;
-  font-weight: 500;
-  line-height: 1;
-  position: relative;
-  cursor: pointer;
-  display: inline-block;
-  white-space: nowrap;
-  outline: none;
-  font-size: 14px;
-  margin-right: 20px;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-}
-
-/* 按钮大小 */
-.wuss-size-small .wuss-checkbox_inner {
-  width: 16px;
-  height: 16px;
-}
-
-.wuss-size-base .wuss-checkbox_inner {
-  width: 18px;
-  height: 18px;
-}
-
-.wuss-size-large .wuss-checkbox_inner {
-  width: 22px;
-  height: 22px;
-}
-
-.wuss-checkbox_input {
-  white-space: nowrap;
-  cursor: pointer;
-  outline: none;
-  display: inline-block;
-  line-height: 1;
-  position: relative;
-  vertical-align: middle;
-  text-align: center;
-}
-
-.wuss-checkbox__original {
-  position: absolute;
-  z-index: -1;
-  left: -9999px;
-  top: -9999px;
-}
-
-.wuss-checkbox_inner {
-  font-size: 16px;
-  position: relative;
-  cursor: pointer;
-  display: inline-block;
-  box-sizing: border-box;
-  border: 1px solid #e5e5e5;
-  color: transparent;
-  vertical-align: -3px;
-  font-weight: 700;
-}
-
-.wuss-checkbox__original:checked + .wuss-checkbox_inner {
-  color: #fff;
-  background: #67c23a;
-  border-color: #67c23a;
-}
-
-.wuss-checkbox__original:disabled + .wuss-checkbox_inner {
-  color: #ccc;
-  background: #eee;
-  border-color: #ccc;
-}
-
-.wuss-custom_icon {
-  height: 20px;
-}
-
-.wuss-checkbox_label {
-  font-size: 14px;
-  padding-left: 6px;
-}
-
-.wuss-disabled {
-  color: #ccc;
-}
 </style>
 
 
