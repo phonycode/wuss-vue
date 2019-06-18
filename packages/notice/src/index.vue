@@ -3,7 +3,7 @@
  * @Email: 1020814597@qq.com
  * @Date: 2019-06-18 10:29:33
  * @LastEditors: null
- * @LastEditTime: 2019-06-18 15:12:37
+ * @LastEditTime: 2019-06-18 15:47:50
  * @Description: 通告组件
  * @form: (0 U 0)
  * 组件的属性列表
@@ -11,10 +11,8 @@
  * @param {string} mode 模式 可选 link |  closeable
  * @param {string} color 文本颜色
  * @param {string} backgroundColor 背景颜色
- * @param {string} url mode为link时 跳转地址
- * @param {string} openType mode为link时 跳转类型
  * @param {string} speed 滚动速度 scrollable为true时有效
- * @param {Boolean} scrollable 是否可以滚动
+ * @param {Boolean} scrollable 是否可以滚动 默认是
  * @param {string} icon 左边的图标地址
  -->
 
@@ -28,12 +26,14 @@
     }]"
   >
     <w-icon v-if="icon" :class="['wuss-notice-icon', 'wuss-notice-'+icon]" :type="icon"/>
-    <div class="wuss-notice-warp" model>
+    <div class="wuss-notice-warp" ref="warp">
       <div
+        ref="content"
         class="wuss-notice_content"
         :class="[{
           'wuss-notice-animation':scrollable
         }]"
+        :style="[{'animation-duration':animata}]"
       >
         {{text}}
         <slot v-if="!text">a</slot>
@@ -70,11 +70,6 @@ export default {
       type: String,
       default: "#fefcec"
     },
-    url: {
-      type: String,
-      default: "#67c23a"
-    },
-    openType: {},
     speed: {
       type: Number
     },
@@ -93,7 +88,14 @@ export default {
     };
   },
   created() {},
-  computed: {},
+  computed: {
+    animata() {
+      this.speed
+      const { context, warp } = this.$refs;
+      console.log(this.$refs);
+      console.log(this.$refs.warp);
+    }
+  },
   methods: {
     navigation(event) {
       this.$emit("navigation", event);
