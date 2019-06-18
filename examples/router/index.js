@@ -31,7 +31,7 @@ Vue.use(Router);
  */
 export const constantRouterMap = [{
         path: '/',
-        redirect: 'layout/checkboxGroup',
+        redirect: 'layout/notice',
         component: () =>
             import ('../view/home/index'),
         hidden: true,
@@ -182,6 +182,14 @@ export const constantRouterMap = [{
                 name: 'switch',
                 meta: {
                     title: '开关'
+                }
+            }, {
+                path: 'notice',
+                component: () =>
+                    import ('../view/notice/index'),
+                name: 'notice',
+                meta: {
+                    title: '通告'
                 }
             }
 
