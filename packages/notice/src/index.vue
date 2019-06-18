@@ -3,7 +3,7 @@
  * @Email: 1020814597@qq.com
  * @Date: 2019-06-18 10:29:33
  * @LastEditors: null
- * @LastEditTime: 2019-06-18 13:34:31
+ * @LastEditTime: 2019-06-18 15:12:37
  * @Description: 通告组件
  * @form: (0 U 0)
  * 组件的属性列表
@@ -20,26 +20,33 @@
 
 <template>
   <div
+    v-show="isShow"
     :class="['wuss-notice']"
     :style="[{
       'backgroundColor': background,
       'color':color
     }]"
-    @click="click($event)"
   >
     <w-icon v-if="icon" :class="['wuss-notice-icon', 'wuss-notice-'+icon]" :type="icon"/>
     <div class="wuss-notice-warp" model>
-      <div class="wuss-notice_content">
+      <div
+        class="wuss-notice_content"
+        :class="[{
+          'wuss-notice-animation':scrollable
+        }]"
+      >
         {{text}}
         <slot v-if="!text">a</slot>
       </div>
     </div>
 
     <div v-if="model" class="wuss-notice-operation">
-      <a v-if="model=='link'" href="javascript:;">
-        <w-icon type="arrow-right" size="20"/>
-      </a>
-      <w-icon v-if="model=='closeable'" size="20" type="close" @click="onClose"/>
+      <div @click="navigation">
+        <w-icon v-if="model=='link'" type="arrow-right" size="20"/>
+      </div>
+      <div @click="close">
+        <w-icon v-if="model=='closeable'" size="20" type="close"/>
+      </div>
     </div>
   </div>
 </template>
@@ -73,7 +80,7 @@ export default {
     },
     scrollable: {
       type: Boolean,
-      default: false
+      default: true
     },
     icon: {
       type: String,
@@ -82,21 +89,22 @@ export default {
   },
   data() {
     return {
-      isActive: false
+      isShow: true
     };
   },
   created() {},
   computed: {},
   methods: {
-    click(event) {
-      this.$emit("click", this.isActive, event);
+    navigation(event) {
+      this.$emit("navigation", event);
     },
     /**
      * @description: 关闭时触发回调
      * @param {type}
      * @return:
      */
-    onClose() {
+    close() {
+      this.isShow = !this.isShow;
       this.$emit("close");
     }
   }
@@ -136,6 +144,21 @@ export default {
 /* 右边操作 */
 .wuss-notice-operation {
   cursor: pointer;
+}
+
+.wuss-notice-animation {
+  padding-left: 100%;
+  display: inline-block;
+  animation: wuss-notice-animation linear 16s infinite both;
+}
+/* 动画 */
+@keyframes wuss-notice-animation {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
 }
 </style>
 
