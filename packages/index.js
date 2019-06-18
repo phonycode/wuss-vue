@@ -20,6 +20,7 @@ import Toast from './toast/index.js';
 import Alert from './alert/index.js';
 import Radio from './radio/index.js';
 import Checkbox from './checkbox/index.js';
+import Checkboxgroup from './checkboxgroup/index.js';
 import Switch from './switch/index.js';
 
 
@@ -45,6 +46,7 @@ const components = [
     Alert,
     Radio,
     Checkbox,
+    Checkboxgroup,
     Switch
 ];
 
@@ -83,5 +85,6 @@ export default {
     Alert,
     Radio,
     Checkbox,
+    Checkboxgroup,
     Switch
 };

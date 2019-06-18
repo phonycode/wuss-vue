@@ -119,8 +119,8 @@ export default {
   },
   created() {},
   methods: {
-    switchs(a, b) {
-      alert(a)
+    switchs(a) {
+      alert(a);
     }
   }
 };

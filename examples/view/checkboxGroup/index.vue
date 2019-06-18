@@ -4,57 +4,27 @@
     <div class="wuss-boxs">
       <section>
         <h5 class="title">基础用法</h5>
-        <div v-for="item in checkbox" :key="item.id">
-          <w-checkbox :name="item.na" :label="item.id" v-model="checkList">{{item.name}}</w-checkbox>
+        <div>
+          <w-checkboxgroup :checkBoxData="data" @change="checkeds"></w-checkboxgroup>
         </div>
-        <div>选中的值 {{checkList}}</div>
+        <div>选中的值 {{checked}}</div>
       </section>
       <section>
         <h5 class="title">禁用状态</h5>
         <div>
-          <w-checkbox :name="'checkeds'" :label="'值'" :disabled="true" v-model="checkList1">复选框禁用选中</w-checkbox>
-        </div>
-        <div>
-          <w-checkbox
-            :name="'nocheck'"
-            :label="'未选中'"
-            :disabled="true"
-            v-model="checkList2"
-          >复选框禁用未选中</w-checkbox>
+          <w-checkboxgroup :checkBoxData="data2" @change="checkeds"></w-checkboxgroup>
         </div>
       </section>
       <section>
         <h5 class="title">尺寸选择</h5>
         <div>
-          <w-checkbox :name="'small'" :label="'small'" v-model="checkList3" size="small">小号(默认色)</w-checkbox>
+          <w-checkboxgroup :checkBoxData="data3" @change="checkeds" size="small"></w-checkboxgroup>
         </div>
         <div>
-          <w-checkbox :name="'base'" :label="'base'" v-model="checkList4">默认</w-checkbox>
+          <w-checkboxgroup :checkBoxData="data3" @change="checkeds"></w-checkboxgroup>
         </div>
         <div>
-          <w-checkbox :name="'large'" :label="'large'" v-model="checkList5" size="large">大号</w-checkbox>
-        </div>
-      </section>
-      <section>
-        <h5 class="title">自定义图标</h5>
-        <div>
-          <w-checkbox name="custom" label="test" :iconSrc="iconNormal" v-model="checkList7">自定义图标(用力点我试试)</w-checkbox>
-        </div>
-        <div>
-          <w-checkbox name="customDisable" label="test" :iconSrc="iconDisable" disabled v-model="checkList8">自定义图标禁用</w-checkbox>
-        </div>
-      </section>
-      <section>
-        <h5 class="title">事件（是否选中 和选中的值）</h5>
-        <div>
-          <w-checkbox
-            name="events"
-            label="events"
-            v-model="checkList9"
-            @change="inputs"
-          >事件</w-checkbox>
-          <br>
-          {{'状态 '+checkList9}}  选中值{{ values }}
+          <w-checkboxgroup :checkBoxData="data33" @change="checkeds" size="large"></w-checkboxgroup>
         </div>
       </section>
     </div>
@@ -94,12 +64,50 @@ export default {
   name: "checkboxGroup",
   data() {
     return {
-      checkbox: [
+      data: [
+        { id: 11, name: "test", value: "选项A", label: "选项A", checked: true },
         {
-          name: "复选框1",
-          id: 0,
-          na: "a"
-        }
+          id: 12,
+          name: "test",
+          value: "选项B",
+          label: "选项B",
+          checked: false
+        },
+        {
+          id: 13,
+          name: "test",
+          value: "选项C",
+          label: "选项C",
+          checked: false
+        },
+        { id: 14, name: "test", value: "选项D", label: "选项D", checked: false }
+      ],
+      checked: [],
+      data2: [
+        { id: 21, value: "选项1", label: "选项1", disabled: true },
+        { id: 22, value: "选项2", label: "选项2", disabled: true }
+      ],
+      data3: [{ id: 31, value: "备选项", label: "备选项" }],
+      data33: [{ id: 31, value: "备选项", label: "备选项", size: "large" }],
+      data4: [
+        { id: 41, value: "选项1", label: "选项1" },
+        { id: 42, value: "选项2", label: "选项2" }
+      ],
+      data5: [
+        { id: 51, value: "A", label: "选项1" },
+        { id: 52, value: "B", label: "选项2" },
+        { id: 53, value: "C", label: "选项3" },
+        { id: 54, value: "D", label: "选项4" }
+      ],
+      data6: [
+        { id: 51, value: "选项1", label: "选项1" },
+        { id: 52, value: "选项2", label: "选项2" },
+        { id: 53, value: "选项3", label: "选项3" },
+        { id: 54, value: "选项4", label: "选项4" }
+      ],
+      data7: [
+        { id: 41, value: "选项1", label: "选项1" },
+        { id: 42, value: "选项2", label: "选项2" }
       ],
       iconNormal: {
         active:
@@ -107,7 +115,7 @@ export default {
         normal:
           "https://img.yzcdn.cn/public_files/2017/10/13/c547715be149dd3faa817e4a948b40c4.png"
       },
-      iconDisable:{
+      iconDisable: {
         active:
           "https://img.yzcdn.cn/public_files/2017/10/13/c547715be149dd3faa817e4a948b40c4.png",
         normal:
@@ -123,14 +131,14 @@ export default {
       checkList7: false,
       checkList8: false,
       checkList9: true,
-      values:'',
-
+      values: ""
     };
   },
   created() {},
   methods: {
-    inputs(a, b) {
-      this.values = a ;
+    checkeds(a) {
+      console.log(a);
+      this.checked = a;
     }
   }
 };

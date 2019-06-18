@@ -1,8 +1,8 @@
-import WCheckboxGroup from './src/checkboxGroup';
+import WCheckboxgroup from './src/checkboxGroup';
 
 /* istanbul ignore next */
-WCheckboxGroup.install = function(Vue) {
-    Vue.component(WCheckboxGroup.name, WCheckboxGroup);
+WCheckboxgroup.install = function(Vue) {
+    Vue.component(WCheckboxgroup.name, WCheckboxgroup);
 };
 
-export default WCheckboxGroup;
+export default WCheckboxgroup;
