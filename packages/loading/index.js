@@ -1,8 +1,3 @@
-import WLoading from './src/index';
+import loading from './src/loading';
 
-/* istanbul ignore next */
-WLoading.install = function(Vue) {
-    Vue.component(WLoading.name, WLoading);
-};
-
-export default WLoading;
+export default loading;

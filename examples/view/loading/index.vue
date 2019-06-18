@@ -4,21 +4,21 @@
     <small>通告</small>
     <div class="wuss-boxs">
       <section>
+        <h5 class="title">正常使用</h5>
+        <div>
+          <w-button type="info" @click="loading">正常使用</w-button>
+        </div>
+      </section>
+      <section>
         <h5 class="title">Default</h5>
         <div>
-          <w-loading text="wuss-notice-vue 哔哩巴拉wuss-notice-vue 哔哩巴拉"/>
+          <w-button type="info" @click="loading1">3s后setTimeout关闭</w-button>
         </div>
       </section>
       <section>
-        <h5 class="title">model=closeable speed=30</h5>
+        <h5 class="title">TimeOut</h5>
         <div>
-          <w-notice text="wuss-notice-vue 哔哩巴拉" model="closeable" @close="close"/>
-        </div>
-      </section>
-      <section>
-        <h5 class="title">model=link scrollable=false</h5>
-        <div>
-          <w-notice text="wuss-notice-vue 哔哩巴拉" :scrollable="false" model="link" @navigation="nas"/>
+          <w-button type="info" @click="loading2">自动关闭默认3s后</w-button>
         </div>
       </section>
     </div>
@@ -54,17 +54,14 @@ export default {
   },
   created() {},
   methods: {
-    close() {
-      this.$toast({
-        duration: 2000,
-        message: "你猜我关没关"
-      });
+    loading() {
+      this.$loading("default");
     },
-    nas() {
-      this.$toast({
-        duration: 2000,
-        message: "欧巴"
-      });
+    loading1() {
+      this.$loading("default");
+    },
+    loading2() {
+      this.$loading("default");
     }
   }
 };

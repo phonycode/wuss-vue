@@ -60,6 +60,7 @@ const install = function(Vue) {
 
     Vue.prototype.$toast = Toast;
     Vue.prototype.$alert = Alert;
+    Vue.prototype.$loading = Loading;
 };
 
 /* istanbul ignore if */
