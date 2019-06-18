@@ -22,6 +22,7 @@ import Radio from './radio/index.js';
 import Checkbox from './checkbox/index.js';
 import Checkboxgroup from './checkboxgroup/index.js';
 import Switch from './switch/index.js';
+import Notice from './notice/index.js';
 
 
 
@@ -47,7 +48,8 @@ const components = [
     Radio,
     Checkbox,
     Checkboxgroup,
-    Switch
+    Switch,
+    Notice
 ];
 
 const install = function(Vue) {
@@ -86,5 +88,6 @@ export default {
     Radio,
     Checkbox,
     Checkboxgroup,
-    Switch
+    Switch,
+    Notice
 };
