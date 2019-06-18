@@ -137,7 +137,6 @@ export default {
   created() {},
   methods: {
     checkeds(a) {
-      console.log(a);
       this.checked = a;
     }
   }

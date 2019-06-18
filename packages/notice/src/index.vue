@@ -3,7 +3,7 @@
  * @Email: 1020814597@qq.com
  * @Date: 2019-06-18 10:29:33
  * @LastEditors: null
- * @LastEditTime: 2019-06-18 15:47:50
+ * @LastEditTime: 2019-06-18 16:50:33
  * @Description: 通告组件
  * @form: (0 U 0)
  * 组件的属性列表
@@ -11,7 +11,7 @@
  * @param {string} mode 模式 可选 link |  closeable
  * @param {string} color 文本颜色
  * @param {string} backgroundColor 背景颜色
- * @param {string} speed 滚动速度 scrollable为true时有效
+ * @param {string} speed 滚动速度 scrollable为true时有效  默认30
  * @param {Boolean} scrollable 是否可以滚动 默认是
  * @param {string} icon 左边的图标地址
  -->
@@ -33,7 +33,7 @@
         :class="[{
           'wuss-notice-animation':scrollable
         }]"
-        :style="[{'animation-duration':animata}]"
+        :style="[{'animation-duration':duration}]"
       >
         {{text}}
         <slot v-if="!text">a</slot>
@@ -41,12 +41,8 @@
     </div>
 
     <div v-if="model" class="wuss-notice-operation">
-      <div @click="navigation">
-        <w-icon v-if="model=='link'" type="arrow-right" size="20"/>
-      </div>
-      <div @click="close">
-        <w-icon v-if="model=='closeable'" size="20" type="close"/>
-      </div>
+      <w-icon v-if="model=='link'" type="arrow-right" size="20" @click="navigation"/>
+      <w-icon @click="close" v-if="model=='closeable'" size="20" type="close"/>
     </div>
   </div>
 </template>
@@ -71,7 +67,8 @@ export default {
       default: "#fefcec"
     },
     speed: {
-      type: Number
+      type: Number,
+      default: 30
     },
     scrollable: {
       type: Boolean,
@@ -84,17 +81,23 @@ export default {
   },
   data() {
     return {
-      isShow: true
+      isShow: true,
+      duration: "16s"
     };
   },
   created() {},
-  computed: {
-    animata() {
-      this.speed
-      const { context, warp } = this.$refs;
-      console.log(this.$refs);
-      console.log(this.$refs.warp);
-    }
+  computed: {},
+  mounted() {
+    this.$nextTick(function() {
+      let duration = this.speed;
+      const { warp, content } = this.$refs;
+      // 不存在属性抛出
+      if (!warp || !content) return;
+      let //warpWidth = warp.offsetWidth,
+        contentWidth = content.offsetWidth;
+      // 设置速度
+      this.duration = `${contentWidth / duration}s`;
+    });
   },
   methods: {
     navigation(event) {
@@ -130,7 +133,6 @@ export default {
 }
 
 /* 内容区 */
-
 .wuss-notice-warp {
   position: relative;
   flex: 1;
@@ -151,7 +153,7 @@ export default {
 .wuss-notice-animation {
   padding-left: 100%;
   display: inline-block;
-  animation: wuss-notice-animation linear 16s infinite both;
+  animation: wuss-notice-animation linear infinite both;
 }
 /* 动画 */
 @keyframes wuss-notice-animation {

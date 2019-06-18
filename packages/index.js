@@ -23,6 +23,7 @@ import Checkbox from './checkbox/index.js';
 import Checkboxgroup from './checkboxgroup/index.js';
 import Switch from './switch/index.js';
 import Notice from './notice/index.js';
+import Loading from './loading/index.js';
 
 
 
@@ -49,7 +50,8 @@ const components = [
     Checkbox,
     Checkboxgroup,
     Switch,
-    Notice
+    Notice,
+    Loading
 ];
 
 const install = function(Vue) {
@@ -89,5 +91,6 @@ export default {
     Checkbox,
     Checkboxgroup,
     Switch,
-    Notice
+    Notice,
+    Loading
 };

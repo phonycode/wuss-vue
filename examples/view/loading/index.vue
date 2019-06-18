@@ -6,7 +6,7 @@
       <section>
         <h5 class="title">Default</h5>
         <div>
-          <w-notice text="wuss-notice-vue 哔哩巴拉wuss-notice-vue 哔哩巴拉"/>
+          <w-loading text="wuss-notice-vue 哔哩巴拉wuss-notice-vue 哔哩巴拉"/>
         </div>
       </section>
       <section>
@@ -19,20 +19,6 @@
         <h5 class="title">model=link scrollable=false</h5>
         <div>
           <w-notice text="wuss-notice-vue 哔哩巴拉" :scrollable="false" model="link" @navigation="nas"/>
-        </div>
-      </section>
-      <section>
-        <h5 class="title">自定义颜色/背景/icon</h5>
-        <div>
-          <w-notice
-            text="wuss-notice-vue 哔哩巴拉"
-            background="rgba(255, 113, 110, 1)"
-            color="#fff"
-            icon="voice"
-            scrollable
-            model="link"
-            :speed="800"
-          />
         </div>
       </section>
     </div>
@@ -62,7 +48,7 @@ section {
 
 <script>
 export default {
-  name: "notice",
+  name: "loading",
   data() {
     return {};
   },
