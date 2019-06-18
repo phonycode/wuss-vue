@@ -3,7 +3,7 @@
  * @Email: 1020814597@qq.com
  * @Date: 2019-06-13 11:16:10
  * @LastEditors: null
- * @LastEditTime: 2019-06-17 17:54:35
+ * @LastEditTime: 2019-06-18 09:49:10
  * @Description: checkboxGroup component
   disable         boolean         是否禁用
   name            任意(最好String) name名标识
@@ -20,17 +20,17 @@
 
 <template>
   <div>
-    <div class="checkbox-item" v-for="(item,index) in checkBoxData" :key="item.id">
+    <div class="checkbox-item" v-for="(item) in checkBoxData" :key="item.id">
       {{value}}
       <w-checkbox
         :name="name||item.name"
         :disabled=" disabled || item.disabled"
         :size="item.size ? item.size : size"
-        :value="item.label"
+        :label="item.label"
         :id="item.id"
         :wuss-color="item.color"
         v-model="item.checked"
-        @change="changeEvt(item,index)"
+        @change="changeEvt(item)"
       >{{ item.label || item.value || item}}</w-checkbox>
     </div>
   </div>
@@ -63,33 +63,25 @@ export default {
     iconSrc: {}
   },
   data() {
-    return {
-      initialValue: JSON.parse(JSON.stringify(this.value))
-    };
+    return {};
   },
   computed: {
-   
+    
   },
   created() {},
   methods: {
-    changeEvt(item,index) {
-      console.log(item);
-      console.log(index);
-      console.log(this.value);
+    changeEvt(item) {
       // 返回选中数组内容
       let value = [];
-      
-      console.log(this.checkboxValues);
-      if (this.checkboxValues[index] && this.value.indexOf(this.checkboxValues[index])>-1) {
-        value.push(item);
-      }else{
-
-      }
-
-      // if(item)
+  
+      this.checkBoxData.forEach(el => {
+        if (el.checked) {
+          value.push(el);
+        }
+      });
 
       this.$emit("input", value);
-      this.$emit("change", item.value, item.label);
+      this.$emit("change", value);
     }
   }
 };

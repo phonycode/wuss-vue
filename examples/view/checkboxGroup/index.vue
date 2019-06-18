@@ -5,37 +5,26 @@
       <section>
         <h5 class="title">基础用法</h5>
         <div>
-          <w-checkboxgroup :checkBoxData="data"></w-checkboxgroup>
+          <w-checkboxgroup :checkBoxData="data" @change="checkeds"></w-checkboxgroup>
         </div>
-        <div>选中的值 {{data}}</div>
+        <div>选中的值 {{checked}}</div>
       </section>
       <section>
         <h5 class="title">禁用状态</h5>
         <div>
-          <w-checkbox name="disabled" :label="'值'" :disabled="true" v-model="checkList1">复选框禁用选中</w-checkbox>
-        </div>
-        <div>
-          <w-checkbox name="disabled" :label="'未选中'" :disabled="true" v-model="checkList2">复选框禁用未选中</w-checkbox>
+          <w-checkboxgroup :checkBoxData="data2" @change="checkeds"></w-checkboxgroup>
         </div>
       </section>
       <section>
         <h5 class="title">尺寸选择</h5>
         <div>
-          <w-checkbox :name="'small'" :label="'small'" v-model="checkList3" size="small">小号(默认色)</w-checkbox>
+          <w-checkboxgroup :checkBoxData="data3" @change="checkeds" size="small"></w-checkboxgroup>
         </div>
         <div>
-          <w-checkbox :name="'base'" :label="'base'" v-model="checkList4">默认</w-checkbox>
+          <w-checkboxgroup :checkBoxData="data3" @change="checkeds"></w-checkboxgroup>
         </div>
         <div>
-          <w-checkbox :name="'large'" :label="'large'" v-model="checkList5" size="large">大号</w-checkbox>
-        </div>
-      </section>
-      <section>
-        <h5 class="title">事件（是否选中 和选中的值）</h5>
-        <div>
-          <w-checkbox name="events" label="events" v-model="checkList9" @change="inputs">事件</w-checkbox>
-          <br>
-          {{'状态 '+checkList9}} 选中值{{ values }}
+          <w-checkboxgroup :checkBoxData="data33" @change="checkeds" size="large"></w-checkboxgroup>
         </div>
       </section>
     </div>
@@ -76,11 +65,24 @@ export default {
   data() {
     return {
       data: [
-        { id: 11, name:'test',value: "选项A", label: "选项A",checked:true},
-        { id: 12, name:'test',value: "选项B", label: "选项B",checked:false},
-        { id: 13, name:'test',value: "选项C", label: "选项C",checked:false},
-        { id: 14, name:'test',value: "选项D", label: "选项D",checked:false}
+        { id: 11, name: "test", value: "选项A", label: "选项A", checked: true },
+        {
+          id: 12,
+          name: "test",
+          value: "选项B",
+          label: "选项B",
+          checked: false
+        },
+        {
+          id: 13,
+          name: "test",
+          value: "选项C",
+          label: "选项C",
+          checked: false
+        },
+        { id: 14, name: "test", value: "选项D", label: "选项D", checked: false }
       ],
+      checked: [],
       data2: [
         { id: 21, value: "选项1", label: "选项1", disabled: true },
         { id: 22, value: "选项2", label: "选项2", disabled: true }
@@ -134,8 +136,9 @@ export default {
   },
   created() {},
   methods: {
-    inputs(a) {
-      this.values = a;
+    checkeds(a) {
+      console.log(a);
+      this.checked = a;
     }
   }
 };
