@@ -59,7 +59,10 @@ export default {
     },
     loading1() {
       this.$loading({
-        duration: 5000,
+        duration: 10000,
+        isShow: true,
+        // opacity:.8,
+        // zIndex:99,
         message: '能坚持5s哦'
       });
     },

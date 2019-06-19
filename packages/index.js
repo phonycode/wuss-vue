@@ -24,6 +24,7 @@ import Checkboxgroup from './checkboxgroup/index.js';
 import Switch from './switch/index.js';
 import Notice from './notice/index.js';
 import Loading from './loading/index.js';
+import MaskShadow from './maskShadow/index.js';
 
 
 
@@ -51,7 +52,8 @@ const components = [
     Checkboxgroup,
     Switch,
     Notice,
-    Loading
+    Loading,
+    MaskShadow
 ];
 
 const install = function(Vue) {
@@ -93,5 +95,6 @@ export default {
     Checkboxgroup,
     Switch,
     Notice,
-    Loading
+    Loading,
+    MaskShadow
 };

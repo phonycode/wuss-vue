@@ -1,8 +1,8 @@
-import WNotice from './src/index';
+import WMaskShadow from './src/index';
 
 /* istanbul ignore next */
-WNotice.install = function(Vue) {
-    Vue.component(WNotice.name, WNotice);
+WMaskShadow.install = function(Vue) {
+    Vue.component(WMaskShadow.name, WMaskShadow);
 };
 
-export default WNotice;
+export default WMaskShadow;

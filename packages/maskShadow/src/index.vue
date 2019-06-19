@@ -3,7 +3,7 @@
  * @Email: 1020814597@qq.com
  * @Date: 2019-06-18 10:29:33
  * @LastEditors: null
- * @LastEditTime: 2019-06-19 09:58:20
+ * @LastEditTime: 2019-06-19 11:00:23
  * @Description: 蒙版组件
  * @form: (0 U 0)
  * 组件的属性列表
@@ -15,84 +15,61 @@
 
 <template>
   <div
-    v-show="isShow"
-    :class="['wuss-mask_shodow',visible ? 'mask-shadow-show' : '']"
+    v-show="visible"
+    :class="['wuss-mask_shodow']"
     :style="[{
-      'backgroundColor': background,
-      'color':color
+      'zIndex':zIndex,
+      'opacity':opacity
     }]"
-  >
-  </div>
+    @click.stop="maskCancel"
+  ></div>
 </template>
 <script>
 export default {
-  name: "WMakeShadow",
+  name: "WMaskShadow",
   props: {
-
+    visible : {
+      type: Boolean,
+      default: true
+    },
+    zIndex:{},
+    opacity:{
+      type:Number,
+      default: .4
+    }
   },
   data() {
-    return {
-      isShow: true,
-      duration: "16s"
-    };
+    return {};
   },
   created() {},
   computed: {},
-  mounted() {
-    
-  },
+  mounted() {},
   methods: {
+    /**
+     * @description: 点击蒙版关闭
+     * @param {type} 
+     * @return: 
+     */
+    maskCancel(){
+      console.log('你大爷')
+      this.$emit('closeMask')
+    }
   }
 };
 </script>
 <style scoped>
 .wuss-mask_shodow {
   display: flex;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
   padding: 9px 10px;
   font-size: 13px;
   line-height: 1.5;
   align-items: center;
-}
-
-/* 左边icon */
-.wuss-notice-icon {
-  min-width: 20px;
-  padding-top: 1px;
-  margin-right: 4px;
-  box-sizing: border-box;
-}
-
-/* 内容区 */
-.wuss-notice-warp {
-  position: relative;
-  flex: 1;
-  height: 19px;
-  overflow: hidden;
-}
-
-.wuss-notice_content {
-  position: absolute;
-  white-space: nowrap;
-}
-
-/* 右边操作 */
-.wuss-notice-operation {
-  cursor: pointer;
-}
-
-.wuss-notice-animation {
-  padding-left: 100%;
-  display: inline-block;
-  animation: wuss-notice-animation linear infinite both;
-}
-/* 动画 */
-@keyframes wuss-notice-animation {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
+  z-index: 9 ;
+  background: black;
 }
 </style>
 

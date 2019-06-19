@@ -3,7 +3,7 @@
  * @Email: 1020814597@qq.com
  * @Date: 2019-06-18 16:56:03
  * @LastEditors: null
- * @LastEditTime: 2019-06-19 09:52:57
+ * @LastEditTime: 2019-06-19 10:59:54
  * @Description: 加载指示器组件
  * @form: (0 U 0)
  * 组件的属性列表
@@ -14,9 +14,10 @@
 
 <template>
   <transition name="fade">
-
     <div class="wuss-loading" v-if="visible">
-    
+      <!-- 蒙版 -->
+      <w-mask-shadow :visible="isShow" :opacity="opacity" :z-index="zIndex" @closeMask="ends"></w-mask-shadow>
+      <!-- 内容 -->
       <div class="wuss-loading-box">
         <div class="wuss-loading-icon"></div>
         <div class="wuss-loading-text">{{message}}</div>
@@ -36,6 +37,9 @@ export default {
       closed: false,
       timer: null,
       type: "default",
+      isShow: false,
+      opacity: 0.4,
+      zIndex: 1,
       icon: ""
     };
   },
@@ -73,6 +77,9 @@ export default {
           }
         }, this.duration);
       }
+    },
+    ends(){
+      // this.close();
     }
   }
 };
@@ -84,6 +91,7 @@ export default {
   top: 0;
   width: 100%;
   height: 100%;
+  z-index: 9999;
 }
 
 .wuss-loading-box {
