@@ -31,7 +31,7 @@ Vue.use(Router);
  */
 export const constantRouterMap = [{
         path: '/',
-        redirect: 'layout/confirm',
+        redirect: 'layout/dialog',
         component: () =>
             import ('../view/home/index'),
         hidden: true,
@@ -206,6 +206,14 @@ export const constantRouterMap = [{
                 name: 'confirm',
                 meta: {
                     title: '确认框'
+                }
+            }, {
+                path: 'dialog',
+                component: () =>
+                    import ('../view/dialog/index'),
+                name: 'dialog',
+                meta: {
+                    title: '弹出框'
                 }
             }
 
