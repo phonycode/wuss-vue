@@ -31,7 +31,7 @@ Vue.use(Router);
  */
 export const constantRouterMap = [{
         path: '/',
-        redirect: 'layout/dialog',
+        redirect: 'layout/avatar',
         component: () =>
             import ('../view/home/index'),
         hidden: true,
@@ -214,6 +214,14 @@ export const constantRouterMap = [{
                 name: 'dialog',
                 meta: {
                     title: '弹出框'
+                }
+            }, {
+                path: 'avatar',
+                component: () =>
+                    import ('../view/avatar/index'),
+                name: 'avatar',
+                meta: {
+                    title: '头像'
                 }
             }
 
