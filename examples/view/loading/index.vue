@@ -12,7 +12,7 @@
       <section>
         <h5 class="title">Default</h5>
         <div>
-          <w-button type="info" @click="loading1">5s后setTimeout关闭</w-button>
+          <w-button type="info" @click.native="loading1">5s后setTimeout关闭</w-button>
         </div>
       </section>
       <section>
@@ -59,10 +59,10 @@ export default {
     },
     loading1() {
       this.$loading({
-        duration: 10000,
+        duration: 5000,
         isShow: true,
         // opacity:.8,
-        zIndex:99,
+        // zIndex:99,
         message: '能坚持5s哦'
       });
     },

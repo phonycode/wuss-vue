@@ -25,6 +25,7 @@ import Switch from './switch/index.js';
 import Notice from './notice/index.js';
 import Loading from './loading/index.js';
 import MaskShadow from './maskShadow/index.js';
+import Confirm from './confirm/index.js';
 
 
 
@@ -53,7 +54,8 @@ const components = [
     Switch,
     Notice,
     Loading,
-    MaskShadow
+    MaskShadow,
+    Confirm
 ];
 
 const install = function(Vue) {
@@ -63,6 +65,7 @@ const install = function(Vue) {
     Vue.prototype.$toast = Toast;
     Vue.prototype.$alert = Alert;
     Vue.prototype.$loading = Loading;
+    Vue.prototype.$confirm = Confirm;
 };
 
 /* istanbul ignore if */
@@ -96,5 +99,6 @@ export default {
     Switch,
     Notice,
     Loading,
-    MaskShadow
+    MaskShadow,
+    Confirm
 };
