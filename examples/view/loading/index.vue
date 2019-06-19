@@ -62,7 +62,7 @@ export default {
         duration: 10000,
         isShow: true,
         // opacity:.8,
-        // zIndex:99,
+        zIndex:99,
         message: '能坚持5s哦'
       });
     },

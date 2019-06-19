@@ -3,7 +3,7 @@
  * @Email: 1020814597@qq.com
  * @Date: 2019-06-18 10:29:33
  * @LastEditors: null
- * @LastEditTime: 2019-06-19 11:00:23
+ * @LastEditTime: 2019-06-19 11:14:36
  * @Description: 蒙版组件
  * @form: (0 U 0)
  * 组件的属性列表
@@ -59,6 +59,7 @@ export default {
 </script>
 <style scoped>
 .wuss-mask_shodow {
+  padding: 0;
   display: flex;
   width: 100%;
   height: 100%;

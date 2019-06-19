@@ -3,7 +3,7 @@
  * @Email: 1020814597@qq.com
  * @Date: 2019-06-18 16:56:03
  * @LastEditors: null
- * @LastEditTime: 2019-06-19 10:59:54
+ * @LastEditTime: 2019-06-19 11:17:25
  * @Description: 加载指示器组件
  * @form: (0 U 0)
  * 组件的属性列表
