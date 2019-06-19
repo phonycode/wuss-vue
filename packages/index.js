@@ -23,6 +23,9 @@ import Checkbox from './checkbox/index.js';
 import Checkboxgroup from './checkboxgroup/index.js';
 import Switch from './switch/index.js';
 import Notice from './notice/index.js';
+import Loading from './loading/index.js';
+import MaskShadow from './maskShadow/index.js';
+import Confirm from './confirm/index.js';
 
 
 
@@ -49,7 +52,10 @@ const components = [
     Checkbox,
     Checkboxgroup,
     Switch,
-    Notice
+    Notice,
+    Loading,
+    MaskShadow,
+    Confirm
 ];
 
 const install = function(Vue) {
@@ -58,6 +64,8 @@ const install = function(Vue) {
 
     Vue.prototype.$toast = Toast;
     Vue.prototype.$alert = Alert;
+    Vue.prototype.$loading = Loading;
+    Vue.prototype.$confirm = Confirm;
 };
 
 /* istanbul ignore if */
@@ -89,5 +97,8 @@ export default {
     Checkbox,
     Checkboxgroup,
     Switch,
-    Notice
+    Notice,
+    Loading,
+    MaskShadow,
+    Confirm
 };

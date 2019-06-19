@@ -31,7 +31,7 @@ Vue.use(Router);
  */
 export const constantRouterMap = [{
         path: '/',
-        redirect: 'layout/notice',
+        redirect: 'layout/confirm',
         component: () =>
             import ('../view/home/index'),
         hidden: true,
@@ -190,6 +190,22 @@ export const constantRouterMap = [{
                 name: 'notice',
                 meta: {
                     title: '通告'
+                }
+            }, {
+                path: 'loading',
+                component: () =>
+                    import ('../view/loading/index'),
+                name: 'loading',
+                meta: {
+                    title: '加载指示器'
+                }
+            }, {
+                path: 'confirm',
+                component: () =>
+                    import ('../view/confirm/index'),
+                name: 'confirm',
+                meta: {
+                    title: '确认框'
                 }
             }
 

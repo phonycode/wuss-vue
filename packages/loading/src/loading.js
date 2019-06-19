@@ -1,7 +1,7 @@
 import Vue from 'vue';
-import Toast from './toast.vue';
-let MessageConstructor = Vue.extend(Toast);
+import Loading from './loading.vue';
 
+let MessageConstructor = Vue.extend(Loading);
 const Message = function(options) {
 
     if (typeof options === 'string') {
@@ -21,17 +21,5 @@ const Message = function(options) {
     document.body.appendChild(component.$el)
     return component
 };
-
-['top', 'middle', 'bottom'].forEach(type => {
-    Message[type] = options => {
-        if (typeof options === 'string') {
-            options = {
-                message: options
-            };
-        }
-        options.type = type;
-        return Message(options);
-    };
-});
 
 export default Message;
