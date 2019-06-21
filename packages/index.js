@@ -28,6 +28,7 @@ import MaskShadow from './maskShadow/index.js';
 import Confirm from './confirm/index.js';
 import Dialog from './dialog/index.js';
 import Avatar from './avatar/index.js';
+import Countdown from './countdown/index.js';
 
 
 
@@ -59,7 +60,8 @@ const components = [
     MaskShadow,
     Confirm,
     Dialog,
-    Avatar
+    Avatar,
+    Countdown
 ];
 
 const install = function(Vue) {
@@ -107,5 +109,6 @@ export default {
     MaskShadow,
     Confirm,
     Dialog,
-    Avatar
+    Avatar,
+    Countdown
 };

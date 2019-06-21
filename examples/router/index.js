@@ -31,7 +31,7 @@ Vue.use(Router);
  */
 export const constantRouterMap = [{
         path: '/',
-        redirect: 'layout/avatar',
+        redirect: 'layout/countdown',
         component: () =>
             import ('../view/home/index'),
         hidden: true,
@@ -220,6 +220,14 @@ export const constantRouterMap = [{
                 component: () =>
                     import ('../view/avatar/index'),
                 name: 'avatar',
+                meta: {
+                    title: '头像'
+                }
+            }, {
+                path: 'countdown',
+                component: () =>
+                    import ('../view/countdown/index'),
+                name: 'countdown',
                 meta: {
                     title: '头像'
                 }
