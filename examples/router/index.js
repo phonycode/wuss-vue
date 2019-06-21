@@ -31,7 +31,7 @@ Vue.use(Router);
  */
 export const constantRouterMap = [{
         path: '/',
-        redirect: 'layout/confirm',
+        redirect: 'layout/countdown',
         component: () =>
             import ('../view/home/index'),
         hidden: true,
@@ -206,6 +206,30 @@ export const constantRouterMap = [{
                 name: 'confirm',
                 meta: {
                     title: '确认框'
+                }
+            }, {
+                path: 'dialog',
+                component: () =>
+                    import ('../view/dialog/index'),
+                name: 'dialog',
+                meta: {
+                    title: '弹出框'
+                }
+            }, {
+                path: 'avatar',
+                component: () =>
+                    import ('../view/avatar/index'),
+                name: 'avatar',
+                meta: {
+                    title: '头像'
+                }
+            }, {
+                path: 'countdown',
+                component: () =>
+                    import ('../view/countdown/index'),
+                name: 'countdown',
+                meta: {
+                    title: '头像'
                 }
             }
 

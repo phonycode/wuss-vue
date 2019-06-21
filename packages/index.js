@@ -26,6 +26,9 @@ import Notice from './notice/index.js';
 import Loading from './loading/index.js';
 import MaskShadow from './maskShadow/index.js';
 import Confirm from './confirm/index.js';
+import Dialog from './dialog/index.js';
+import Avatar from './avatar/index.js';
+import Countdown from './countdown/index.js';
 
 
 
@@ -55,7 +58,10 @@ const components = [
     Notice,
     Loading,
     MaskShadow,
-    Confirm
+    Confirm,
+    Dialog,
+    Avatar,
+    Countdown
 ];
 
 const install = function(Vue) {
@@ -66,6 +72,7 @@ const install = function(Vue) {
     Vue.prototype.$alert = Alert;
     Vue.prototype.$loading = Loading;
     Vue.prototype.$confirm = Confirm;
+    Vue.prototype.$dialog = Dialog;
 };
 
 /* istanbul ignore if */
@@ -100,5 +107,8 @@ export default {
     Notice,
     Loading,
     MaskShadow,
-    Confirm
+    Confirm,
+    Dialog,
+    Avatar,
+    Countdown
 };
