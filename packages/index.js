@@ -29,6 +29,7 @@ import Confirm from './confirm/index.js';
 import Dialog from './dialog/index.js';
 import Avatar from './avatar/index.js';
 import Countdown from './countdown/index.js';
+import Badge from './badge/index.js';
 
 
 
@@ -61,7 +62,8 @@ const components = [
     Confirm,
     Dialog,
     Avatar,
-    Countdown
+    Countdown,
+    Badge
 ];
 
 const install = function(Vue) {
@@ -110,5 +112,6 @@ export default {
     Confirm,
     Dialog,
     Avatar,
-    Countdown
+    Countdown,
+    Badge
 };
