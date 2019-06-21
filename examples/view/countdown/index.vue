@@ -6,43 +6,37 @@
       <section>
         <h5 class="title">Default</h5>
         <div>
-          <w-countdown :end-time="times"></w-countdown>
+          <w-countdown class="wuss-demo" :end-time="times"></w-countdown>
         </div>
       </section>
       <section>
-        <h5 class="title">用户自定义头像</h5>
+        <h5 class="title">endTime=60 notimestamp=true</h5>
         <div>
-          <w-countdown end-time="1561087271958"></w-countdown>
+          <w-countdown class="wuss-demo" notimestamp end-time="60"></w-countdown>
         </div>
       </section>
       <section>
         <h5 class="title">format=D</h5>
         <div>
-          <w-avatar class="avatar-demo" size="small" shape="square">W</w-avatar>
-          <w-avatar class="avatar-demo" size="base" shape="square">W</w-avatar>
-          <w-avatar class="avatar-demo" size="large" shape="square">W</w-avatar>
+          <w-countdown class="wuss-demo" format="D" :end-time="times2"></w-countdown>
         </div>
       </section>
       <section>
-        <h5 class="title">format=HH</h5>
+        <h5 class="title">format=H</h5>
         <div>
-          <w-avatar class="avatar-demo" size="small" shape="square">W</w-avatar>
-          <w-avatar class="avatar-demo" size="base" shape="square">W</w-avatar>
-          <w-avatar class="avatar-demo" size="large" shape="square">W</w-avatar>
+          <w-countdown class="wuss-demo" format="H" :end-time="times"></w-countdown>
         </div>
       </section>
       <section>
         <h5 class="title">format=MM</h5>
         <div>
-          <w-avatar class="avatar-demo" size="small" shape="square">W</w-avatar>
-          <w-avatar class="avatar-demo" size="base" shape="square">W</w-avatar>
-          <w-avatar class="avatar-demo" size="large" shape="square">W</w-avatar>
+          <w-countdown class="wuss-demo" format="MM" :end-time="times"></w-countdown>
         </div>
       </section>
       <section>
-        <h5 class="title">format=S(什么都不填默认60s)</h5>
+        <h5 class="title">format=S(默认60s)</h5>
         <div>
-          <w-countdown @callback="callback"></w-countdown>
+          <w-countdown class="wuss-demo" format="s" @callback="callback"></w-countdown>
         </div>
       </section>
     </div>
@@ -67,8 +61,10 @@ section {
   color: #999;
 }
 
-.avatar-demo {
-  margin-left: 20px;
+.wuss-demo{
+  margin-left: 28px;
+  font-weight: 700;
+  color: #000;
 }
 </style>
 
@@ -79,7 +75,8 @@ export default {
   name: "countdown",
   data() {
     return {
-      times: new Date().getTime() + 86400000 
+      times: new Date(new Date().setHours(new Date().getHours() + 2)).getTime(),
+      times2: new Date(new Date().setDate(new Date().getDate() + 2)).getTime()
     };
   },
   created() {},

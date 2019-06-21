@@ -3,13 +3,13 @@
  * @Email: 1020814597@qq.com
  * @Date: 2019-06-19 17:30:16
  * @LastEditors: null
- * @LastEditTime: 2019-06-21 11:25:09
+ * @LastEditTime: 2019-06-21 13:42:48
  * @Description: 
  * @form: (0 U 0)
- * @param {string} shape 指定头像的形状，可选值为 circle、square
- * @param {string} size 设置头像的大小，可选值为 small、default、large
- * @param {string} src 图片类头像的 src 地址
- * @param {Boolean} scale 是否自动调整大小
+ * @param {boolean} notimestamp  是否使用时间戳  true为不是
+ * @param {boolean} bindcallback 倒计时结束的回调函数
+ * @param {number} time         倒计时的时间  单位s
+ * @param {string} format        格式化时间格式  默认为 H
  -->
 <template>
   <span class="wuss-countdown">{{residueTime}}</span>
@@ -19,7 +19,10 @@ export default {
   name: "WCountdown",
   props: {
     notimestamp: {},
-    format: {},
+    format: {
+      type:String,
+      default:""
+    },
     startTime: {
       type: [String, Number],
       default: ""
@@ -31,7 +34,8 @@ export default {
   },
   data() {
     return {
-      residueTime: ""
+      residueTime: "",
+      isStop: false
     };
   },
   created() {
@@ -49,19 +53,28 @@ export default {
     clear(name) {
       clearInterval(name);
     },
+    /**
+     * @description: 倒计时函数
+     * @param {type} 
+     * @return: 
+     */
     countDown() {
-
       let start = this.startTime ? this.startTime : new Date().getTime(),
-        end = this.endTime ? this.endTime : new Date().getTime() + 60 * 1000,
-        that = this;
+        end = this.endTime ? this.endTime : new Date().getTime() + 60 * 1000;
 
       let times = setInterval(() => {
-        this.residueTime = that.getTime(start, end);
-        if (this.residueTime <= 0) {
+
+        // 开始时间自减
+        start = start + 1000;
+
+        this.residueTime = this.getTime(start, end,this.format);
+
+        if (this.isStop) {
           this.callback();
           this.clear(times);
         }
       }, 1000);
+      
     },
     /**
      * @description: 补o操作
@@ -72,16 +85,25 @@ export default {
       return num > 9 ? num : "0" + num;
     },
     /**
-     * @description: 时间转化格式
-     * @param {type}
-     * @return:
+     * @description: 时间搓处理
+     * @param {String} start  开始时间
+     * @param {String} end  结束时间
+     * @param {String} type  单位类型
+     * @param {String} notimestamp  结束时间
+     * @return: 
      */
     getTime(start, end, type, notimestamp = false) {
+
       if (!notimestamp) {
         end = Math.round((end - start) / 1000);
+      }else{
+        
       }
 
-      if (end <= 0) end = 0;
+      if (end <= 0){
+        this.isStop = true;
+        end = 0;
+      } 
 
       const s = this.add0(end % 60),
         mm = this.add0(parseInt(end / 60) % 60),
