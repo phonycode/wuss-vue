@@ -3,7 +3,7 @@
  * @Email: 1020814597@qq.com
  * @Date: 2019-06-19 17:30:16
  * @LastEditors: null
- * @LastEditTime: 2019-06-21 13:57:07
+ * @LastEditTime: 2019-06-21 14:26:36
  * @Description: 
  * @form: (0 U 0)
  * @param {boolean} notimestamp  是否使用时间戳  true为不是
@@ -62,8 +62,21 @@ export default {
      * @return: 
      */
     countDown() {
+
       let start = this.startTime ? this.startTime : new Date().getTime(),
         end = this.endTime ? this.endTime : new Date().getTime() + 60 * 1000;
+
+        (function(){
+           // 开始时间自减
+          start = start + 1000;
+          if(this.notimestamp) end = end - 1;
+          this.residueTime = this.getTime(start, end,this.format,this.notimestamp);
+
+          if (this.isStop) {
+            this.callback();
+            this.clear(times);
+          }
+        }).bind(this)()
 
       let times = setInterval(() => {
 
@@ -76,8 +89,11 @@ export default {
           this.callback();
           this.clear(times);
         }
-      }, 1000);
-      
+
+      }, 1e3);
+
+
+
     },
     /**
      * @description: 补o操作
@@ -96,7 +112,6 @@ export default {
      * @return: 
      */
     getTime(start, end, type, notimestamp = false) {
-
       if (!notimestamp) {
         end = Math.round((end - start) / 1000);
       }
