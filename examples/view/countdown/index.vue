@@ -12,7 +12,7 @@
       <section>
         <h5 class="title">endTime=60 notimestamp=true</h5>
         <div>
-          <w-countdown class="wuss-demo" notimestamp end-time="60"></w-countdown>
+          <w-countdown class="wuss-demo" :notimestamp="true" end-time="120"></w-countdown>
         </div>
       </section>
       <section>
