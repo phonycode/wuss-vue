@@ -31,7 +31,7 @@ Vue.use(Router);
  */
 export const constantRouterMap = [{
         path: '/',
-        redirect: 'layout/badge',
+        redirect: 'layout/rater',
         component: () =>
             import ('../view/home/index'),
         hidden: true,
@@ -238,6 +238,14 @@ export const constantRouterMap = [{
                 name: 'badge',
                 meta: {
                     title: '徽章'
+                }
+            }, {
+                path: 'rater',
+                component: () =>
+                    import ('../view/rater/index'),
+                name: 'rater',
+                meta: {
+                    title: '评分'
                 }
             }
 

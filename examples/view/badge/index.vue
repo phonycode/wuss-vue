@@ -77,7 +77,7 @@ section {
 
 <script>
 export default {
-  name: "countdown",
+  name: "badge",
   data() {
     return {
       times: new Date(new Date().setHours(new Date().getHours() + 2)).getTime(),

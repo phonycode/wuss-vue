@@ -30,6 +30,7 @@ import Dialog from './dialog/index.js';
 import Avatar from './avatar/index.js';
 import Countdown from './countdown/index.js';
 import Badge from './badge/index.js';
+import Rater from './rater/index.js';
 
 
 
@@ -63,7 +64,8 @@ const components = [
     Dialog,
     Avatar,
     Countdown,
-    Badge
+    Badge,
+    Rater
 ];
 
 const install = function(Vue) {
@@ -113,5 +115,6 @@ export default {
     Dialog,
     Avatar,
     Countdown,
-    Badge
+    Badge,
+    Rater
 };
