@@ -3,7 +3,7 @@
  * @Email: 1020814597@qq.com
  * @Date: 2019-06-19 17:30:16
  * @LastEditors: null
- * @LastEditTime: 2019-06-22 15:06:05
+ * @LastEditTime: 2019-06-22 15:35:12
  * @Description: 
  * @form: (0 U 0)
  * @param {Number, String} max 数字值超过这个数转99+
@@ -20,7 +20,7 @@
       v-for="n in count"
       :key="n"
       @click="onClick($event,n)"
-      :style="styles"
+      :style="[{'color': n>current ? voidColor:color},styles]"
       :disabled="disabled"
     >
       <w-icon :type="n>current ? voidIcon :icon"></w-icon>
@@ -41,16 +41,16 @@ export default {
       default: 99
     },
     min: {
-      type: Number,
+      type: [Number, String],
       default: 0
     },
     color: {
       type: String,
-      default: ""
+      default: "#ff9900"
     },
     voidColor: {
       type: String,
-      default: ""
+      default: "#ccc"
     },
     size: {
       type: String,
@@ -83,24 +83,26 @@ export default {
     };
   },
   created() {
-    this.current = this.value || 0;
+    this.isCheckNum(this.value);
   },
   computed: {
     styles() {
       return {
-        color: this.color,
         fontSize: this.size
       };
-      // marginRight: this.spacing + "px",
     }
   },
   methods: {
+    isCheckNum(idx) {
+      this.current = idx < this.min ? this.min : idx;
+    },
+
     onClick($event, idx) {
-      if (this.readOnly) {
+      if (this.disabled) {
         this.$emit("input", this.current);
         this.$emit("click", this.current);
       } else {
-        this.current = idx;
+        this.isCheckNum(idx);
         this.$emit("input", idx);
         this.$emit("click", idx);
       }

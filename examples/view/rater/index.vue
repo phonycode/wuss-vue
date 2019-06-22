@@ -9,8 +9,6 @@
           <w-rater
             class="wuss-demo"
             :count="5"
-            color="#ff9900"
-            void-color="#ccc"
             size="25px"
             v-model="rate"
           ></w-rater>
@@ -23,8 +21,6 @@
           <w-rater
             class="wuss-demo"
             :count="5"
-            color="#ff9900"
-            void-color="#ccc"
             size="25px"
             icon="like"
             void-icon="like-o"
@@ -38,12 +34,11 @@
           <w-rater
             class="wuss-demo"
             :count="8"
-            color="#ff9900"
-            void-color="#ccc"
             size="25px"
             icon="like"
             void-icon="like-o"
             v-model="rate"
+            :min="5"
           ></w-rater>
         </div>
       </section>
@@ -53,13 +48,25 @@
           <w-rater
             class="wuss-demo"
             :count="3"
-            color="#ff9900"
-            void-color="#ccc"
             size="25px"
             icon="like"
             void-icon="like-o"
             v-model="rate"
             disabled
+          ></w-rater>
+        </div>
+      </section>
+      <section>
+        <h5 class="title">自定义颜色</h5>
+        <div>
+          <w-rater
+            class="wuss-demo"
+            :count="5"
+            color="pink"
+            size="25px"
+            icon="like"
+            void-icon="like-o"
+            v-model="rate"
           ></w-rater>
         </div>
       </section>
