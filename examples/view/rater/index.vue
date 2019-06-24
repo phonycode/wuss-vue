@@ -6,12 +6,7 @@
       <section>
         <h5 class="title">Default</h5>
         <div>
-          <w-rater
-            class="wuss-demo"
-            :count="5"
-            size="25px"
-            v-model="rate"
-          ></w-rater>
+          <w-rater class="wuss-demo" :count="5" size="25px" v-model="rate"></w-rater>
           <div style="margin-left:30px;">当前分数 {{rate}}</div>
         </div>
       </section>
@@ -35,11 +30,11 @@
             class="wuss-demo"
             :count="8"
             size="25px"
-            icon="like"
-            void-icon="like-o"
-            v-model="rate"
-            :min="5"
+            v-model="rate3"
+            :min="2"
+            :max="7"
           ></w-rater>
+          <div style="margin-left:30px;">当前分数 {{rate3}}（最大7颗，最小两颗）用力点星星</div>
         </div>
       </section>
       <section>
@@ -48,12 +43,12 @@
           <w-rater
             class="wuss-demo"
             :count="3"
-            size="25px"
-            icon="like"
-            void-icon="like-o"
-            v-model="rate"
+            size="20px"
+            color="#ccc"
+            v-model="rate1"
             disabled
           ></w-rater>
+          <div style="margin-left:30px;">当前分数 {{rate1}}</div>
         </div>
       </section>
       <section>
@@ -64,8 +59,6 @@
             :count="5"
             color="pink"
             size="25px"
-            icon="like"
-            void-icon="like-o"
             v-model="rate"
           ></w-rater>
         </div>
@@ -107,15 +100,13 @@ export default {
   name: "rater",
   data() {
     return {
-      rate: 2
+      rate: 3,
+      rate1: 2,
+      rate3: 5
     };
   },
   created() {},
-  methods: {
-    callback() {
-      this.$toast("我到了");
-    }
-  }
+  methods: {}
 };
 </script>
 
