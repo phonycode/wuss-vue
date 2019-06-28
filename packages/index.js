@@ -31,6 +31,7 @@ import Avatar from './avatar/index.js';
 import Countdown from './countdown/index.js';
 import Badge from './badge/index.js';
 import Rater from './rater/index.js';
+import Numbers from './number/index.js';
 
 
 
@@ -65,7 +66,8 @@ const components = [
     Avatar,
     Countdown,
     Badge,
-    Rater
+    Rater,
+    Numbers
 ];
 
 const install = function(Vue) {
@@ -116,5 +118,6 @@ export default {
     Avatar,
     Countdown,
     Badge,
-    Rater
+    Rater,
+    Numbers
 };

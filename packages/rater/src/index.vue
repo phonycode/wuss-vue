@@ -3,14 +3,19 @@
  * @Email: 1020814597@qq.com
  * @Date: 2019-06-19 17:30:16
  * @LastEditors: null
- * @LastEditTime: 2019-06-22 15:35:12
+ * @LastEditTime: 2019-06-25 08:54:37
  * @Description: 
  * @form: (0 U 0)
- * @param {Number, String} max 数字值超过这个数转99+
- * @param {Number}  zIndex        定位层级
- * @param {Boolean} isDot        是否是原点
- * @param {String}  right        右边偏移距离
- * @param {String}  top          上边偏移距离
+ * @param {Number}   count                  总评分数
+ * @param {Number}   max                    可选择最大数量
+ * @param {Number}   min                    可选中最小数量
+ * @param {String}   color                  选中颜色+
+ * @param {String}   voidColor              未选中颜色
+ * @param {String}   size                   px图标大小
+ * @param {Boolean}  disabled               是否禁用 默认false
+ * @param {String}   icon                   选中时图标
+ * @param {String}   voidIcon               未选中时图标
+ * @param {String}   spacing                每个图标之间的间距
  -->
 <template>
   <div class="wuss-rate">
@@ -38,10 +43,10 @@ export default {
     },
     max: {
       type: Number,
-      default: 99
+      default: 999
     },
     min: {
-      type: [Number, String],
+      type: [Number],
       default: 0
     },
     color: {
@@ -93,19 +98,26 @@ export default {
     }
   },
   methods: {
+    /**
+     * @description: 判断选中多少颗星星  
+     * @param {String,Number}  idx  点击时选中的颗数  
+     * @return: 
+     */
     isCheckNum(idx) {
-      this.current = idx < this.min ? this.min : idx;
+
+      this.current =
+        idx < this.min ? this.min : idx > this.max ? this.max : idx;
+
     },
 
     onClick($event, idx) {
-      if (this.disabled) {
-        this.$emit("input", this.current);
-        this.$emit("click", this.current);
-      } else {
+
+      if (!this.disabled) {
         this.isCheckNum(idx);
-        this.$emit("input", idx);
-        this.$emit("click", idx);
       }
+      this.$emit("input", this.current);
+      this.$emit("click", this.current);
+      
     }
   }
 };

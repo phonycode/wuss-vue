@@ -31,7 +31,7 @@ Vue.use(Router);
  */
 export const constantRouterMap = [{
         path: '/',
-        redirect: 'layout/rater',
+        redirect: 'layout/number',
         component: () =>
             import ('../view/home/index'),
         hidden: true,
@@ -246,6 +246,14 @@ export const constantRouterMap = [{
                 name: 'rater',
                 meta: {
                     title: '评分'
+                }
+            }, {
+                path: 'number',
+                component: () =>
+                    import ('../view/number/index'),
+                name: 'number',
+                meta: {
+                    title: '计数器'
                 }
             }
 
