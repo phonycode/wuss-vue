@@ -31,7 +31,7 @@ Vue.use(Router);
  */
 export const constantRouterMap = [{
         path: '/',
-        redirect: 'layout/number',
+        redirect: 'layout/input',
         component: () =>
             import ('../view/home/index'),
         hidden: true,
@@ -254,6 +254,14 @@ export const constantRouterMap = [{
                 name: 'number',
                 meta: {
                     title: '计数器'
+                }
+            }, {
+                path: 'input',
+                component: () =>
+                    import ('../view/input/index'),
+                name: 'input',
+                meta: {
+                    title: '输入框'
                 }
             }
 
