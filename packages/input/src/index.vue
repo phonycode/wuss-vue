@@ -3,7 +3,7 @@
  * @Email: 1020814597@qq.com
  * @Date: 2019-06-19 17:30:16
  * @LastEditors: null
- * @LastEditTime: 2019-06-28 17:20:52
+ * @LastEditTime: 2019-07-01 15:24:38
  * @Description: 
  * @form: (0 U 0)
  * @param {String}          type                  文本类型 支持原生所有input类型
@@ -16,28 +16,36 @@
 
  -->
 <template>
-  <div class="wuss-input">
-    <div class="wuss-input_label">
-      <slot>
-        <span>*</span>
-      </slot>
-      {{label}}
-    </div>
+  <w-cell :title="label" class="wuss-input" :class="{'wuss-input_required':required}">
     <div class="wuss-input_body">
+      <textarea
+        v-if="type === 'textarea'"
+        class="wuss-input_content"
+        :type="type"
+        :disabled="disabled"
+        :readonly="readonly"
+        :placeholder="placeholder"
+        v-model="text"
+        @focus="focus"
+        ref="textarea"
+      ></textarea>
       <input
+        v-else
         class="wuss-input_content"
         :type="type"
         :value="123"
         :disabled="disabled"
         :readonly="readonly"
-        :inputAlign="s"
+        :placeholder="placeholder"
+        v-model="text"
+        @focus="focus"
       >
       <div class="wuss-input_right">
-        <w-icon v-if="claerable" type="close"></w-icon>
+        <w-icon v-show="isClearble" class="wuss-input_close" @click.native="closeTxt" type="close"></w-icon>
         <slot name="ic"/>
       </div>
     </div>
-  </div>
+  </w-cell>
 </template>
 <script>
 export default {
@@ -50,6 +58,7 @@ export default {
     label: [String, Number],
     value: {},
     inputAlign: {},
+    placeholder: {},
     disabled: {
       type: Boolean,
       default: false
@@ -68,19 +77,90 @@ export default {
     }
   },
   data() {
-    return {};
+    return {
+      text: this.value,
+      isClearble: false
+    };
   },
   created() {},
-  computed: {
-    s() {
-      return "a";
+  computed: {},
+  watch: {
+    text(val) {
+      this.isClearble = val ? true : false;
+      this.$emit("input", val);
+      this.$emit("change", val);
+    },
+    isClearble(val) {
+      return val;
     }
   },
-  watch: {},
-  methods: {}
+  methods: {
+    closeTxt() {
+      this.$nextTick(() => {
+        this.text = "";
+        this.$refs.textarea.focus();
+      });
+    },
+    focus(e) {
+      if(this.readonly) return ;
+      if(e.target.value) this.isClearble = true;
+    },
+    blur() {
+      this.$nextTick(() => {
+        this.isClearble = false;
+        if(this.$refs.textarea) this.$refs.textarea.blur();
+      });
+    }
+  }
 };
 </script>
-<style scoped>
-.wuss-input_label{}
+<style>
+textarea {
+  outline: none;
+  height: 150px;
+}
+
+input {
+  outline: none;
+}
+
+.wuss-input_required .wuss-cell-title:before {
+  content: "*";
+  color: red;
+}
+.wuss-input .wuss-cell-title {
+  font-size: 14px;
+  margin-right: 8px;
+}
+
+.wuss-cell-text {
+  flex: 1;
+  line-height: 1;
+}
+.wuss-input_body {
+  display: flex;
+  margin: 4px 0;
+}
+.wuss-input_content {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  color: #323233;
+  text-align: left;
+  background-color: transparent;
+  border: 0;
+  resize: none;
+}
+
+.wuss-input_close {
+  border-radius: 50%;
+  color: #fff;
+  background: #ccc;
+  font-size: 14px;
+  padding: 2px;
+  margin: 0 4px;
+}
 </style>
 

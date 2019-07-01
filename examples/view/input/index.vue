@@ -4,19 +4,36 @@
     <small>输入框</small>
     <div class="wuss-boxs">
       <section>
-        <h5 class="title">Default</h5>
-        <div>
-          <w-input class="wuss-demo" v-model="rate" :max="20"></w-input>
-        </div>
+        <h5 class="title">textarea</h5>
+        <w-cell-group>
+          <w-input class="wuss-demo" placeholder="文本框" type="textarea" v-model="textarea" claerable></w-input>
+        </w-cell-group>
       </section>
       <section>
-        <h5 class="title">步长设置</h5>
-        <div>
-          <w-input class="wuss-demo" v-model="input2" :step="5"></w-input>
-        </div>
+        <h5 class="title">自定义类型</h5>
+        <w-cell-group class="wuss-user">
+          <w-input
+            class="wuss-demo"
+            label="用户名"
+            placeholder="请输入用户名"
+            type="text"
+            v-model="email"
+            claerable
+            required
+          ></w-input>
+          <w-input
+            class="wuss-demo"
+            label="邮箱"
+            placeholder="请输入邮箱"
+            type="email"
+            v-model="email"
+            claerable
+            required
+          ></w-input>
+        </w-cell-group>
       </section>
       <section>
-        <h5 class="title">限制输入范围(2-40)</h5>
+        <h5 class="title">清空</h5>
         <div>
           <w-input class="wuss-demo" v-model="input3" :max="40" :min="2"></w-input>
         </div>
@@ -24,7 +41,7 @@
       <section>
         <h5 class="title">只读/禁用</h5>
         <div>
-          <w-input class="wuss-demo" :disabled="true" v-model="input5"></w-input>
+          <w-input class="wuss-demo" disabled v-model="input5"></w-input>
           <w-input class="wuss-demo" readonly v-model="input6"></w-input>
         </div>
       </section>
@@ -32,7 +49,7 @@
   </div>
 </template>
 
-<style scoped>
+<style>
 section {
   display: block;
   margin-bottom: 10px;
@@ -50,11 +67,10 @@ section {
   color: #999;
 }
 
-.wuss-demo {
-  margin-left: 28px;
-  font-weight: 700;
-  color: #000;
-  font-size: 36px;
+.wuss-user .wuss-demo .wuss-cell-title{
+  display: inline-block;
+  width: 50px;
+  text-align: right;
 }
 </style>
 
@@ -65,9 +81,9 @@ export default {
   name: "inputs",
   data() {
     return {
-      rate: 9,
-      rate1: 2,
-      input2:8,
+      textarea: "测试测试测试",
+      email: "",
+      input2: 8,
       input3: 2,
       input5: 6,
       input6: 5
