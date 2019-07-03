@@ -31,7 +31,7 @@ Vue.use(Router);
  */
 export const constantRouterMap = [{
         path: '/',
-        redirect: 'layout/form',
+        redirect: 'layout/range',
         component: () =>
             import ('../view/home/index'),
         hidden: true,
@@ -270,6 +270,14 @@ export const constantRouterMap = [{
                 name: 'form',
                 meta: {
                     title: '输入框'
+                }
+            }, {
+                path: 'range',
+                component: () =>
+                    import ('../view/range/index'),
+                name: 'range',
+                meta: {
+                    title: '区域选择'
                 }
             }
 
