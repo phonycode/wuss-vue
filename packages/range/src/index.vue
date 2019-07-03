@@ -3,7 +3,7 @@
  * @Email: 1020814597@qq.com
  * @Date: 2019-07-03 10:29:33
  * @LastEditors: null
- * @LastEditTime: 2019-07-03 17:35:23
+ * @LastEditTime: 2019-07-03 17:57:38
  * @Description: 通告组件
  * @form: (0 U 0)
  * 组件的属性列表
@@ -44,9 +44,18 @@
 export default {
   name: "WRange",
   props: {
-    max: Number,
-    min: Number,
-    step: Number,
+    max: {
+      type: Number,
+      default: 100
+    },
+    min: {
+      type: Number,
+      default: 0
+    },
+    step: {
+      type: Number,
+      default: 1
+    },
     value: Array,
     trackStyle: String,
     railStyle: String,
