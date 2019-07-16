@@ -5,7 +5,7 @@
     <div class="wuss-boxs">
       <section>
         <h5 class="title">Default</h5>
-        <w-range bindonChange="onChange" bindafterChange="afterChange" />
+        <w-range bindonChange="onChange" bindafterChange="afterChange" @change="test" />
       </section>
       <section>
         <h5 class="title">disabled</h5>
@@ -56,7 +56,11 @@ export default {
     };
   },
   created() {},
-  methods: {}
+  methods: {
+    test(e){
+      console.log(e)
+    }
+  }
 };
 </script>
 

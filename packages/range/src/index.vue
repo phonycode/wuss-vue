@@ -3,7 +3,7 @@
  * @Email: 1020814597@qq.com
  * @Date: 2019-07-03 10:29:33
  * @LastEditors: null
- * @LastEditTime: 2019-07-16 16:27:10
+ * @LastEditTime: 2019-07-16 16:47:42
  * @Description: 通告组件
  * @form: (0 U 0)
  * 组件的属性列表
@@ -84,20 +84,20 @@ export default {
       this.Styles =
         this.trackStyle + `left:${this.trackLeft}px;width:${this.track}`;
     },
+    startSite(e) {
+      var touch = e.touches[0]; //获取第一个触点
+      return Number(touch.pageX); //页面触点X坐标
+    },
     touchstart(e) {
       if (this.disabled) return;
       e.preventDefault(); //阻止触摸时浏览器的缩放、滚动条滚动等
-      var touch = e.touches[0]; //获取第一个触点
-      var x = Number(touch.pageX); //页面触点X坐标
-      //记录触点初始位置
-      this.startX = x;
+      this.startX = this.startSite(e);
     },
     touchmove(e) {
-      if (this.disabled) return;
       e.preventDefault(); //阻止触摸时浏览器的缩放、滚动条滚动等
-      var touch = e.touches[0]; //获取第一个触点
-      var x = Math.abs(Number(touch.pageX)); //页面触点X坐标
-      let widths = this.$refs.slider.clientWidth,
+      if (this.disabled) return;
+      let x = Math.abs(this.startSite(e)),
+        widths = this.$refs.slider.clientWidth,
         len = x - 30,
         granularity = widths / this.max;
 
@@ -109,13 +109,13 @@ export default {
         return (this.left = 0);
       }
 
-      // console.log("左右滑动 :" + len); //左右滑动
       this.left = len;
       this.track = parseInt(len / granularity) + "%";
       this.setTrackStyle();
     },
     touchend() {
       if (this.disabled) return;
+      this.$emit("change", this.track);
     },
     touchcancel() {
       if (this.disabled) return;
