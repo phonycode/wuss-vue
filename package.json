@@ -1,53 +1,54 @@
 {
-  "name": "wuss-vue",
-  "version": "0.0.4",
-  "description": "a vue UI templates",
-  "main": "lib/wuss-vue.umd.min.js",
-  "keyword": "wuss-vue wuss",
-  "private": false,
-  "scripts": {
-    "dev": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
-    "lib": "vue-cli-service build --target lib --name wuss-vue --dest lib packages/index.js"
-  },
-  "dependencies": {
-    "core-js": "^2.6.5",
-    "i": "^0.3.6",
-    "vue": "^2.6.10",
-    "vue-router": "^3.0.6"
-  },
-  "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.6.0",
-    "@vue/cli-plugin-eslint": "^3.6.0",
-    "@vue/cli-service": "^3.6.0",
-    "babel-eslint": "^10.0.1",
-    "eslint": "^5.16.0",
-    "eslint-plugin-vue": "^5.0.0",
-    "vue-template-compiler": "^2.5.21"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
+    "name": "wuss-vue",
+    "version": "0.0.4",
+    "description": "a vue UI templates",
+    "main": "lib/wuss-vue.umd.min.js",
+    "keyword": "wuss-vue wuss",
+    "private": false,
+    "scripts": {
+        "dev": "vue-cli-service serve",
+        "build": "vue-cli-service build",
+        "lint": "vue-cli-service lint",
+        "lib": "vue-cli-service build --target lib --name wuss-vue --dest lib packages/index.js"
     },
-    "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended"
-    ],
-    "rules": {},
-    "parserOptions": {
-      "parser": "babel-eslint"
-    }
-  },
-  "postcss": {
-    "plugins": {
-      "autoprefixer": {}
-    }
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 8"
-  ]
+    "dependencies": {
+        "core-js": "^2.6.5",
+        "i": "^0.3.6",
+        "lodash": "^4.17.14",
+        "vue": "^2.6.10",
+        "vue-router": "^3.0.6"
+    },
+    "devDependencies": {
+        "@vue/cli-plugin-babel": "^3.6.0",
+        "@vue/cli-plugin-eslint": "^3.6.0",
+        "@vue/cli-service": "^3.6.0",
+        "babel-eslint": "^10.0.1",
+        "eslint": "^5.16.0",
+        "eslint-plugin-vue": "^5.0.0",
+        "vue-template-compiler": "^2.5.21"
+    },
+    "eslintConfig": {
+        "root": true,
+        "env": {
+            "node": true
+        },
+        "extends": [
+            "plugin:vue/essential",
+            "eslint:recommended"
+        ],
+        "rules": {},
+        "parserOptions": {
+            "parser": "babel-eslint"
+        }
+    },
+    "postcss": {
+        "plugins": {
+            "autoprefixer": {}
+        }
+    },
+    "browserslist": [
+        "> 1%",
+        "last 2 versions",
+        "not ie <= 8"
+    ]
 }
