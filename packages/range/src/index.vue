@@ -3,7 +3,7 @@
  * @Email: 1020814597@qq.com
  * @Date: 2019-07-03 10:29:33
  * @LastEditors: null
- * @LastEditTime: 2019-07-03 17:57:38
+ * @LastEditTime: 2019-07-16 16:27:10
  * @Description: 通告组件
  * @form: (0 U 0)
  * 组件的属性列表
@@ -25,7 +25,8 @@
     ref="slider"
   >
     <div class="wuss-slider-rail"></div>
-    <div class="wuss-slider-track wuss-slider-track-1"></div>
+    <div class="wuss-slider-track wuss-slider-track-1" :style="Styles"></div>
+    <!-- {'left':trackLeft+'px','width':track} -->
     <div class="wuss-slider-step" />
     <!-- <div data-move-node="0" class="wuss-slider-handle"></div> -->
     <div
@@ -69,13 +70,20 @@ export default {
     return {
       startX: 0,
       endX: null,
-      left: "0"
+      left: "0",
+      trackLeft: 0,
+      track: "0%",
+      Styles: this.trackStyle
     };
   },
   created() {},
   mounted() {},
   computed: {},
   methods: {
+    setTrackStyle() {
+      this.Styles =
+        this.trackStyle + `left:${this.trackLeft}px;width:${this.track}`;
+    },
     touchstart(e) {
       if (this.disabled) return;
       e.preventDefault(); //阻止触摸时浏览器的缩放、滚动条滚动等
@@ -90,7 +98,8 @@ export default {
       var touch = e.touches[0]; //获取第一个触点
       var x = Math.abs(Number(touch.pageX)); //页面触点X坐标
       let widths = this.$refs.slider.clientWidth,
-        len = x - 30;
+        len = x - 30,
+        granularity = widths / this.max;
 
       if (len > widths) {
         return (this.left = widths);
@@ -102,6 +111,8 @@ export default {
 
       // console.log("左右滑动 :" + len); //左右滑动
       this.left = len;
+      this.track = parseInt(len / granularity) + "%";
+      this.setTrackStyle();
     },
     touchend() {
       if (this.disabled) return;

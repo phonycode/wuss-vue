@@ -11,6 +11,10 @@
         <h5 class="title">disabled</h5>
           <w-range disabled />
       </section>
+       <section>
+        <h5 class="title">custom Style</h5>
+          <w-range trackStyle="border-color:red;background-color:red;" />
+      </section>
     </div>
   </div>
 </template>
