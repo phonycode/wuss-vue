@@ -33,6 +33,8 @@ import Badge from './badge/index.js';
 import Rater from './rater/index.js';
 import Numbers from './number/index.js';
 import Inputs from './input/index.js';
+import Form from './form/index.js';
+import Range from './range/index.js';
 
 
 
@@ -69,7 +71,9 @@ const components = [
     Badge,
     Rater,
     Numbers,
-    Inputs
+    Inputs,
+    Form,
+    Range
 ];
 
 const install = function(Vue) {
@@ -122,5 +126,7 @@ export default {
     Badge,
     Rater,
     Numbers,
-    Inputs
+    Inputs,
+    Form,
+    Range
 };

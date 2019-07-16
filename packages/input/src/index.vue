@@ -3,7 +3,7 @@
  * @Email: 1020814597@qq.com
  * @Date: 2019-06-19 17:30:16
  * @LastEditors: null
- * @LastEditTime: 2019-07-01 15:24:38
+ * @LastEditTime: 2019-07-02 11:11:04
  * @Description: 
  * @form: (0 U 0)
  * @param {String}          type                  文本类型 支持原生所有input类型
@@ -86,7 +86,7 @@ export default {
   computed: {},
   watch: {
     text(val) {
-      this.isClearble = val ? true : false;
+      if(this.claerable) this.isClearble = val ? true : false;
       this.$emit("input", val);
       this.$emit("change", val);
     },
@@ -103,11 +103,11 @@ export default {
     },
     focus(e) {
       if(this.readonly) return ;
-      if(e.target.value) this.isClearble = true;
+      if(e.target.value && this.claerable) this.isClearble = true;
     },
     blur() {
       this.$nextTick(() => {
-        this.isClearble = false;
+        if(this.claerable) this.isClearble = false;
         if(this.$refs.textarea) this.$refs.textarea.blur();
       });
     }
