@@ -31,7 +31,7 @@ Vue.use(Router);
  */
 export const constantRouterMap = [{
         path: '/',
-        redirect: 'layout/range',
+        redirect: 'layout/swiperOut',
         component: () =>
             import ('../view/home/index'),
         hidden: true,
@@ -278,6 +278,14 @@ export const constantRouterMap = [{
                 name: 'range',
                 meta: {
                     title: '区域选择'
+                }
+            }, {
+                path: 'swiperOut',
+                component: () =>
+                    import ('../view/swiperOut/index'),
+                name: 'swiperOut',
+                meta: {
+                    title: '侧滑菜单'
                 }
             }
 
