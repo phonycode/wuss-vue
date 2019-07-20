@@ -1,6 +1,6 @@
 <template>
   <div class="wuss-box">
-    <h3>swiper 侧滑菜单</h3>
+    <h3>swiperOut 侧滑菜单</h3>
     <div class="wuss-boxs">
       <section>
         <h5 class="title">基础用法</h5>

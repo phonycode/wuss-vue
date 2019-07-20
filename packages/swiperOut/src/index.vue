@@ -3,9 +3,18 @@
  * @Email: 1020814597@qq.com
  * @Date: 2019-06-14 17:54:56
  * @LastEditors: null
- * @LastEditTime: 2019-07-19 17:57:49
+ * @LastEditTime: 2019-07-20 15:31:06
  * @Description: 
  * @form: (0 U 0)
+   * 组件的属性列表
+   * @param {array} swiperOutBtns 侧滑菜单按钮列表 参数有 text, color, background, disabled
+   * @param {number} buttonWidth 按钮的宽度
+   * @param {boolean} close 是否展开
+   * @param {string} backgroundColor 背景颜色
+   * @param {number} height  容器的高度
+   * @param {number} threshold 侧滑触发的阀值
+   * @param {boolean} autoClose 点击按钮自动收起
+   * @param {boolean} disabled 禁用侧滑菜单
  -->
 
 <template>
@@ -24,13 +33,14 @@
       <div class="wuss-swiper-out-left" hover-class="none" hover-stop-propagation="false">
         <slot />
       </div>
-      <div class="wuss-swiper-out-right wuss-swiper-out-btns">
+      <div class="wuss-swiper-out-right wuss-swiper-out-btns" ref="rightbtn">
         <div
           v-for="(item,index) in datas"
           :key="index"
           :class="[item.disabled ? 'wuss-weiper-out-btn-disabled' : '' ]"
           :style="[{'color':item.color,'background':item.background,'fontSize':item.size}]"
           @click="handleBtn"
+          style="width:65px;"
         >{{item.text}}</div>
       </div>
     </div>
@@ -70,14 +80,17 @@ export default {
     },
     threshold: {},
     close: {},
-    disabled: {},
+    disabled: {
+      type: Boolean,
+      default: false
+    },
     autoClose: {}
   },
   data() {
     return {
       datas: this.swiperOutBtns,
       startX: 0,
-      transform: {"transform": "translate3d(0px, 0px, 0px)"}
+      transform: { transform: "translate3d(0px, 0px, 0px)" }
     };
   },
   created() {
@@ -93,24 +106,34 @@ export default {
      */
 
     handleChange(e) {
-      
+      e.preventDefault(); //阻止触摸时浏览器的缩放、滚动条滚动等
       if (this.disabled) return false;
 
-      console.log(e.touches[0].pageX);
-      console.log(this.startX);
-      let a= e.touches[0].pageX - this.startX;
-      let out  = this.isOut;
-      if(a <= 0){
-        this.transform = {"transform": "translate3d("+ a +"px, 0px, 0px)"}
+      let moveLen = e.touches[0].pageX - this.startX;
+      let btnRightLen = this.$refs.rightbtn.clientWidth,
+        newMoveLen;
+
+      
+
+        console.log(moveLen)
+      if (moveLen <= 0 && Math.abs(moveLen) <= btnRightLen) {
+        console.log(Math.abs(moveLen) <= btnRightLen)
+        newMoveLen = moveLen;
+      } else if (btnRightLen - Math.abs(moveLen) >= 0 ) {
+
+        // newMoveLen = -(btnRightLen - Math.abs(moveLen));
       }
-      console.log(this)
-    
+
+      this.transform = {
+        transform: "translate3d(" + newMoveLen + "px, 0px, 0px)"
+      };
     },
     /**
      * movable-view 鼠标按下回调
      */
     handleTouchStart(e) {
-      console.log(2);
+      e.preventDefault(); //阻止触摸时浏览器的缩放、滚动条滚动等
+      // 设置手势按下起始位置
       this.startX = e.touches[0].pageX;
     },
     /**
@@ -118,48 +141,48 @@ export default {
      */
     handleTouchEnd(e) {
       console.log(3);
-      const { pageX, pageY } = e.changedTouches["0"];
-      const {
-        _startX,
-        _startY,
-        _slideWidth,
-        _threshold,
-        disabled,
-        height
-      } = this.data;
-      if (disabled) return false;
-      if (
-        _startX - pageX >= _threshold &&
-        Math.abs(_startY - pageY) <= height
-      ) {
-        // X轴移动距离大于等于阀值并且Y轴移动距离在Cell内
-        this.setData({
-          _scrollX: -_slideWidth
-        });
-      } else if (
-        _startX - pageX >= _threshold &&
-        Math.abs(_startY - pageY) > height
-      ) {
-        // X轴移动距离大于等于阀值并且Y轴移动距离超出W-cell高度时
-        this.setData({
-          _scrollX: 0
-        });
-      } else if (pageX - _startX >= _threshold) {
-        // 终点X轴大于起点X轴时让他收起
-        this.setData({
-          _scrollX: 0
-        });
-      } else if (pageX - _startX < _threshold && pageX - _startX > 0) {
-        // 终点X轴大于起点X轴并且小于阀值收起
-        this.setData({
-          _scrollX: 0
-        });
-      } else if (pageX === _startX || pageY === _startY) {
-        // 鼠标原地点击时,达到autoClose效果 自动收回
-        this.setData({
-          _scrollX: 0
-        });
-      }
+      // const { pageX, pageY } = e.changedTouches["0"];
+      // const {
+      //   _startX,
+      //   _startY,
+      //   _slideWidth,
+      //   _threshold,
+      //   disabled,
+      //   height
+      // } = this.data;
+      // if (disabled) return false;
+      // if (
+      //   _startX - pageX >= _threshold &&
+      //   Math.abs(_startY - pageY) <= height
+      // ) {
+      //   // X轴移动距离大于等于阀值并且Y轴移动距离在Cell内
+      //   this.setData({
+      //     _scrollX: -_slideWidth
+      //   });
+      // } else if (
+      //   _startX - pageX >= _threshold &&
+      //   Math.abs(_startY - pageY) > height
+      // ) {
+      //   // X轴移动距离大于等于阀值并且Y轴移动距离超出W-cell高度时
+      //   this.setData({
+      //     _scrollX: 0
+      //   });
+      // } else if (pageX - _startX >= _threshold) {
+      //   // 终点X轴大于起点X轴时让他收起
+      //   this.setData({
+      //     _scrollX: 0
+      //   });
+      // } else if (pageX - _startX < _threshold && pageX - _startX > 0) {
+      //   // 终点X轴大于起点X轴并且小于阀值收起
+      //   this.setData({
+      //     _scrollX: 0
+      //   });
+      // } else if (pageX === _startX || pageY === _startY) {
+      //   // 鼠标原地点击时,达到autoClose效果 自动收回
+      //   this.setData({
+      //     _scrollX: 0
+      //   });
+      // }
     },
     /**
      * 菜单列表按钮被按下
