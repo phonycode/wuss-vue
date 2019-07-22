@@ -3,7 +3,7 @@
  * @Email: 1020814597@qq.com
  * @Date: 2019-06-14 17:54:56
  * @LastEditors: null
- * @LastEditTime: 2019-07-20 15:31:06
+ * @LastEditTime: 2019-07-22 18:01:07
  * @Description: 
  * @form: (0 U 0)
    * 组件的属性列表
@@ -90,6 +90,8 @@ export default {
     return {
       datas: this.swiperOutBtns,
       startX: 0,
+      rightW: 0,
+      moveX:0,
       transform: { transform: "translate3d(0px, 0px, 0px)" }
     };
   },
@@ -104,7 +106,6 @@ export default {
     /**
      * movable-view 移动回调
      */
-
     handleChange(e) {
       e.preventDefault(); //阻止触摸时浏览器的缩放、滚动条滚动等
       if (this.disabled) return false;
@@ -113,20 +114,24 @@ export default {
       let btnRightLen = this.$refs.rightbtn.clientWidth,
         newMoveLen;
 
-      
+      // 正常滑动
+      newMoveLen = moveLen;
 
-        console.log(moveLen)
-      if (moveLen <= 0 && Math.abs(moveLen) <= btnRightLen) {
-        console.log(Math.abs(moveLen) <= btnRightLen)
-        newMoveLen = moveLen;
-      } else if (btnRightLen - Math.abs(moveLen) >= 0 ) {
+      // 右划最大值 目前未规划右侧划出所以不可大于0
+      if (moveLen > 0) {
+        newMoveLen = 0;
+      }
 
-        // newMoveLen = -(btnRightLen - Math.abs(moveLen));
+      // 左滑最大值
+      if (moveLen < -btnRightLen) {
+        newMoveLen = -btnRightLen;
       }
 
       this.transform = {
         transform: "translate3d(" + newMoveLen + "px, 0px, 0px)"
       };
+      this.pageX = e.touches[0].pageX;
+      this.moveX = moveLen;
     },
     /**
      * movable-view 鼠标按下回调
@@ -135,54 +140,37 @@ export default {
       e.preventDefault(); //阻止触摸时浏览器的缩放、滚动条滚动等
       // 设置手势按下起始位置
       this.startX = e.touches[0].pageX;
+      this.rightW = this.$refs.rightbtn.clientWidth;
     },
     /**
      * movable-view 鼠标松开回调
      */
-    handleTouchEnd(e) {
-      console.log(3);
-      // const { pageX, pageY } = e.changedTouches["0"];
-      // const {
-      //   _startX,
-      //   _startY,
-      //   _slideWidth,
-      //   _threshold,
-      //   disabled,
-      //   height
-      // } = this.data;
-      // if (disabled) return false;
-      // if (
-      //   _startX - pageX >= _threshold &&
-      //   Math.abs(_startY - pageY) <= height
-      // ) {
-      //   // X轴移动距离大于等于阀值并且Y轴移动距离在Cell内
-      //   this.setData({
-      //     _scrollX: -_slideWidth
-      //   });
-      // } else if (
-      //   _startX - pageX >= _threshold &&
-      //   Math.abs(_startY - pageY) > height
-      // ) {
-      //   // X轴移动距离大于等于阀值并且Y轴移动距离超出W-cell高度时
-      //   this.setData({
-      //     _scrollX: 0
-      //   });
-      // } else if (pageX - _startX >= _threshold) {
-      //   // 终点X轴大于起点X轴时让他收起
-      //   this.setData({
-      //     _scrollX: 0
-      //   });
-      // } else if (pageX - _startX < _threshold && pageX - _startX > 0) {
-      //   // 终点X轴大于起点X轴并且小于阀值收起
-      //   this.setData({
-      //     _scrollX: 0
-      //   });
-      // } else if (pageX === _startX || pageY === _startY) {
-      //   // 鼠标原地点击时,达到autoClose效果 自动收回
-      //   this.setData({
-      //     _scrollX: 0
-      //   });
-      // }
+    handleTouchEnd() {
+      const { startX, disabled, rightW, pageX,moveX } = this;
+      if (disabled) return false;
+
+      // 当前只含右向左划动
+      let _width = rightW,
+        absVal = Math.abs(pageX - startX);
+      let that = this ;
+
+      if (absVal >= _width) {
+        // X轴移动距离大于等于阀值并且Y轴移动距离在Cell内
+      } else if (absVal < _width) {
+        //X轴移动距离小于最大值收起
+        let _moveX = moveX;
+      
+          that.transform = {
+            transform: "translate3d(0px, 0px, 0px)"
+          };
+          
+       
+        that.pageX = 0;
+      } else if (absVal > _width) {
+        // 终点X轴大于起点X轴并且小于阀值收起
+      } else if (pageX === startX) {
+        // 鼠标原地点击时,达到autoClose效果 自动收回
+      }
     },
     /**
      * 菜单列表按钮被按下
@@ -194,18 +182,6 @@ export default {
       if (item.disabled) return false;
       this.triggerEvent(item.type);
       autoClose ? this.close() : "";
-    },
-    /**
-     * left内容区被点击
-     */
-    handleLeftClick() {
-      const { autoClose, _scrollX, _slideWidth } = this.data;
-      if (_scrollX === -_slideWidth) {
-        // 展开状态
-        autoClose ? this.close() : "";
-      } else {
-        this.triggerEvent("onClick");
-      }
     }
   }
 };
