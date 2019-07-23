@@ -3,7 +3,7 @@
  * @Email: 1020814597@qq.com
  * @Date: 2019-06-14 17:54:56
  * @LastEditors: null
- * @LastEditTime: 2019-07-23 11:47:29
+ * @LastEditTime: 2019-07-23 14:06:14
  * @Description: 
  * @form: (0 U 0)
    * 组件的属性列表
@@ -20,17 +20,13 @@
 <template>
   <div class="wuss-class wuss-swiper-out" scale-area="false">
     <div
-      inertia
-      animation
       class="wuss-swiper-out-view"
-      direction="horizontal"
-      damping="60"
       @touchstart="handleTouchStart"
       @touchmove="handleChange"
       @touchend="handleTouchEnd"
       :style="[styles,{'background':backgroundColor}]"
     >
-      <div class="wuss-swiper-out-left" hover-class="none" hover-stop-propagation="false">
+      <div class="wuss-swiper-out-left">
         <slot />
       </div>
       <div class="wuss-swiper-out-right wuss-swiper-out-btns" ref="rightbtn">
@@ -39,8 +35,8 @@
           v-for="(item,index) in datas"
           :key="index"
           :class="[item.disabled ? 'wuss-weiper-out-btn-disabled' : '' ]"
-          :style="[{'color':item.color,'background':item.background,'fontSize':item.size}]"
-          @click="handleBtn"
+          :style="[{'color':item.color,'background':item.background,'fontSize':item.size,'width':buttonWidth}]"
+          @touchend.stop="handleBtn(item.type)"
         >{{item.text}}</div>
       </div>
     </div>
@@ -70,10 +66,7 @@ export default {
       type: String,
       default: "#fff"
     },
-    buttonWidth: {
-      type: Boolean,
-      default: false
-    },
+    buttonWidth: String,
     height: {
       type: String,
       default: "#67c23a"
@@ -90,7 +83,10 @@ export default {
       type: Boolean,
       default: false
     },
-    autoClose: {}
+    autoClose: {
+      type:Boolean,
+      default: true
+    }
   },
   data() {
     return {
@@ -106,7 +102,6 @@ export default {
     let btnRightLen = this.$refs.rightbtn.clientWidth;
     // 自动打开
     if (!this.close) {
-      console.log(1);
       this.styles = {
         transform: "translate3d(" + -btnRightLen + "px, 0px, 0px)"
       };
@@ -114,8 +109,15 @@ export default {
   },
   computed: {},
   methods: {
-    handleBtn(event) {
-      this.$emit("handleBtnClick", this.isActive, event);
+    handleBtn(e) {
+      this.$emit("handleBtnClick", e);
+
+      if(this.autoClose){
+        this.styles = {
+          transition: "transform .3s",
+          transform: "translate3d(0px, 0px, 0px)"
+        };
+      }
     },
     /**
      * movable-view 移动回调
@@ -192,17 +194,6 @@ export default {
           transform: "translate3d(0px, 0px, 0px)"
         };
       }
-    },
-    /**
-     * 菜单列表按钮被按下
-     */
-    handleBtnClick(e) {
-      const { key } = e.currentTarget.dataset;
-      const { swiperOutBtns, autoClose } = this.data;
-      const item = swiperOutBtns[key];
-      if (item.disabled) return false;
-      this.triggerEvent(item.type);
-      autoClose ? this.close() : "";
     }
   }
 };

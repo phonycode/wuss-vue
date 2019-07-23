@@ -16,14 +16,14 @@
       </section>
       <section>
         <h5 class="title">close(是否自动打开) close=false</h5>
-        <w-swiper-out :close="false">
+        <w-swiper-out :close="false" @handleBtnClick="clickBtn">
           <div class="swiper-dom">123</div>
         </w-swiper-out>
       </section>
       <section>
         <h5 class="title">threshold 侧滑触发的阀值 threshold=(0-1)</h5>
         <div>
-          <w-swiper-out :threshold="0.3" :swiperOutBtns="swiperOutBtns">
+          <w-swiper-out :threshold="0.3" :swiperOutBtns="swiperOutBtns" @handleBtnClick="clickBtn">
             <div class="swiper-dom">threshold 侧滑触发的阀值</div>
           </w-swiper-out>
         </div>
@@ -95,8 +95,8 @@ export default {
   },
   created() {},
   methods: {
-    switchs(a) {
-      alert(a);
+    clickBtn(type) {
+      this.$dialog(type);
     }
   }
 };
