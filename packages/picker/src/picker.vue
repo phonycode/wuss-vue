@@ -31,8 +31,8 @@
                 @touchend="pickTouchEnd($event,index)"
                 :key="item[prop.value]" 
                 :style="{
-                  width:(100 / showPickList.length) + '%',
-                  left:(100 / showPickList.length * index) + '%'
+                  width:(100 / pickIndexList.length) + '%',
+                  left:(100 / pickIndexList.length * index) + '%'
                 }"
                 class="w-picker-list-color">
                   <!-- <li v-for="(subitem,subindex) in showPickList[index]" :key="subindex"></li> -->
@@ -75,9 +75,9 @@ export default {
     prop: {
       type: Object,
       default: () => {
-        return  {
-          label:'name',
-          value:'value',
+        return {
+          label: 'name',
+          value: 'value',
           children: 'children'
         }
       }
@@ -90,13 +90,13 @@ export default {
     pickLabel: {
       // getter
       get: function () {
-        if(this.pickValueList.length>0 && this.pickerVisible === false) {
+        if (this.pickValueList.length > 0 && this.pickerVisible === false) {
           let arr = []
-          this.pickValueList.forEach((item,index)=>{
+          this.pickValueList.forEach((item, index) => {
             this.dealPickLlist()
-            if(this.showPickList.length>0){
-              this.showPickList[index].forEach((subitem)=>{
-                if(subitem[this.prop.value] === item){
+            if (this.showPickList.length > 0) {
+              this.showPickList[index].forEach((subitem) => {
+                if (subitem[this.prop.value] === item) {
                   arr[index] = subitem[this.prop.label]
                 }
               })
@@ -112,9 +112,9 @@ export default {
   data() {
     return {
       closed: false,
-      touchTime:'',
-      clientY:'',
-      fromY:0,
+      touchTime: '',
+      clientY: '',
+      fromY: 0,
       pickerVisible: false,
       pickIndexList: [],
       showPickList: [],
@@ -122,7 +122,7 @@ export default {
   },
   watch: {
     pickerVisible(val) {
-      if(val) {
+      if (val) {
         this.dealPickLlist()
         document.getElementsByTagName('body')[0].style.overflow = 'hidden'
       } else {
@@ -131,88 +131,94 @@ export default {
     },
   },
   created() {
-    
+
   },
   methods: {
     //显示picker
     showPicker() {
       this.pickerVisible = true
     },
-    getLevel(data,level) {
+    getLevel(data, level, isSub) {
       let flag = false
+      let hasSub = false
       let zindex = -1
-      this.pickIndexList[level-1] = 0;
-      if(data && data.length>0){
-          data.forEach((item,index)=>{
-            if(this.pickValueList[level-1] !== undefined && this.pickValueList[level-1] === item[this.prop.value]) {
-              //获取当前选中等级的下表
-              this.pickIndexList[level-1] = index;    
-            }
-            if(item[this.prop.children] instanceof Array &&  item[this.prop.children].length>0){
+      this.pickIndexList[level - 1] = 0;
+      if (data && data.length > 0) {
+        data.forEach((item, index) => {
+          if (this.pickValueList[level - 1] !== undefined && this.pickValueList[level - 1] === item[this.prop.value]) {
+            //获取当前选中等级的下表
+            this.pickIndexList[level - 1] = index;
+            if (item[this.prop.children] instanceof Array && item[this.prop.children].length > 0) {
               //如果有子集
-              flag = true
-              zindex = this.pickIndexList[level-1]
+              hasSub = true
             }
-          })
-          if(data[this.pickIndexList[level-1]][this.prop.children] && data[this.pickIndexList[level-1]][this.prop.children].length>0){
-            //设置下级列表
-            this.showPickList[level] = data[this.pickIndexList[level-1]][this.prop.children]
           }
-          if(flag) {
-            level ++ 
-            this.getLevel(data[zindex][this.prop.children],level)
+          if (item[this.prop.children] instanceof Array && item[this.prop.children].length > 0) {
+            //如果有子集
+            flag = true
+            zindex = this.pickIndexList[level - 1]
           }
+        })
+        if (data[this.pickIndexList[level - 1]][this.prop.children] && data[this.pickIndexList[level - 1]][this.prop.children].length > 0 && isSub) {
+          //设置下级列表
+          this.showPickList[level] = data[this.pickIndexList[level - 1]][this.prop.children]
+        }
+        if (flag) {
+          level++
+          this.getLevel(data[zindex][this.prop.children], level, hasSub)
+        }
       }
-      
+
     },
     dealPickLlist() {
       // 第一级列表
       this.showPickList[0] = this.pickList
-      this.getLevel(this.pickList,1)
+      this.getLevel(this.pickList, 1, true)
     },
-    pickTouchStart(e,index) {
+    pickTouchStart(e, index) {
       this.clientY = e.changedTouches[0].clientY
       let reg = /[-]?\d*(?=[px])/
-      this.fromY = parseInt(reg.exec(this.$refs['w-picker'+index][0].style.transform)[0])
+      this.fromY = parseInt(reg.exec(this.$refs['w-picker' + index][0].style.transform)[0])
       this.touchTime = new Date().getTime()
     },
-    pickTouchMove(e,index) {
+    pickTouchMove(e, index) {
       let distance = e.changedTouches[0].clientY - this.clientY;
-      this.moveOver(distance,index)
+      this.moveOver(distance, index)
     },
-    pickTouchEnd(e,index) {
+    pickTouchEnd(e, index) {
       //距离
       this.finalMove(index)
     },
     //根据滑动距离跟时间算最终滑动距离
-    dealSlide(disTime,distance) {
+    dealSlide(disTime, distance) {
       return distance * 100 / disTime
     },
     //以24px为单位最后计算滑动距离
-    moveOver(distance,index) {
-      this.pickIndexList[index] = (96 - this.fromY - Math.ceil(distance/24)*24) / 24;
-      this.$refs['w-picker'+index][0].style.transform = `translateY(${this.fromY + Math.ceil(distance/24)*24}px)`
+    moveOver(distance, index) {
+      this.pickIndexList[index] = (96 - this.fromY - Math.ceil(distance / 24) * 24) / 24;
+      this.$refs['w-picker' + index][0].style.transform = `translateY(${this.fromY + Math.ceil(distance / 24) * 24}px)`
     },
     //最后获取位置跟校准
     finalMove(index) {
       let reg = /[-]?\d*(?=[px])/
-      let finalDis =  parseInt(reg.exec(this.$refs['w-picker'+index][0].style.transform)[0]);
+      let finalDis = parseInt(reg.exec(this.$refs['w-picker' + index][0].style.transform)[0]);
       let indexLength = this.showPickList[index].length;
-      if(finalDis > 96) {
+      console.log(finalDis, indexLength)
+      if (finalDis > 96) {
         //超出上限
-        this.$refs['w-picker'+index][0].style.transform = `translateY(${96}px)`
+        this.$refs['w-picker' + index][0].style.transform = `translateY(${96}px)`
         this.pickIndexList[index] = 0;
-      } else if (finalDis < (96 - indexLength*24)) {
+      } else if (finalDis <= (96 - indexLength * 24)) {
         //超出下限
-        this.$refs['w-picker'+index][0].style.transform = `translateY(${120 - indexLength*24}px)`
-        this.pickIndexList[index] = indexLength-1
+        this.$refs['w-picker' + index][0].style.transform = `translateY(${120 - indexLength * 24}px)`
+        this.pickIndexList[index] = indexLength - 1
       }
-      if(this.pickList[this.pickIndexList[0]][this.prop.children]) {
-        this.resetShowList(this.pickList[this.pickIndexList[0]][this.prop.children],1,index)
+      if (this.pickList[this.pickIndexList[0]][this.prop.children]) {
+        this.resetShowList(this.pickList[this.pickIndexList[0]][this.prop.children], 1, index)
       } else {
-        this.resetShowList([],1)
+        this.resetShowList([], 1)
       }
-      
+
 
     },
     // 根据pickIndexList来重置showList列表
@@ -220,23 +226,23 @@ export default {
      * data: 当前选中的子集列表
      * level: 当前列表的下表
      */
-    resetShowList(data,level,changeIndex) {
-      if(changeIndex < level){
+    resetShowList(data, level, changeIndex) {
+      if (changeIndex < level) {
         this.pickIndexList[level] = 0;
       }
-        let showList = JSON.parse(JSON.stringify(this.showPickList))
-        showList[level] =data
-        this.showPickList = showList
-        level++
-        
-        if(level<this.pickIndexList.length){
-          if(data[this.pickIndexList[level-1]] && data[this.pickIndexList[level-1]][this.prop.children] && data[this.pickIndexList[level-1]][this.prop.children].length>0) {
-            this.resetShowList(data[this.pickIndexList[level-1]][this.prop.children],level,changeIndex)
-          } else {
-            this.resetShowList([],level,changeIndex)
-          }
-          
+      let showList = JSON.parse(JSON.stringify(this.showPickList))
+      showList[level] = data
+      this.showPickList = showList
+      level++
+
+      if (level < this.pickIndexList.length) {
+        if (data[this.pickIndexList[level - 1]] && data[this.pickIndexList[level - 1]][this.prop.children] && data[this.pickIndexList[level - 1]][this.prop.children].length > 0) {
+          this.resetShowList(data[this.pickIndexList[level - 1]][this.prop.children], level, changeIndex)
+        } else {
+          this.resetShowList([], level, changeIndex)
         }
+
+      }
     },
     handleWrapperClick() {
       if (!this.closeOnClickModal) return;
@@ -255,17 +261,17 @@ export default {
       }
     },
     pickerChoose() {
-      this.pickIndexList.forEach((valueItem,valueIndex)=>{
-        if(this.showPickList[valueIndex][valueItem]) {
+      this.pickIndexList.forEach((valueItem, valueIndex) => {
+        if (this.showPickList[valueIndex][valueItem]) {
           this.pickValueList[valueIndex] = this.showPickList[valueIndex][valueItem][this.prop.value]
           this.pickLabel[valueIndex] = this.showPickList[valueIndex][valueItem][this.prop.label]
         } else {
           this.pickValueList[valueIndex] = ''
           this.pickLabel[valueIndex] = ''
         }
-        
+
       })
-      this.$emit('change',this.pickValueList)
+      this.$emit('change', this.pickValueList)
       this.handleClose();
     }
   }
