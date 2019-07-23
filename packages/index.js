@@ -35,6 +35,7 @@ import Numbers from './number/index.js';
 import Inputs from './input/index.js';
 import Form from './form/index.js';
 import Range from './range/index.js';
+import SwiperOut from './swiperOut/index.js';
 
 
 
@@ -73,7 +74,8 @@ const components = [
     Numbers,
     Inputs,
     Form,
-    Range
+    Range,
+    SwiperOut
 ];
 
 const install = function(Vue) {
@@ -128,5 +130,6 @@ export default {
     Numbers,
     Inputs,
     Form,
-    Range
+    Range,
+    SwiperOut
 };
