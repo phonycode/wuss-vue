@@ -18,7 +18,24 @@ import Tabs from './tabs/index.js';
 import TabPane from './tabPane/index.js';
 import Toast from './toast/index.js';
 import Alert from './alert/index.js';
+import Radio from './radio/index.js';
+import Checkbox from './checkbox/index.js';
+import Checkboxgroup from './checkboxgroup/index.js';
+import Switch from './switch/index.js';
+import Notice from './notice/index.js';
+import Loading from './loading/index.js';
+import MaskShadow from './maskShadow/index.js';
 import Confirm from './confirm/index.js';
+import Dialog from './dialog/index.js';
+import Avatar from './avatar/index.js';
+import Countdown from './countdown/index.js';
+import Badge from './badge/index.js';
+import Rater from './rater/index.js';
+import Numbers from './number/index.js';
+import Inputs from './input/index.js';
+import Form from './form/index.js';
+import Range from './range/index.js';
+import SwiperOut from './swiperOut/index.js';
 
 
 
@@ -41,7 +58,24 @@ const components = [
   TabPane,
   Toast,
   Alert,
-  Confirm
+  Radio,
+  Checkbox,
+  Checkboxgroup,
+  Switch,
+  Notice,
+  Loading,
+  MaskShadow,
+  Confirm,
+  Dialog,
+  Avatar,
+  Countdown,
+  Badge,
+  Rater,
+  Numbers,
+  Inputs,
+  Form,
+  Range,
+  SwiperOut
 ];
 
 const install = function (Vue) {
@@ -50,7 +84,9 @@ const install = function (Vue) {
 
   Vue.prototype.$toast = Toast;
   Vue.prototype.$alert = Alert;
+  Vue.prototype.$loading = Loading;
   Vue.prototype.$confirm = Confirm;
+  Vue.prototype.$dialog = Dialog;
 };
 
 /* istanbul ignore if */
@@ -78,5 +114,22 @@ export default {
   TabPane,
   Toast,
   Alert,
-  Confirm
+  Radio,
+  Checkbox,
+  Checkboxgroup,
+  Switch,
+  Notice,
+  Loading,
+  MaskShadow,
+  Confirm,
+  Dialog,
+  Avatar,
+  Countdown,
+  Badge,
+  Rater,
+  Numbers,
+  Inputs,
+  Form,
+  Range,
+  SwiperOut
 };
