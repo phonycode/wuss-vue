@@ -18,6 +18,7 @@ import Tabs from './tabs/index.js';
 import TabPane from './tabPane/index.js';
 import Toast from './toast/index.js';
 import Alert from './alert/index.js';
+import Confirm from './confirm/index.js';
 
 
 
@@ -39,7 +40,8 @@ const components = [
   Tabs,
   TabPane,
   Toast,
-  Alert
+  Alert,
+  Confirm
 ];
 
 const install = function (Vue) {
@@ -48,6 +50,7 @@ const install = function (Vue) {
 
   Vue.prototype.$toast = Toast;
   Vue.prototype.$alert = Alert;
+  Vue.prototype.$confirm = Confirm;
 };
 
 /* istanbul ignore if */
@@ -74,5 +77,6 @@ export default {
   Tabs,
   TabPane,
   Toast,
-  Alert
+  Alert,
+  Confirm
 };
