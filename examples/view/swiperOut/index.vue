@@ -4,59 +4,36 @@
     <div class="wuss-boxs">
       <section>
         <h5 class="title">基础用法</h5>
-          <w-swiper-out >
-            <div class="swiper-dom">123</div>
+        <w-swiper-out>
+          <div class="swiper-dom">123</div>
+        </w-swiper-out>
+      </section>
+      <section>
+        <h5 class="title">禁用</h5>
+        <w-swiper-out disabled>
+          <div class="swiper-dom">禁用</div>
+        </w-swiper-out>
+      </section>
+      <section>
+        <h5 class="title">close(是否自动打开) close=false</h5>
+        <w-swiper-out :close="false">
+          <div class="swiper-dom">123</div>
+        </w-swiper-out>
+      </section>
+      <section>
+        <h5 class="title">threshold 侧滑触发的阀值 threshold=(0-1)</h5>
+        <div>
+          <w-swiper-out :threshold="0.3" :swiperOutBtns="swiperOutBtns">
+            <div class="swiper-dom">threshold 侧滑触发的阀值</div>
           </w-swiper-out>
-      </section>
-      <section>
-        <h5 class="title">尺寸选择</h5>
-        <div>
-          <p>小</p>
-          <w-switch :active="switch1" size="small">小号</w-switch>
-        </div>
-        <div>
-          <p>默认</p>
-          <w-switch :active="switch1">默认</w-switch>
-        </div>
-        <div>
-          <p>大</p>
-          <w-switch :active="switch1" size="large">大号</w-switch>
         </div>
       </section>
       <section>
-        <h5 class="title">禁用状态</h5>
+        <h5 class="title">backgroundColor=pink</h5>
         <div>
-          <p>关闭</p>
-          <w-switch disabled :active="switch2"></w-switch>
-        </div>
-        <div>
-          <p>开启</p>
-          <w-switch disabled :active="switch3"></w-switch>
-        </div>
-      </section>
-      <section>
-        <h5 class="title">自定义颜色</h5>
-        <div>
-          <p>默认色</p>
-          <w-switch :active="switch4"></w-switch>
-        </div>
-        <div>
-          <p>自定义色</p>
-          <w-switch active-color="#1989fa" :active="switch4" inactive-color="yellow"></w-switch>
-        </div>
-        <div>
-          <p>自定义色（禁用开启）</p>
-          <w-switch disabled inactive-color="#1c75f3"></w-switch>
-        </div>
-        <div>
-          <p>自定义色（禁用关闭）</p>
-          <w-switch active-color="#E0A21E" disabled :active="switch5"></w-switch>
-        </div>
-      </section>
-      <section>
-        <h5 class="title">事件（是否选中 和选中的值）</h5>
-        <div>
-          <w-switch name="events" label="events" @toggle="switchs">事件</w-switch>
+          <w-swiper-out backgroundColor="pink">
+            <div class="swiper-dom">backgroundColor=pink</div>
+          </w-swiper-out>
         </div>
       </section>
     </div>
@@ -84,12 +61,10 @@ section {
   color: #999;
 }
 
-.swiper-dom{
+.swiper-dom {
   height: 48px;
   line-height: 48px;
-  background: #fff;
 }
-
 </style>
 
 
@@ -99,13 +74,23 @@ export default {
   name: "swiperOut",
   data() {
     return {
-      switch0: true,
-      switch1: true,
-      switch2: false,
-      switch3: true,
-      switch4: false,
-      switch5: true,
-      switch6: false,
+      swiperOutBtns: [
+        {
+          text: "编辑",
+          color: "#ffffff",
+          background: "green",
+          disabled: false,
+          size: "14px",
+          type: "edit"
+        },{
+          text: "删除",
+          color: "#ffffff",
+          background: "#e42112",
+          disabled: false,
+          size: "14px",
+          type: "delete"
+        }
+      ]
     };
   },
   created() {},

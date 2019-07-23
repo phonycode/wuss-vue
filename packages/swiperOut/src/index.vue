@@ -3,7 +3,7 @@
  * @Email: 1020814597@qq.com
  * @Date: 2019-06-14 17:54:56
  * @LastEditors: null
- * @LastEditTime: 2019-07-22 18:01:07
+ * @LastEditTime: 2019-07-23 11:47:29
  * @Description: 
  * @form: (0 U 0)
    * 组件的属性列表
@@ -28,19 +28,19 @@
       @touchstart="handleTouchStart"
       @touchmove="handleChange"
       @touchend="handleTouchEnd"
-      :style="[transform]"
+      :style="[styles,{'background':backgroundColor}]"
     >
       <div class="wuss-swiper-out-left" hover-class="none" hover-stop-propagation="false">
         <slot />
       </div>
       <div class="wuss-swiper-out-right wuss-swiper-out-btns" ref="rightbtn">
         <div
+          class="wuss-swiper-out-btn"
           v-for="(item,index) in datas"
           :key="index"
           :class="[item.disabled ? 'wuss-weiper-out-btn-disabled' : '' ]"
           :style="[{'color':item.color,'background':item.background,'fontSize':item.size}]"
           @click="handleBtn"
-          style="width:65px;"
         >{{item.text}}</div>
       </div>
     </div>
@@ -67,8 +67,8 @@ export default {
       }
     },
     backgroundColor: {
-      type: Boolean,
-      default: false
+      type: String,
+      default: "#fff"
     },
     buttonWidth: {
       type: Boolean,
@@ -78,8 +78,14 @@ export default {
       type: String,
       default: "#67c23a"
     },
-    threshold: {},
-    close: {},
+    threshold: {
+      type: [String, Number],
+      default: 1
+    },
+    close: {
+      type: Boolean,
+      default: true
+    },
     disabled: {
       type: Boolean,
       default: false
@@ -91,12 +97,20 @@ export default {
       datas: this.swiperOutBtns,
       startX: 0,
       rightW: 0,
-      moveX:0,
-      transform: { transform: "translate3d(0px, 0px, 0px)" }
+      moveX: 0,
+      styles: { transform: "translate3d(0px, 0px, 0px)" }
     };
   },
-  created() {
-    return (this.isActive = this.active);
+  created() {},
+  mounted() {
+    let btnRightLen = this.$refs.rightbtn.clientWidth;
+    // 自动打开
+    if (!this.close) {
+      console.log(1);
+      this.styles = {
+        transform: "translate3d(" + -btnRightLen + "px, 0px, 0px)"
+      };
+    }
   },
   computed: {},
   methods: {
@@ -127,7 +141,7 @@ export default {
         newMoveLen = -btnRightLen;
       }
 
-      this.transform = {
+      this.styles = {
         transform: "translate3d(" + newMoveLen + "px, 0px, 0px)"
       };
       this.pageX = e.touches[0].pageX;
@@ -146,30 +160,37 @@ export default {
      * movable-view 鼠标松开回调
      */
     handleTouchEnd() {
-      const { startX, disabled, rightW, pageX,moveX } = this;
+      const { startX, disabled, rightW, pageX, threshold } = this;
       if (disabled) return false;
 
       // 当前只含右向左划动
       let _width = rightW,
         absVal = Math.abs(pageX - startX);
-      let that = this ;
+      let that = this;
 
-      if (absVal >= _width) {
+      if (absVal >= threshold * rightW) {
         // X轴移动距离大于等于阀值并且Y轴移动距离在Cell内
+        that.styles = {
+          transition: "transform .3s",
+          transform: "translate3d(" + -_width + "px, 0px, 0px)"
+        };
       } else if (absVal < _width) {
         //X轴移动距离小于最大值收起
-        let _moveX = moveX;
-      
-          that.transform = {
-            transform: "translate3d(0px, 0px, 0px)"
-          };
-          
-       
+
+        that.styles = {
+          transition: "transform .3s",
+          transform: "translate3d(0px, 0px, 0px)"
+        };
+
         that.pageX = 0;
       } else if (absVal > _width) {
         // 终点X轴大于起点X轴并且小于阀值收起
       } else if (pageX === startX) {
         // 鼠标原地点击时,达到autoClose效果 自动收回
+        that.styles = {
+          transition: "transform .3s",
+          transform: "translate3d(0px, 0px, 0px)"
+        };
       }
     },
     /**
@@ -234,11 +255,11 @@ export default {
   align-items: center;
   flex-direction: row;
   flex-wrap: nowrap;
+  height: 100%;
 }
 
 .wuss-swiper-out-btn {
   display: flex;
-  flex: 1;
   justify-content: center;
   align-items: center;
   flex-direction: row;
@@ -247,6 +268,7 @@ export default {
   font-size: 16px;
   color: #333333;
   height: 100%;
+  width: 65px;
 }
 
 .wuss-weiper-out-btn-disabled {
