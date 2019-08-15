@@ -1,3 +1,12 @@
+/*
+ * @Author: null
+ * @Email: 3027704690@qq.com
+ * @Date: 2019-08-14 09:46:05
+ * @LastEditors: null
+ * @LastEditTime: 2019-08-14 09:46:14
+ * @Description: 
+ * @form: (0 U 0)
+ */
 import './assets/iconfont.js'
 import './assets/common.css';
 import Button from './button/index.js';
@@ -36,6 +45,8 @@ import Inputs from './input/index.js';
 import Form from './form/index.js';
 import Range from './range/index.js';
 import SwiperOut from './swiperOut/index.js';
+import AddrPicker from './addrPicker/index.js';
+
 
 
 
@@ -75,7 +86,8 @@ const components = [
   Inputs,
   Form,
   Range,
-  SwiperOut
+  SwiperOut,
+  AddrPicker
 ];
 
 const install = function (Vue) {
@@ -131,5 +143,6 @@ export default {
   Inputs,
   Form,
   Range,
-  SwiperOut
+  SwiperOut,
+  AddrPicker
 };

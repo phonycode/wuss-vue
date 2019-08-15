@@ -1,3 +1,12 @@
+<!--
+ * @Author: null
+ * @Email: 3027704690@qq.com
+ * @Date: 2019-08-14 10:03:05
+ * @LastEditors: null
+ * @LastEditTime: 2019-08-14 10:03:05
+ * @Description: 
+ * @form: (0 U 0)
+ -->
 <template>
   <div>
     <div class="w-picker-input" @touchstart="showPicker">
@@ -203,7 +212,6 @@ export default {
       let reg = /[-]?\d*(?=[px])/
       let finalDis = parseInt(reg.exec(this.$refs['w-picker' + index][0].style.transform)[0]);
       let indexLength = this.showPickList[index].length;
-      console.log(finalDis, indexLength)
       if (finalDis > 96) {
         //超出上限
         this.$refs['w-picker' + index][0].style.transform = `translateY(${96}px)`

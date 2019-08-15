@@ -1,3 +1,12 @@
+/*
+ * @Author: null
+ * @Email: 3027704690@qq.com
+ * @Date: 2019-08-14 09:47:12
+ * @LastEditors: null
+ * @LastEditTime: 2019-08-14 09:47:21
+ * @Description: 
+ * @form: (0 U 0)
+ */
 import Vue from 'vue';
 import Router from 'vue-router';
 
@@ -31,7 +40,7 @@ Vue.use(Router);
  */
 export const constantRouterMap = [{
         path: '/',
-        redirect: 'layout/swiperOut',
+        redirect: 'layout/addrPicker',
         component: () =>
             import ('../view/home/index'),
         hidden: true,
@@ -287,7 +296,16 @@ export const constantRouterMap = [{
                 meta: {
                     title: '侧滑菜单'
                 }
+            }, {
+                path: 'addrPicker',
+                component: () =>
+                    import ('../view/addrPicker/index'),
+                name: 'addrPicker',
+                meta: {
+                    title: '侧滑菜单'
+                }
             }
+            
 
         ],
     },
