@@ -3,13 +3,13 @@
  * @Email: 3027704690@qq.com
  * @Date: 2019-08-14 10:13:04
  * @LastEditors: null
- * @LastEditTime: 2019-08-14 10:14:51
+ * @LastEditTime: 2019-10-14 15:39:52
  * @Description: 地址文件
  * @form: (0 U 0)
  */
 export default {
   province_list: {
-    110000: '北京市',
+    110000: '北京市1',
     120000: '天津市',
     130000: '河北省',
     140000: '山西省',
