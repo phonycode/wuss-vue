@@ -1,3 +1,12 @@
+<!--
+ * @Author: null
+ * @Email: 3027704690@qq.com
+ * @Date: 2019-08-14 10:10:04
+ * @LastEditors: null
+ * @LastEditTime: 2019-08-14 10:10:04
+ * @Description: 
+ * @form: (0 U 0)
+ -->
 <template>
   <div id="picker">
     <h3>picker</h3>
